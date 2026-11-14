@@ -1,0 +1,705 @@
+<title>Loop &amp; Ribbon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hand-sewn scrunchies and hair bows, designed and made by a young maker in Amsterdam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fredoka:wght@500;600;700&display=swap">
+<style>
+  /* Layout: a haberdashery pegboard. Pieces hang on soft swatches, prices sit on stitched hang tags. */
+  :root {
+    --bg: #F2F6F3;
+    --surface: #FFFFFF;
+    --swatch: #E4EEE8;
+    --ink: #1D2340;
+    --muted: #586078;
+    --line: #D3DCD7;
+    --accent: #C81E36;
+    --accent-ink: #FFFFFF;
+    --butter: #F6C945;
+    --mint: #BFE6D6;
+    --scrim: rgba(29, 35, 64, .42);
+    --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
+    --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --hand: "Caveat", "Comic Sans MS", "Marker Felt", cursive;
+    --r: 18px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
+      --line: #2F3656; --accent: #FF5C70; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
+      --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
+    --line: #2F3656; --accent: #FF5C70; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
+    --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; font-weight: 600; }
+  p { margin: 0; }
+  a { color: inherit; }
+  button, input, textarea, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .eyebrow { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--muted); }
+  .hand { font-family: var(--hand); font-size: 1.6rem; color: var(--accent); line-height: 1; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5em; border: 0; cursor: pointer; border-radius: 999px; padding: .8em 1.4em; font-weight: 700; text-decoration: none; transition: transform .15s ease, background .15s ease; }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--line); }
+  .btn-ghost:hover { box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+  /* Header */
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 1.35rem; }
+  .logo svg { width: 38px; height: 38px; }
+  .nav { display: flex; align-items: center; gap: 22px; }
+  .nav a { text-decoration: none; font-weight: 500; color: var(--muted); }
+  .nav a:hover { color: var(--ink); }
+  .bag-btn { position: relative; padding: .6em 1.1em; }
+  .bag-count { min-width: 1.5em; height: 1.5em; border-radius: 999px; background: var(--accent-ink); color: var(--accent); font-size: .8rem; display: inline-grid; place-items: center; padding: 0 .35em; font-variant-numeric: tabular-nums; }
+  @media (max-width: 720px) { .nav a { display: none; } }
+
+  /* Hero */
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-block: 56px 40px; }
+  .hero h1 { font-size: clamp(2.5rem, 6.2vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-copy { display: grid; gap: 22px; min-width: 0; }
+  .hero-copy > p { font-size: 1.15rem; color: var(--muted); max-width: 34em; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .92rem; color: var(--muted); padding: 0; margin: 0; list-style: none; }
+  .facts li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+  .hero-art { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; justify-self: center; }
+  .hero-art .disc { position: absolute; inset: 6%; border-radius: 50%; background: var(--mint); }
+  .hero-art svg { position: absolute; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .18)); }
+  .hero-art .a { width: 58%; left: 2%; top: 6%; animation: bob 6s ease-in-out infinite; }
+  .hero-art .b { width: 50%; right: 0; top: 30%; animation: bob 7s ease-in-out -2s infinite; }
+  .hero-art .c { width: 46%; left: 18%; bottom: 0; animation: bob 6.5s ease-in-out -4s infinite; }
+  .hero-art .note { position: absolute; right: 2%; top: 2%; transform: rotate(8deg); }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(2deg); } }
+  @media (prefers-reduced-motion: reduce) { .hero-art svg { animation: none; } }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 32px 24px; } .hero-art { max-width: 320px; } }
+
+  /* Shop */
+  section { scroll-margin-top: 80px; }
+  .shop .wrap { padding-block: 40px; display: grid; gap: 24px; }
+  .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
+  .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+  .section-head > div:not(.chips) { display: grid; gap: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 0; cursor: pointer; border-radius: 999px; padding: .5em 1em; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); font-weight: 500; }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); box-shadow: none; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 28px 22px; }
+  .card { display: grid; gap: 12px; align-content: start; min-width: 0; }
+  .swatch { position: relative; border-radius: var(--r); background: var(--swatch); aspect-ratio: 1; display: grid; place-items: center; max-width: 100%; }
+  .swatch svg { width: 78%; height: 78%; filter: drop-shadow(0 8px 10px rgba(29, 35, 64, .16)); transition: transform .3s ease; }
+  .card:hover .swatch svg { transform: rotate(-6deg) scale(1.03); }
+  @media (prefers-reduced-motion: reduce) { .card:hover .swatch svg { transform: none; } }
+  .badge { position: absolute; top: 12px; left: 12px; background: var(--butter); color: #1D2340; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .7em; border-radius: 999px; }
+  .card-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+  .card h3 { font-size: 1.25rem; }
+  .card .desc { color: var(--muted); font-size: .93rem; }
+  .tag { position: relative; flex: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; padding: .2em .7em .2em 1.25em; border: 2px dashed var(--accent); border-radius: 6px 10px 10px 6px; color: var(--accent); transform: rotate(-3deg); font-variant-numeric: tabular-nums; background: var(--surface); }
+  .tag::before { content: ""; position: absolute; left: .45em; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--accent); }
+  .sizes { display: flex; gap: 6px; flex-wrap: wrap; border: 0; padding: 0; margin: 0; }
+  .sizes legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .sizes input { position: absolute; opacity: 0; pointer-events: none; }
+  .sizes label { cursor: pointer; border-radius: 999px; padding: .3em .8em; font-size: .85rem; box-shadow: inset 0 0 0 1.5px var(--line); }
+  .sizes input:checked + label { background: var(--mint); box-shadow: inset 0 0 0 1.5px var(--ink); font-weight: 700; }
+  .sizes input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .add { justify-self: start; padding: .6em 1.2em; }
+
+  /* Designer */
+  .designer { background: var(--surface); border-block: 1px solid var(--line); }
+  .designer .wrap { padding-block: 56px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+  .designer .preview { border-radius: 50%; background: var(--swatch); aspect-ratio: 1; display: grid; place-items: center; max-width: 380px; width: 100%; justify-self: center; }
+  .designer .preview svg { width: 74%; height: 74%; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .2)); }
+  .controls { display: grid; gap: 22px; min-width: 0; }
+  .controls h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+  .controls > p { color: var(--muted); max-width: 34em; }
+  .ctl { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; }
+  .ctl legend { font-weight: 700; font-size: .9rem; margin-bottom: 8px; padding: 0; }
+  .colors { display: flex; flex-wrap: wrap; gap: 10px; }
+  .colors button { width: 40px; height: 40px; border-radius: 50%; border: 3px solid var(--surface); box-shadow: 0 0 0 1.5px var(--line); cursor: pointer; }
+  .colors button[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--ink); }
+  .designer-foot { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .designer-foot .tag { font-size: 1.2rem; }
+  @media (max-width: 760px) { .designer .wrap { grid-template-columns: 1fr; padding-block: 40px; } .designer .preview { max-width: 260px; } }
+
+  /* How it works */
+  .how .wrap { padding-block: 56px; display: grid; gap: 28px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; }
+  .steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .steps li::before { content: counter(step); font-family: var(--display); font-weight: 700; font-size: 1.3rem; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--butter); color: #1D2340; }
+  .steps h3 { font-size: 1.15rem; }
+  .steps p { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+
+  /* About */
+  .about .wrap { padding-block: 24px 64px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
+  .about-text { display: grid; gap: 16px; max-width: 36em; min-width: 0; }
+  .about-text h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
+  .about-text p { color: var(--muted); font-size: 1.05rem; }
+  .promise { background: var(--mint); border-radius: var(--r); padding: 24px; display: grid; gap: 12px; min-width: 0; }
+  .promise h3 { font-size: 1.2rem; }
+  .promise ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+  @media (max-width: 760px) { .about .wrap { grid-template-columns: 1fr; } }
+
+  footer { border-top: 1px solid var(--line); }
+  footer .wrap { padding-block: 24px 32px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .9rem; }
+
+  /* Bag drawer */
+  .scrim { position: fixed; inset: 0; background: var(--scrim); z-index: 40; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 50; width: min(440px, 100%); background: var(--surface); display: flex; flex-direction: column;
+    padding: calc(env(safe-area-inset-top, 0px) + 18px) max(20px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 18px) 20px; box-shadow: -10px 0 40px rgba(0, 0, 0, .18); }
+  .drawer-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .drawer-head h2 { font-size: 1.5rem; }
+  .icon-btn { border: 0; background: transparent; cursor: pointer; font-size: 1.6rem; line-height: 1; width: 40px; height: 40px; border-radius: 50%; }
+  .icon-btn:hover { background: var(--swatch); }
+  .drawer-body { flex: 1; overflow-y: auto; display: grid; gap: 18px; align-content: start; padding-block: 16px; }
+  .empty { color: var(--muted); text-align: center; padding: 32px 0; display: grid; gap: 12px; justify-items: center; }
+  .line { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; }
+  .line .mini { width: 56px; height: 56px; border-radius: 12px; background: var(--swatch); display: grid; place-items: center; }
+  .line .mini svg { width: 46px; height: 46px; }
+  .line-info { min-width: 0; display: grid; gap: 4px; }
+  .line-info strong { font-size: .95rem; }
+  .line-info span { color: var(--muted); font-size: .85rem; }
+  .qty { display: inline-flex; align-items: center; gap: 4px; }
+  .qty button { width: 28px; height: 28px; border-radius: 50%; border: 0; background: var(--swatch); cursor: pointer; font-weight: 700; }
+  .qty output { min-width: 1.6em; text-align: center; font-variant-numeric: tabular-nums; }
+  .line-price { font-weight: 700; font-variant-numeric: tabular-nums; text-align: right; }
+  .remove { border: 0; background: none; color: var(--muted); font-size: .8rem; cursor: pointer; text-decoration: underline; padding: 0; justify-self: end; }
+  .fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .fieldset legend { font-weight: 700; margin-bottom: 8px; padding: 0; }
+  .radio { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border-radius: 12px; box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; }
+  .radio:has(input:checked) { box-shadow: inset 0 0 0 2px var(--ink); }
+  .radio input { accent-color: var(--accent); }
+  .radio small { color: var(--muted); margin-left: auto; font-variant-numeric: tabular-nums; }
+  .field { display: grid; gap: 4px; }
+  .field label { font-size: .88rem; font-weight: 500; }
+  .field input, .field textarea { width: 100%; border: 1.5px solid var(--line); background: var(--bg); border-radius: 10px; padding: .6em .8em; }
+  .field textarea { resize: vertical; min-height: 64px; }
+  .totals { display: grid; gap: 4px; border-top: 1px solid var(--line); padding-top: 12px; font-variant-numeric: tabular-nums; }
+  .totals div { display: flex; justify-content: space-between; }
+  .totals .grand { font-family: var(--display); font-size: 1.3rem; font-weight: 600; }
+  .err { color: var(--accent); font-size: .9rem; font-weight: 500; }
+  .ready { display: grid; gap: 12px; background: var(--swatch); border-radius: 14px; padding: 16px; }
+  .ready h3 { font-size: 1.2rem; }
+  .ready p { font-size: .93rem; color: var(--muted); }
+  .ready textarea { width: 100%; min-height: 180px; border: 1.5px solid var(--line); background: var(--surface); border-radius: 10px; padding: .7em; font-size: .85rem; resize: vertical; }
+  .address { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .address code { user-select: all; background: var(--surface); padding: .35em .6em; border-radius: 8px; font-size: .95rem; overflow-wrap: anywhere; }
+  .row-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .row-btns .btn { padding: .6em 1.1em; }
+
+  .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: .7em 1.2em; border-radius: 999px; font-weight: 500; z-index: 60; box-shadow: 0 8px 24px rgba(0, 0, 0, .2); max-width: calc(100% - 32px); }
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Loop and Ribbon, back to top">
+      <span id="logo-art" aria-hidden="true"></span>
+      <span>Loop &amp; Ribbon</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#shop">Shop</a>
+      <a href="#design">Design your own</a>
+      <a href="#how">How ordering works</a>
+      <a href="#about">About</a>
+      <button class="btn btn-primary bag-btn" id="open-bag" type="button" aria-haspopup="dialog">
+        Bag <span class="bag-count" id="bag-count">0</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Hand-sewn in Amsterdam</span>
+        <h1>Scrunchies and bows, <em>made one at a time.</em></h1>
+        <p>Every piece is designed, cut and sewn by a young maker at her kitchen table. Soft on your hair, bright on your head, and never two exactly the same.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#shop">See the collection</a>
+          <a class="btn btn-ghost" href="#design">Design your own</a>
+        </div>
+        <ul class="facts">
+          <li>Free pick-up in Amsterdam</li>
+          <li>Post anywhere in NL</li>
+          <li>Pay by Tikkie</li>
+        </ul>
+      </div>
+      <div class="hero-art" id="hero-art" aria-hidden="true">
+        <div class="disc"></div>
+        <span class="hand note">sewn by hand!</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop" id="shop">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">The collection</span>
+          <h2>Pick your favourites</h2>
+        </div>
+        <div class="chips" role="group" aria-label="Filter the collection">
+          <button class="chip" type="button" data-filter="all" aria-pressed="true">Everything</button>
+          <button class="chip" type="button" data-filter="scrunchie" aria-pressed="false">Scrunchies</button>
+          <button class="chip" type="button" data-filter="bow" aria-pressed="false">Bows</button>
+          <button class="chip" type="button" data-filter="set" aria-pressed="false">Matching sets</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="designer" id="design">
+    <div class="wrap">
+      <div class="preview" id="designer-preview" role="img" aria-label="Preview of your custom design"></div>
+      <div class="controls">
+        <div>
+          <span class="eyebrow">Made to order</span>
+          <h2>Design your own</h2>
+        </div>
+        <p>Pick a shape, a colour and a pattern. She'll find the closest fabric and sew it just for you. Custom pieces take about a week.</p>
+        <fieldset class="ctl">
+          <legend>Shape</legend>
+          <div class="chips" id="d-kind">
+            <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true">Scrunchie</button>
+            <button class="chip" type="button" data-kind="bow" aria-pressed="false">Bow clip</button>
+          </div>
+        </fieldset>
+        <fieldset class="ctl">
+          <legend>Colour: <span id="d-color-name">Cherry</span></legend>
+          <div class="colors" id="d-colors"></div>
+        </fieldset>
+        <fieldset class="ctl">
+          <legend>Pattern</legend>
+          <div class="chips" id="d-pattern"></div>
+        </fieldset>
+        <div class="designer-foot">
+          <span class="tag" id="d-price">€ 6,00</span>
+          <button class="btn btn-primary" type="button" id="d-add">Add my design to the bag</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">How ordering works</span>
+          <h2>Four easy steps</h2>
+        </div>
+      </div>
+      <ol class="steps">
+        <li><h3>Fill your bag</h3><p>Choose your pieces and sizes, or design your own.</p></li>
+        <li><h3>Send your order</h3><p>Your order is written out for you. Send it to us by email.</p></li>
+        <li><h3>Get a Tikkie</h3><p>A parent checks the order and replies within two days with a Tikkie link to pay.</p></li>
+        <li><h3>Pick up or post</h3><p>Collect for free in Amsterdam, or we post it to you in the Netherlands for €2,50.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <div class="about-text">
+        <span class="eyebrow">About the maker</span>
+        <h2>Hi, I make every single one myself.</h2>
+        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Bows are my newest thing.</p>
+        <p>The money I earn goes into my savings and into more fabric, so every order helps me make the next design.</p>
+        <span class="hand">Thank you for shopping small!</span>
+      </div>
+      <aside class="promise" aria-labelledby="promise-title">
+        <h3 id="promise-title">Our promise</h3>
+        <ul>
+          <li>Soft elastic, no metal parts that pull hair</li>
+          <li>Every order is handled by a parent</li>
+          <li>Your details are only used for your order</li>
+          <li>Not happy? Tell us and we'll make it right</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Loop &amp; Ribbon · Hand-sewn in Amsterdam</span>
+    <span>Questions? Email <span id="footer-email"></span></span>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden>
+  <div class="drawer-head">
+    <h2 id="bag-title">Your bag</h2>
+    <button class="icon-btn" id="close-bag" type="button" aria-label="Close bag">×</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+// ---- Shop settings: change these to suit you ----
+const SHOP = {
+  name: "Loop & Ribbon",
+  email: "orders@example.com", // the parent's email address that receives orders
+  postage: 2.5,
+};
+
+// ---- The collection: add, remove or re-price pieces here ----
+const SIZES = [
+  { id: "mini", label: "Mini", note: "2 cm wide", delta: -1 },
+  { id: "regular", label: "Regular", note: "4 cm wide", delta: 0 },
+  { id: "xl", label: "XL", note: "7 cm wide", delta: 1.5 },
+];
+const PRODUCTS = [
+  { id: "cherry-scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, badge: "Bestseller", fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Cotton gingham picnic check. Our most-loved piece." },
+  { id: "midnight-scrunchie", kind: "scrunchie", name: "Midnight Velvet", price: 5, fabric: { type: "velvet", base: "#2A3270" }, desc: "Deep blue velvet that feels like a cloud." },
+  { id: "lemon-scrunchie", kind: "scrunchie", name: "Lemon Drop", price: 4, fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Sunny yellow cotton with white polka dots." },
+  { id: "mint-scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Candy-stripe cotton in fresh mint." },
+  { id: "lilac-scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, badge: "New", fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny satin, extra gentle for curly hair." },
+  { id: "garden-scrunchie", kind: "scrunchie", name: "Garden Party", price: 4.5, fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Pink cotton covered in tiny flowers." },
+  { id: "cherry-bow", kind: "bow", name: "Cherry Gingham Bow", price: 3.5, fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "On a 5 cm snap clip. Matches the scrunchie." },
+  { id: "berry-bow", kind: "bow", name: "Big Velvet Bow", price: 5, fabric: { type: "velvet", base: "#7C1F3E" }, desc: "A big berry velvet bow on a 7 cm clip." },
+  { id: "lemon-bow", kind: "bow", name: "Lemon Drop Bow", price: 3.5, fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Polka dots on a 5 cm snap clip." },
+  { id: "lilac-pair", kind: "bowpair", name: "Little Lilac Pair", price: 4, fabric: { type: "satin", base: "#B59BE0" }, desc: "Two small satin bows, perfect for pigtails." },
+  { id: "cherry-set", kind: "set", name: "Cherry Set", price: 7, fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Regular scrunchie and a matching bow. Save €0,50." },
+  { id: "garden-set", kind: "set", name: "Garden Party Set", price: 7.5, badge: "Gift idea", fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Regular scrunchie and a matching bow, gift-wrapped." },
+];
+const CUSTOM = {
+  prices: { scrunchie: 6, bow: 5 },
+  colors: [
+    { name: "Cherry", hex: "#D7263D" }, { name: "Blush", hex: "#F4A6B8" }, { name: "Lemon", hex: "#F6C945" },
+    { name: "Mint", hex: "#8FD3BC" }, { name: "Sky", hex: "#8EC5F0" }, { name: "Lilac", hex: "#B59BE0" },
+    { name: "Navy", hex: "#2A3270" }, { name: "Liquorice", hex: "#2B2B2E" },
+  ],
+  patterns: [
+    { id: "velvet", label: "Plain velvet" }, { id: "gingham", label: "Gingham" }, { id: "dots", label: "Polka dots" },
+    { id: "stripes", label: "Stripes" }, { id: "floral", label: "Flowers" },
+  ],
+};
+
+// ---- Drawing the fabric pieces ----
+const money = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" });
+let uid = 0;
+
+function fabricFill(f, id) {
+  const ink = f.ink || "#FFFFFF";
+  switch (f.type) {
+    case "gingham":
+      return `<pattern id="${id}" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(12)"><rect width="16" height="16" fill="${ink}"/><rect width="8" height="16" fill="${f.base}" fill-opacity=".55"/><rect width="16" height="8" fill="${f.base}" fill-opacity=".55"/></pattern>`;
+    case "dots":
+      return `<pattern id="${id}" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="${f.base}"/><circle cx="5.5" cy="5.5" r="3" fill="${ink}"/><circle cx="16.5" cy="16.5" r="3" fill="${ink}"/></pattern>`;
+    case "stripes":
+      return `<pattern id="${id}" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(40)"><rect width="14" height="14" fill="${f.base}"/><rect width="5" height="14" fill="${ink}" fill-opacity=".75"/></pattern>`;
+    case "floral":
+      return `<pattern id="${id}" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(-10)"><rect width="26" height="26" fill="${f.base}"/><g fill="${ink}"><circle cx="13" cy="9" r="3.2"/><circle cx="17" cy="13" r="3.2"/><circle cx="13" cy="17" r="3.2"/><circle cx="9" cy="13" r="3.2"/></g><circle cx="13" cy="13" r="2.4" fill="#F6C945"/><circle cx="2" cy="24" r="1.6" fill="${ink}" fill-opacity=".7"/></pattern>`;
+    case "satin":
+      return `<linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${f.base}"/><stop offset=".45" stop-color="#FFFFFF" stop-opacity=".9"/><stop offset=".55" stop-color="${f.base}"/><stop offset="1" stop-color="${f.base}"/></linearGradient>`;
+    default:
+      return `<linearGradient id="${id}"><stop offset="0" stop-color="${f.base}"/><stop offset="1" stop-color="${f.base}"/></linearGradient>`;
+  }
+}
+
+function ringPath(cx, cy, R, r, n, a, b) {
+  const pts = (rad, amp, phase, reverse) => {
+    let d = "";
+    for (let i = 0; i <= 180; i++) {
+      const k = reverse ? 180 - i : i;
+      const t = (k / 180) * Math.PI * 2;
+      const rr = rad + amp * Math.sin(n * t + phase);
+      d += (i ? "L" : "M") + (cx + rr * Math.cos(t)).toFixed(1) + " " + (cy + rr * Math.sin(t)).toFixed(1);
+    }
+    return d + "Z";
+  };
+  return pts(R, a, 0, false) + pts(r, b, Math.PI, true);
+}
+
+function scrunchieArt(f) {
+  const p = "s" + uid++;
+  const n = 13, R = 80, r = 33;
+  const deep = f.type === "velvet" ? .45 : .3;
+  let folds = "";
+  for (let k = 0; k < n; k++) {
+    const t = (1.5 * Math.PI + 2 * Math.PI * k) / n;
+    const x1 = 100 + (r + 6) * Math.cos(t), y1 = 100 + (r + 6) * Math.sin(t);
+    const x2 = 100 + (R - 10) * Math.cos(t + .08), y2 = 100 + (R - 10) * Math.sin(t + .08);
+    folds += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
+  }
+  const d = ringPath(100, 100, R, r, n, 7, 3);
+  return `<defs>${fabricFill(f, p + "f")}<radialGradient id="${p}h" cx="100" cy="100" r="88" gradientUnits="userSpaceOnUse"><stop offset=".36" stop-color="#000" stop-opacity="${deep}"/><stop offset=".62" stop-color="#FFF" stop-opacity=".28"/><stop offset=".8" stop-color="#FFF" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${deep}"/></radialGradient></defs>
+    <path d="${d}" fill="url(#${p}f)" fill-rule="evenodd"/>
+    <path d="${d}" fill="url(#${p}h)" fill-rule="evenodd"/>
+    <g stroke="#000" stroke-opacity=".16" stroke-width="1.6" stroke-linecap="round" fill="none">${folds}</g>`;
+}
+
+function bowArt(f) {
+  const p = "b" + uid++;
+  const shapes = `<path d="M94 108 L66 176 L82 170 L90 184 L106 112 Z"/><path d="M106 108 L134 176 L118 170 L110 184 L94 112 Z"/>
+    <path d="M100 100 C72 48 18 52 22 100 C18 148 72 152 100 100 Z"/><path d="M100 100 C128 48 182 52 178 100 C182 148 128 152 100 100 Z"/>`;
+  const deep = f.type === "velvet" ? .42 : .26;
+  return `<defs>${fabricFill(f, p + "f")}<linearGradient id="${p}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF" stop-opacity=".3"/><stop offset=".55" stop-color="#FFF" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${deep}"/></linearGradient>
+    <radialGradient id="${p}k"><stop offset=".3" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></radialGradient></defs>
+    <g fill="url(#${p}f)" stroke="#000" stroke-opacity=".14" stroke-width="1.5">${shapes}</g>
+    <g fill="url(#${p}h)">${shapes}</g>
+    <g stroke="#000" stroke-opacity=".14" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M88 92 C70 80 50 82 40 96"/><path d="M112 92 C130 80 150 82 160 96"/><path d="M88 108 C70 120 50 118 40 106"/><path d="M112 108 C130 120 150 118 160 106"/></g>
+    <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}f)" stroke="#000" stroke-opacity=".16" stroke-width="1.5"/>
+    <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}k)"/>`;
+}
+
+function art(kind, f) {
+  if (kind === "scrunchie") return scrunchieArt(f);
+  if (kind === "bow") return bowArt(f);
+  if (kind === "bowpair") return `<g transform="translate(-8 -18) scale(.62)">${bowArt(f)}</g><g transform="translate(84 62) scale(.62) rotate(14 100 100)">${bowArt(f)}</g>`;
+  return `<g transform="translate(-4 14) scale(.84)">${scrunchieArt(f)}</g><g transform="translate(92 -6) scale(.56) rotate(10 100 100)">${bowArt(f)}</g>`;
+}
+const svg = (kind, f, cls = "") => `<svg ${cls ? `class="${cls}"` : ""} viewBox="0 0 200 200" aria-hidden="true">${art(kind, f)}</svg>`;
+
+// ---- Bag ----
+const KEY = "loop-ribbon-bag";
+let bag = [];
+try { bag = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(bag)) bag = []; } catch (e) { bag = []; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(bag)); } catch (e) {} };
+let delivery = "pickup";
+let preparedOrder = null;
+
+function addToBag(item) {
+  const found = bag.find(l => l.key === item.key);
+  if (found) found.qty += 1; else bag.push({ ...item, qty: 1 });
+  preparedOrder = null;
+  save(); renderBag(); toast(`${item.name} is in your bag`);
+}
+
+// ---- Collection grid ----
+const grid = document.getElementById("grid");
+function renderGrid(filter = "all") {
+  grid.innerHTML = PRODUCTS.filter(p => filter === "all" || p.kind === filter || (filter === "bow" && p.kind === "bowpair")).map(p => {
+    const sized = p.kind === "scrunchie";
+    const sizes = sized ? `<fieldset class="sizes"><legend>Size for ${p.name}</legend>${SIZES.map(s => `
+        <input type="radio" name="size-${p.id}" id="size-${p.id}-${s.id}" value="${s.id}" ${s.id === "regular" ? "checked" : ""}>
+        <label for="size-${p.id}-${s.id}" title="${s.note}">${s.label}</label>`).join("")}</fieldset>` : "";
+    return `<article class="card" data-id="${p.id}">
+      <div class="swatch">${p.badge ? `<span class="badge">${p.badge}</span>` : ""}${svg(p.kind, p.fabric)}</div>
+      <div class="card-top"><h3>${p.name}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
+      <p class="desc">${p.desc}</p>
+      ${sizes}
+      <button class="btn btn-ghost add" type="button" data-add="${p.id}">Add to bag</button>
+    </article>`;
+  }).join("");
+}
+grid.addEventListener("change", e => {
+  if (!e.target.matches(".sizes input")) return;
+  const card = e.target.closest(".card");
+  const p = PRODUCTS.find(x => x.id === card.dataset.id);
+  const s = SIZES.find(x => x.id === e.target.value);
+  card.querySelector("[data-price]").textContent = money.format(p.price + s.delta);
+});
+grid.addEventListener("click", e => {
+  const btn = e.target.closest("[data-add]");
+  if (!btn) return;
+  const p = PRODUCTS.find(x => x.id === btn.dataset.add);
+  const card = btn.closest(".card");
+  let variant = "", price = p.price, sizeId = "";
+  if (p.kind === "scrunchie") {
+    const s = SIZES.find(x => x.id === card.querySelector(".sizes input:checked").value);
+    variant = `${s.label}, ${s.note}`; price += s.delta; sizeId = s.id;
+  }
+  addToBag({ key: p.id + (sizeId ? "-" + sizeId : ""), name: p.name, variant, price, kind: p.kind, fabric: p.fabric });
+});
+document.querySelectorAll("[data-filter]").forEach(chip => chip.addEventListener("click", () => {
+  document.querySelectorAll("[data-filter]").forEach(c => c.setAttribute("aria-pressed", String(c === chip)));
+  renderGrid(chip.dataset.filter);
+}));
+
+// ---- Designer ----
+const design = { kind: "scrunchie", color: CUSTOM.colors[0], pattern: "velvet" };
+const dColors = document.getElementById("d-colors");
+const dPattern = document.getElementById("d-pattern");
+dColors.innerHTML = CUSTOM.colors.map((c, i) => `<button type="button" style="background:${c.hex}" data-color="${i}" aria-label="${c.name}" aria-pressed="${i === 0}"></button>`).join("");
+dPattern.innerHTML = CUSTOM.patterns.map(p => `<button class="chip" type="button" data-pattern="${p.id}" aria-pressed="${p.id === design.pattern}">${p.label}</button>`).join("");
+function designFabric() {
+  const ink = ["#F6C945", "#8FD3BC", "#8EC5F0", "#F4A6B8"].includes(design.color.hex) ? "#FFFFFF" : "#FFF3F5";
+  return { type: design.pattern, base: design.color.hex, ink };
+}
+function renderDesigner() {
+  document.getElementById("designer-preview").innerHTML = svg(design.kind, designFabric());
+  document.getElementById("d-color-name").textContent = design.color.name;
+  document.getElementById("d-price").textContent = money.format(CUSTOM.prices[design.kind]);
+}
+document.getElementById("d-kind").addEventListener("click", e => {
+  const b = e.target.closest("[data-kind]"); if (!b) return;
+  design.kind = b.dataset.kind;
+  document.querySelectorAll("[data-kind]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDesigner();
+});
+dColors.addEventListener("click", e => {
+  const b = e.target.closest("[data-color]"); if (!b) return;
+  design.color = CUSTOM.colors[+b.dataset.color];
+  dColors.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDesigner();
+});
+dPattern.addEventListener("click", e => {
+  const b = e.target.closest("[data-pattern]"); if (!b) return;
+  design.pattern = b.dataset.pattern;
+  dPattern.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  renderDesigner();
+});
+document.getElementById("d-add").addEventListener("click", () => {
+  const pat = CUSTOM.patterns.find(p => p.id === design.pattern).label.toLowerCase();
+  const shape = design.kind === "bow" ? "bow clip" : "scrunchie";
+  addToBag({
+    key: `custom-${design.kind}-${design.color.name}-${design.pattern}`,
+    name: `Custom ${shape}`, variant: `${design.color.name}, ${pat}`,
+    price: CUSTOM.prices[design.kind], kind: design.kind, fabric: designFabric(),
+  });
+});
+
+// ---- Drawer ----
+const drawer = document.getElementById("drawer"), scrim = document.getElementById("scrim"), body = document.getElementById("drawer-body");
+let lastFocus = null;
+function openBag() { lastFocus = document.activeElement; drawer.hidden = false; scrim.hidden = false; document.getElementById("close-bag").focus(); }
+function closeBag() { drawer.hidden = true; scrim.hidden = true; if (lastFocus) lastFocus.focus(); }
+document.getElementById("open-bag").addEventListener("click", openBag);
+document.getElementById("close-bag").addEventListener("click", closeBag);
+scrim.addEventListener("click", closeBag);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !drawer.hidden) closeBag(); });
+
+const subtotal = () => bag.reduce((s, l) => s + l.price * l.qty, 0);
+const shipping = () => (delivery === "post" && bag.length ? SHOP.postage : 0);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function renderBag() {
+  const count = bag.reduce((s, l) => s + l.qty, 0);
+  document.getElementById("bag-count").textContent = count;
+  if (!bag.length) {
+    body.innerHTML = `<div class="empty"><span class="hand">Your bag is empty</span><p>Add a scrunchie or bow and it will show up here.</p><button class="btn btn-ghost" type="button" data-close>Keep browsing</button></div>`;
+    return;
+  }
+  const keep = id => { const el = document.getElementById(id); return el ? el.value : ""; };
+  const vals = { name: keep("cust-name"), contact: keep("cust-contact"), note: keep("cust-note") };
+  body.innerHTML = `
+    <div style="display:grid;gap:14px">${bag.map((l, i) => `
+      <div class="line">
+        <div class="mini">${svg(l.kind, l.fabric)}</div>
+        <div class="line-info"><strong>${esc(l.name)}</strong>${l.variant ? `<span>${esc(l.variant)}</span>` : ""}
+          <span class="qty"><button type="button" data-dec="${i}" aria-label="One less ${esc(l.name)}">−</button><output>${l.qty}</output><button type="button" data-inc="${i}" aria-label="One more ${esc(l.name)}">+</button></span>
+        </div>
+        <div style="display:grid;gap:6px"><span class="line-price">${money.format(l.price * l.qty)}</span><button class="remove" type="button" data-rm="${i}">Remove</button></div>
+      </div>`).join("")}
+    </div>
+    <fieldset class="fieldset">
+      <legend>Delivery</legend>
+      <label class="radio"><input type="radio" name="delivery" id="del-pickup" value="pickup" ${delivery === "pickup" ? "checked" : ""}> Pick up in Amsterdam <small>Free</small></label>
+      <label class="radio"><input type="radio" name="delivery" id="del-post" value="post" ${delivery === "post" ? "checked" : ""}> Post in the Netherlands <small>${money.format(SHOP.postage)}</small></label>
+    </fieldset>
+    <div class="totals">
+      <div><span>Items</span><span>${money.format(subtotal())}</span></div>
+      <div><span>Delivery</span><span>${shipping() ? money.format(shipping()) : "Free"}</span></div>
+      <div class="grand"><span>Total</span><span>${money.format(subtotal() + shipping())}</span></div>
+    </div>
+    <form id="order-form" class="fieldset" novalidate>
+      <legend>Your details</legend>
+      <div class="field"><label for="cust-name">Your name</label><input id="cust-name" autocomplete="name" value="${esc(vals.name)}"></div>
+      <div class="field"><label for="cust-contact">Email or phone number</label><input id="cust-contact" autocomplete="email" value="${esc(vals.contact)}"></div>
+      <div class="field"><label for="cust-note">Anything else? (optional)</label><textarea id="cust-note" placeholder="${delivery === "post" ? "Your postal address" : "A good day to pick up"}">${esc(vals.note)}</textarea></div>
+      <p class="err" id="order-err" hidden></p>
+      <button class="btn btn-primary" type="submit">Write out my order</button>
+    </form>
+    <div id="ready-slot"></div>`;
+  if (preparedOrder) showReady();
+}
+
+body.addEventListener("click", e => {
+  const t = e.target;
+  if (t.closest("[data-close]")) return closeBag();
+  const i = +(t.dataset.inc ?? t.dataset.dec ?? t.dataset.rm ?? -1);
+  if (i < 0 || !bag[i]) return;
+  if (t.dataset.inc) bag[i].qty++;
+  else if (t.dataset.dec) { bag[i].qty--; if (bag[i].qty < 1) bag.splice(i, 1); }
+  else bag.splice(i, 1);
+  preparedOrder = null; save(); renderBag();
+});
+body.addEventListener("change", e => {
+  if (e.target.name === "delivery") { delivery = e.target.value; preparedOrder = null; renderBag(); }
+});
+body.addEventListener("submit", e => {
+  e.preventDefault();
+  const name = document.getElementById("cust-name").value.trim();
+  const contact = document.getElementById("cust-contact").value.trim();
+  const note = document.getElementById("cust-note").value.trim();
+  const err = document.getElementById("order-err");
+  if (!name || !contact) { err.textContent = "Please add your name and an email or phone number so we can reply."; err.hidden = false; return; }
+  if (delivery === "post" && !note) { err.textContent = "Please add your postal address in the last box so we know where to send it."; err.hidden = false; return; }
+  err.hidden = true;
+  const lines = bag.map(l => `${l.qty} × ${l.name}${l.variant ? " (" + l.variant + ")" : ""}: ${money.format(l.price * l.qty)}`);
+  preparedOrder = [
+    `Hello ${SHOP.name}! I'd like to order:`, "", ...lines, "",
+    `Delivery: ${delivery === "post" ? "Post in the Netherlands (" + money.format(SHOP.postage) + ")" : "Pick up in Amsterdam (free)"}`,
+    `Total: ${money.format(subtotal() + shipping())}`, "",
+    `Name: ${name}`, `Contact: ${contact}`, ...(note ? [`Note: ${note}`] : []),
+  ].join("\n");
+  showReady();
+});
+
+function showReady() {
+  const mail = `mailto:${SHOP.email}?subject=${encodeURIComponent("Order for " + SHOP.name)}&body=${encodeURIComponent(preparedOrder)}`;
+  document.getElementById("ready-slot").innerHTML = `
+    <div class="ready">
+      <h3>Your order is written out</h3>
+      <p>Copy it and email it to the address below. We'll reply within two days to confirm and send you a Tikkie to pay.</p>
+      <label for="order-text" class="eyebrow">Your order</label>
+      <textarea id="order-text" readonly>${esc(preparedOrder)}</textarea>
+      <div class="address"><code id="order-email">${esc(SHOP.email)}</code></div>
+      <div class="row-btns">
+        <button class="btn btn-primary" type="button" id="copy-order">Copy order</button>
+        <button class="btn btn-ghost" type="button" id="copy-email">Copy email address</button>
+        <a class="btn btn-ghost" href="${mail}">Open my email app</a>
+      </div>
+    </div>`;
+  document.getElementById("copy-order").addEventListener("click", () => copy(preparedOrder, "order-text", "Order copied"));
+  document.getElementById("copy-email").addEventListener("click", () => copy(SHOP.email, "order-email", "Email address copied"));
+  document.getElementById("ready-slot").scrollIntoView({ block: "nearest" });
+}
+
+function copy(text, fallbackId, msg) {
+  const fallback = () => {
+    const el = document.getElementById(fallbackId);
+    if (el.select) el.select(); else { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    toast("Selected. Press Ctrl+C or Cmd+C to copy");
+  };
+  try { navigator.clipboard.writeText(text).then(() => toast(msg), fallback); } catch (e) { fallback(); }
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200);
+}
+
+// ---- Start ----
+document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", base: "#D7263D", ink: "#FFF8F0" });
+document.getElementById("footer-email").textContent = SHOP.email;
+const hero = document.getElementById("hero-art");
+hero.insertAdjacentHTML("beforeend",
+  svg("scrunchie", PRODUCTS[0].fabric, "a") + svg("scrunchie", PRODUCTS[4].fabric, "b") + svg("bow", PRODUCTS[2].fabric, "c"));
+renderGrid();
+renderDesigner();
+renderBag();
+</script>
