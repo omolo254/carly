@@ -52,6 +52,12 @@
   }
 
   * { box-sizing: border-box; }
+  .ico { width: 1.2em; height: 1.2em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.22em; }
+  .opt legend .ico, .ctl legend .ico { color: var(--accent); margin-right: 6px; }
+  .hand.note { display: inline-flex; align-items: center; gap: 6px; }
+  .hand.note .ico { width: .9em; height: .9em; }
+  .empty-ico { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: var(--swatch); color: var(--accent); }
+  .empty-ico .ico { width: 42px; height: 42px; stroke-width: 1.4; }
   [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -99,10 +105,11 @@
   .hero-copy > p { font-size: 1.15rem; color: var(--muted); max-width: 34em; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .92rem; color: var(--muted); padding: 0; margin: 0; list-style: none; }
-  .facts li::before { content: "✓ "; color: var(--accent); font-weight: 700; }
+  .facts li { display: inline-flex; align-items: center; gap: 7px; }
+  .facts .ico { color: var(--accent); width: 1.35em; height: 1.35em; }
   .hero-art { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; justify-self: center; }
   .hero-art .disc { position: absolute; inset: 6%; border-radius: 50%; background: var(--mint); }
-  .hero-art svg { position: absolute; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .18)); }
+  .hero-art > svg { position: absolute; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .18)); }
   .hero-art .a { width: 58%; left: 2%; top: 6%; animation: bob 6s ease-in-out infinite; }
   .hero-art .b { width: 50%; right: 0; top: 30%; animation: bob 7s ease-in-out -2s infinite; }
   .hero-art .c { width: 46%; left: 18%; bottom: 0; animation: bob 6.5s ease-in-out -4s infinite; }
@@ -279,7 +286,9 @@
   .how .wrap { padding-block: 56px; display: grid; gap: 28px; }
   .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; counter-reset: step; }
   .steps li { counter-increment: step; display: grid; gap: 8px; align-content: start; min-width: 0; }
-  .steps li::before { content: counter(step); font-family: var(--display); font-weight: 700; font-size: 1.3rem; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--butter); color: #1D2340; }
+  .step-ico { position: relative; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: var(--butter); color: #1D2340; }
+  .step-ico .ico { width: 28px; height: 28px; stroke-width: 1.7; }
+  .step-ico::after { content: counter(step); position: absolute; top: -4px; right: -6px; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); font: 700 .78rem/1 var(--display); }
   .steps h3 { font-size: 1.15rem; }
   .steps p { color: var(--muted); font-size: .95rem; }
   @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, 1fr); } }
@@ -292,7 +301,9 @@
   .about-text p { color: var(--muted); font-size: 1.05rem; }
   .promise { background: var(--mint); border-radius: var(--r); padding: 24px; display: grid; gap: 12px; min-width: 0; }
   .promise h3 { font-size: 1.2rem; }
-  .promise ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
+  .promise ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .promise li { display: flex; align-items: flex-start; gap: 10px; }
+  .promise .ico { width: 1.4em; height: 1.4em; color: var(--accent); margin-top: .05em; }
   @media (max-width: 760px) { .about .wrap { grid-template-columns: 1fr; } }
 
   footer { border-top: 1px solid var(--line); }
@@ -354,6 +365,17 @@
   @media (max-width: 520px) { .logo-name { display: none; } .bar .wrap { gap: 8px; } .nav { gap: 8px; } .bag-btn { padding: .55em .9em; } }
 </style>
 
+<!-- Sewing icons, drawn once and reused with <use href="#i-…"> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-thimble" viewBox="0 0 24 24"><path d="M7.5 18.5V11a4.5 4.5 0 0 1 9 0v7.5"/><rect x="5.5" y="18.5" width="13" height="2.5" rx="1"/><g fill="currentColor" stroke="none"><circle cx="10" cy="10.5" r=".9"/><circle cx="14" cy="10.5" r=".9"/><circle cx="12" cy="13.2" r=".9"/><circle cx="10" cy="15.9" r=".9"/><circle cx="14" cy="15.9" r=".9"/></g></symbol>
+  <symbol id="i-spool" viewBox="0 0 24 24"><rect x="4.5" y="2.5" width="15" height="3.5" rx="1.4"/><rect x="4.5" y="18" width="15" height="3.5" rx="1.4"/><path d="M6.5 6v12M17.5 6v12"/><path d="M6.5 9.5 17.5 7.5M6.5 13 17.5 11M6.5 16.5 17.5 14.5"/></symbol>
+  <symbol id="i-needle" viewBox="0 0 24 24"><path d="M3.5 20.5 15.4 7.3a2.3 2.3 0 0 1 3.3 3.3z"/><path d="M16.4 9.5l1.3-1.3"/><path d="M18.8 7.6c2.4-1.2 3.3 1.6 1.5 3.3-2.6 2.4-7.4 1.6-9.6 4.6"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6.5" r="2.8"/><circle cx="6" cy="17.5" r="2.8"/><path d="M8.3 8.2 20 18M8.3 15.8 20 6"/></symbol>
+  <symbol id="i-button" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.8" stroke-dasharray="1.5 1.8"/><g fill="currentColor" stroke="none"><circle cx="10.4" cy="10.4" r="1.1"/><circle cx="13.6" cy="10.4" r="1.1"/><circle cx="10.4" cy="13.6" r="1.1"/><circle cx="13.6" cy="13.6" r="1.1"/></g></symbol>
+  <symbol id="i-pincushion" viewBox="0 0 24 24"><path d="M3 16.2C3 12.6 7 10 12 10s9 2.6 9 6.2S17 21 12 21s-9-1.2-9-4.8z"/><path d="M8.6 10.6c-1 3.2-1 6.8 0 10M15.4 10.6c1 3.2 1 6.8 0 10"/><path d="M10 10 8.4 4.8M13 10l.6-6M16 10.6l2.6-4.4"/><g fill="currentColor" stroke="none"><circle cx="8" cy="3.8" r="1.5"/><circle cx="13.7" cy="3" r="1.5"/><circle cx="19.2" cy="5.3" r="1.5"/></g></symbol>
+  <symbol id="i-safetypin" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.6"/><path d="M7.8 16.2 17.4 6.6"/><path d="M8.3 19.4 19 8.7"/><path d="M15.8 4.6 20 8.8l-1 1-4.2-4.2z"/></symbol>
+  <symbol id="i-tape" viewBox="0 0 24 24"><circle cx="10" cy="11" r="7.5"/><circle cx="10" cy="11" r="2.2"/><path d="M17.5 11v7.5H22"/><path d="M19 18.5v-2M20.5 18.5v-1.2"/></symbol>
+</svg>
 <header class="bar">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Sewing &amp; Growing">
@@ -404,14 +426,14 @@
           <a class="btn btn-ghost" href="#line-bow" data-i18n="hero.coming">See what's coming</a>
         </div>
         <ul class="facts">
-          <li data-i18n="fact.pickup">Free pick-up in Amsterdam</li>
-          <li data-i18n="fact.post">We post anywhere in the Netherlands</li>
-          <li data-i18n="fact.tikkie">Pay by Tikkie</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-pincushion"/></svg><span data-i18n="fact.pickup">Free pick-up in Amsterdam</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-spool"/></svg><span data-i18n="fact.post">We post anywhere in the Netherlands</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-button"/></svg><span data-i18n="fact.tikkie">Pay by Tikkie</span></li>
         </ul>
       </div>
       <div class="hero-art" id="hero-art" aria-hidden="true">
         <div class="disc"></div>
-        <span class="hand note" data-i18n="hero.note">sewn by hand!</span>
+        <span class="hand note"><svg class="ico" aria-hidden="true"><use href="#i-needle"/></svg><span data-i18n="hero.note">sewn by hand!</span></span>
       </div>
     </div>
   </section>
@@ -432,18 +454,18 @@
           <div class="preview" id="designer-preview" role="img" data-i18n-aria="design.preview" aria-label="Preview of your design"></div>
           <div class="controls">
             <fieldset class="ctl">
-              <legend data-i18n="design.shape">Shape</legend>
+              <legend><svg class="ico" aria-hidden="true"><use href="#i-tape"/></svg><span data-i18n="design.shape">Shape</span></legend>
               <div class="chips" id="d-kind">
                 <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true" data-i18n="design.scrunchie">Scrunchie</button>
                 <button class="chip" type="button" data-kind="bow" aria-pressed="false" data-i18n="design.bow">Bow clip</button>
               </div>
             </fieldset>
             <fieldset class="ctl">
-              <legend><span data-i18n="design.colour">Colour</span>: <span id="d-color-name">Cherry</span></legend>
+              <legend><svg class="ico" aria-hidden="true"><use href="#i-spool"/></svg><span data-i18n="design.colour">Colour</span>: <span id="d-color-name">Cherry</span></legend>
               <div class="colors" id="d-colors"></div>
             </fieldset>
             <fieldset class="ctl">
-              <legend data-i18n="design.pattern">Pattern</legend>
+              <legend><svg class="ico" aria-hidden="true"><use href="#i-scissors"/></svg><span data-i18n="design.pattern">Pattern</span></legend>
               <div class="chips" id="d-pattern"></div>
             </fieldset>
             <div class="designer-foot">
@@ -465,10 +487,10 @@
         </div>
       </div>
       <ol class="steps">
-        <li><h3 data-i18n="how.1t">Fill your bag</h3><p data-i18n="how.1">Pick your scrunchies and choose a size.</p></li>
-        <li><h3 data-i18n="how.2t">Send your order</h3><p data-i18n="how.2">We write your order out for you. Ask a grown-up to email it to us.</p></li>
-        <li><h3 data-i18n="how.3t">Get a Tikkie</h3><p data-i18n="how.3">We reply within two days with a Tikkie link, so a grown-up can pay.</p></li>
-        <li><h3 data-i18n="how.4t">Pick up or post</h3><p data-i18n="how.4">Pick it up for free in Amsterdam, or we post it to you in the Netherlands.</p></li>
+        <li><span class="step-ico"><svg class="ico" aria-hidden="true"><use href="#i-scissors"/></svg></span><h3 data-i18n="how.1t">Fill your bag</h3><p data-i18n="how.1">Pick your scrunchies and choose a size.</p></li>
+        <li><span class="step-ico"><svg class="ico" aria-hidden="true"><use href="#i-needle"/></svg></span><h3 data-i18n="how.2t">Send your order</h3><p data-i18n="how.2">We write your order out for you. Ask a grown-up to email it to us.</p></li>
+        <li><span class="step-ico"><svg class="ico" aria-hidden="true"><use href="#i-button"/></svg></span><h3 data-i18n="how.3t">Get a Tikkie</h3><p data-i18n="how.3">We reply within two days with a Tikkie link, so a grown-up can pay.</p></li>
+        <li><span class="step-ico"><svg class="ico" aria-hidden="true"><use href="#i-spool"/></svg></span><h3 data-i18n="how.4t">Pick up or post</h3><p data-i18n="how.4">Pick it up for free in Amsterdam, or we post it to you in the Netherlands.</p></li>
       </ol>
     </div>
   </section>
@@ -485,10 +507,10 @@
       <aside class="promise" aria-labelledby="promise-title">
         <h3 id="promise-title" data-i18n="promise.title">Our promise</h3>
         <ul>
-          <li data-i18n="promise.1">Soft elastic, no metal parts that pull hair</li>
-          <li data-i18n="promise.2">A grown-up looks after every order</li>
-          <li data-i18n="promise.3">We only use your details for your order</li>
-          <li data-i18n="promise.4">Not happy? Tell us and we will fix it</li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-spool"/></svg><span data-i18n="promise.1">Soft elastic, no metal parts that pull hair</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-thimble"/></svg><span data-i18n="promise.2">A grown-up looks after every order</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-safetypin"/></svg><span data-i18n="promise.3">We only use your details for your order</span></li>
+          <li><svg class="ico" aria-hidden="true"><use href="#i-needle"/></svg><span data-i18n="promise.4">Not happy? Tell us and we will fix it</span></li>
         </ul>
       </aside>
     </div>
@@ -945,6 +967,7 @@ function art(kind, f) {
   return `<g transform="translate(-4 14) scale(.84)">${scrunchieArt(f)}</g><g transform="translate(92 -6) scale(.56) rotate(10 100 100)">${bowArt(f)}</g>`;
 }
 const svg = (kind, f, cls = "") => `<svg ${cls ? `class="${cls}"` : ""} viewBox="0 0 200 200" aria-hidden="true">${art(kind, f)}</svg>`;
+const ico = name => `<svg class="ico" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 // ---- Bag ----
@@ -1175,7 +1198,7 @@ function renderPicker(focusSel) {
     const f = { ...comboInfo(combo(pick.colour, p.id)).fabric };
     return `<button type="button" class="pr" data-print="${p.id}" data-state="${st}" aria-pressed="${p.id === pick.print}" aria-label="${esc(note(st, name, colourName.toLowerCase()))}" title="${esc(note(st, name, colourName.toLowerCase()))}">${sampleDot(f, 28)}<span class="lbl">${name}</span></button>`;
   }).join("");
-  const sizes = out ? "" : `<fieldset class="opt"><legend>${t("pick.size")}: <strong>${tx(size.label)}</strong> <span class="muted">(${tx(size.note)})</span></legend>
+  const sizes = out ? "" : `<fieldset class="opt"><legend>${ico("tape")}${t("pick.size")}: <strong>${tx(size.label)}</strong> <span class="muted">(${tx(size.note)})</span></legend>
       <div class="opt-row">${SIZES.map(s => `<button type="button" class="pr size" data-pick-size="${s.id}" aria-pressed="${s.id === pick.size}"><span class="lbl">${tx(s.label)}</span></button>`).join("")}</div></fieldset>`;
   const grid = `<table class="matrix">
       <caption>${t("pick.matrixCaption")}</caption>
@@ -1197,8 +1220,8 @@ function renderPicker(focusSel) {
       <div class="card-top"><h4>${esc(ci.name)}</h4><span class="tag">${money.format(ci.price + (out ? 0 : size.delta))}</span></div>
       <p class="desc">${esc(ci.desc)}</p>
       ${out ? `<span class="stock low">${t("card.soldOut")}</span>` : !isFinite(stock) ? `<span class="stock">${t("pick.inStock")}</span>` : `<span class="stock${stock <= 3 ? " low" : ""}">${t(stock <= 3 ? "card.onlyLeft" : "card.left", { n: stock })}</span>`}
-      <fieldset class="opt"><legend>${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row">${colourBtns}</div></fieldset>
-      <fieldset class="opt"><legend>${t("pick.print")}: <strong>${printName}</strong></legend><div class="opt-row">${printBtns}</div></fieldset>
+      <fieldset class="opt"><legend>${ico("spool")}${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row">${colourBtns}</div></fieldset>
+      <fieldset class="opt"><legend>${ico("scissors")}${t("pick.print")}: <strong>${printName}</strong></legend><div class="opt-row">${printBtns}</div></fieldset>
       ${sizes}
       ${out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>` : `<button class="btn btn-primary add" type="button" data-add-combo="${key}">${t("card.add")}</button>`}
       <details class="matrix-box" ${pick.gridOpen ? "open" : ""}>
@@ -1352,7 +1375,7 @@ const shipping = () => (delivery === "post" && bag.length ? SHOP.postage : 0);
 function renderBag() {
   document.getElementById("bag-count").textContent = bag.reduce((s, l) => s + l.qty, 0);
   if (!bag.length) {
-    body.innerHTML = `<div class="empty"><span class="hand">${t("bag.empty")}</span><p>${t("bag.emptyText")}</p><button class="btn btn-ghost" type="button" data-close>${t("bag.browse")}</button></div>`;
+    body.innerHTML = `<div class="empty"><span class="empty-ico">${ico("thimble")}</span><span class="hand">${t("bag.empty")}</span><p>${t("bag.emptyText")}</p><button class="btn btn-ghost" type="button" data-close>${t("bag.browse")}</button></div>`;
     return;
   }
   const keep = id => { const el = document.getElementById(id); return el ? el.value : ""; };
