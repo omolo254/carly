@@ -185,7 +185,7 @@
   .picker-media { display: grid; gap: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
   .picker-media .swatch svg { width: 74%; height: 74%; }
   .picker-info { display: grid; gap: 16px; min-width: 0; align-content: start; }
-  .picker-info h4 { font-size: 1.6rem; }
+  .picker-info h4 { font-size: 1.6rem; margin: 0; }
   .picker-info .add { justify-self: start; padding: .8em 1.6em; font-size: 1.05rem; }
   .muted { color: var(--muted); font-weight: 400; }
   .opt { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
@@ -562,7 +562,7 @@ const WORDS = {
     "pick.missing": "{name} (not made in {other})", "pick.soldOutNote": "{name} (sold out)",
     "pick.switched": "We don't make that one, so we picked {name}.",
     "pick.all": "See all colours and prints", "pick.matrixCaption": "Every colour and print. Tap one to pick it.",
-    "pick.ready": "Ready", "pick.notMadeShort": "Not made",
+    "pick.ready": "Ready", "pick.notMadeShort": "Not made", "pick.inStock": "Ready to order",
     "toast.added": "{name} is in your bag", "toast.max": "That's all the {name} we have right now",
     "toast.copiedOrder": "Order copied", "toast.copiedEmail": "Email address copied", "toast.selected": "Selected. Press Ctrl+C or Cmd+C to copy",
     "bag.button": "Bag", "bag.title": "Your bag", "bag.close": "Close bag",
@@ -614,7 +614,7 @@ const WORDS = {
     "pick.missing": "{name} (maken we niet in {other})", "pick.soldOutNote": "{name} (uitverkocht)",
     "pick.switched": "Die maken we niet, dus we kozen {name}.",
     "pick.all": "Bekijk alle kleuren en prints", "pick.matrixCaption": "Alle kleuren en prints. Tik er een aan om hem te kiezen.",
-    "pick.ready": "Te koop", "pick.notMadeShort": "Maken we niet",
+    "pick.ready": "Te koop", "pick.notMadeShort": "Maken we niet", "pick.inStock": "Nu te bestellen",
     "toast.added": "{name} zit in je tasje", "toast.max": "Meer {name} hebben we nu niet",
     "toast.copiedOrder": "Bestelling gekopieerd", "toast.copiedEmail": "E-mailadres gekopieerd", "toast.selected": "Geselecteerd. Druk op Ctrl+C of Cmd+C om te kopiëren",
     "bag.button": "Tasje", "bag.title": "Je tasje", "bag.close": "Tasje sluiten",
@@ -682,16 +682,20 @@ const PRODUCTS = [
     name: { en: "Sunshine Sparkle", nl: "Zonneglitter" }, desc: { en: "A golden claw clip that sparkles in the sun.", nl: "Een gouden klauwclip die glinstert in de zon." } },
 ];
 // ---- Scrunchies: every colour and print ----
-// stock: how many of each colour + print are ready (0 shows "Sold out"). Leave a pair out if she doesn't make it.
-// photos: real photos for a colour + print, e.g. "cherry-checkered": [{ src: "photos/cherry-checkered-front.jpg", angle: { en: "front", nl: "voorkant" } }]
+// stock: which colour + print pairs she makes. Leave a pair out if she doesn't make it.
+// photos: real photos for a colour + print, e.g. "red-checkered": [{ src: "photos/red-checkered-front.jpg", angle: { en: "front", nl: "voorkant" } }]
 const SCRUNCHIES = {
   colours: [
-    { id: "cherry", name: { en: "Cherry", nl: "Kers" }, hex: "#D7263D" },
-    { id: "blush", name: { en: "Blush", nl: "Roze" }, hex: "#F4A6B8" },
-    { id: "lemon", name: { en: "Lemon", nl: "Citroen" }, hex: "#F6C945" },
-    { id: "mint", name: { en: "Mint", nl: "Mint" }, hex: "#8FD3BC" },
-    { id: "lilac", name: { en: "Lilac", nl: "Lila" }, hex: "#B59BE0" },
-    { id: "navy", name: { en: "Navy", nl: "Donkerblauw" }, hex: "#2A3270" },
+    { id: "red", name: { en: "Red", nl: "Rood" }, hex: "#D7263D" },
+    { id: "darkorange", name: { en: "Dark orange", nl: "Donkeroranje" }, hex: "#E2611B" },
+    { id: "lightorange", name: { en: "Light orange", nl: "Lichtoranje" }, hex: "#F7A65A" },
+    { id: "yellow", name: { en: "Yellow", nl: "Geel" }, hex: "#F6C945" },
+    { id: "lightgreen", name: { en: "Light green", nl: "Lichtgroen" }, hex: "#8FCF6E" },
+    { id: "darkgreen", name: { en: "Dark green", nl: "Donkergroen" }, hex: "#1F7A4A" },
+    { id: "lightblue", name: { en: "Light blue", nl: "Lichtblauw" }, hex: "#7DBBEB" },
+    { id: "darkblue", name: { en: "Dark blue", nl: "Donkerblauw" }, hex: "#2A3270" },
+    { id: "purple", name: { en: "Purple", nl: "Paars" }, hex: "#8E5BC9" },
+    { id: "blackwhite", name: { en: "Black and white", nl: "Zwart-wit" }, hex: "#1E1E22" },
   ],
   prints: [
     { id: "ministars", fabric: "stars-mini", price: 4, name: { en: "Mini stars", nl: "Kleine sterretjes" }, desc: { en: "Lots and lots of tiny stars.", nl: "Heel veel kleine sterretjes." } },
@@ -700,29 +704,36 @@ const SCRUNCHIES = {
     { id: "checkered", fabric: "checker", price: 4, name: { en: "Checkered", nl: "Geruit" }, desc: { en: "Bold checks, like a chessboard.", nl: "Vrolijke ruitjes, net een schaakbord." } },
     { id: "bigstars", fabric: "stars-big", price: 4, name: { en: "Big stars", nl: "Grote sterren" }, desc: { en: "Big, bright stars.", nl: "Grote, stralende sterren." } },
     { id: "miniflowers", fabric: "flowers-mini", price: 4, name: { en: "Mini flowers", nl: "Kleine bloemetjes" }, desc: { en: "Covered in tiny flowers.", nl: "Vol kleine bloemetjes." } },
+    { id: "mediumflowers", fabric: "flowers-medium", price: 4, name: { en: "Medium flowers", nl: "Middelgrote bloemen" }, desc: { en: "Flowers that are not too big and not too small.", nl: "Bloemen, niet te groot en niet te klein." } },
     { id: "bigdots", fabric: "dots-big", price: 4, name: { en: "Big polka dots", nl: "Grote stippen" }, desc: { en: "Big, round polka dots.", nl: "Grote, ronde stippen." } },
     { id: "bigflowers", fabric: "flowers-big", price: 4, name: { en: "Big flowers", nl: "Grote bloemen" }, desc: { en: "Big, happy flowers.", nl: "Grote, vrolijke bloemen." } },
   ],
+  // true = she makes it and it can be ordered. A number = how many are ready (shows "Only 2 left"); 0 = sold out.
   stock: {
-    "cherry-checkered": 6, "cherry-minidots": 2, "cherry-bigstars": 3,
-    "blush-miniflowers": 2, "blush-checkered": 3, "blush-bigdots": 1,
-    "lemon-minidots": 3, "lemon-ministars": 2, "lemon-stripes": 0,
-    "mint-stripes": 2, "mint-checkered": 2, "mint-bigflowers": 1,
-    "lilac-ministars": 5, "lilac-bigflowers": 2, "lilac-miniflowers": 0,
-    "navy-bigstars": 4, "navy-ministars": 3, "navy-bigdots": 2,
+    "red-ministars": true, "red-stripes": true, "red-minidots": true, "red-checkered": true, "red-bigstars": true, "red-miniflowers": true, "red-bigdots": true, "red-bigflowers": true,
+    "darkorange-minidots": true, "darkorange-stripes": true, "darkorange-bigflowers": true, "darkorange-miniflowers": true,
+    "lightorange-bigflowers": true, "lightorange-miniflowers": true, "lightorange-minidots": true,
+    "yellow-checkered": true, "yellow-miniflowers": true,
+    "lightgreen-miniflowers": true, "lightgreen-bigflowers": true, "lightgreen-mediumflowers": true, "lightgreen-minidots": true, "lightgreen-bigdots": true,
+    "darkgreen-minidots": true,
+    "lightblue-bigflowers": true, "lightblue-bigdots": true, "lightblue-checkered": true, "lightblue-miniflowers": true, "lightblue-mediumflowers": true, "lightblue-stripes": true, "lightblue-minidots": true,
+    "darkblue-stripes": true, "darkblue-minidots": true, "darkblue-bigstars": true, "darkblue-bigdots": true, "darkblue-checkered": true, "darkblue-mediumflowers": true, "darkblue-miniflowers": true,
+    "purple-bigflowers": true, "purple-checkered": true, "purple-mediumflowers": true, "purple-miniflowers": true, "purple-bigdots": true, "purple-minidots": true, "purple-stripes": true,
+    "blackwhite-ministars": true, "blackwhite-stripes": true, "blackwhite-minidots": true, "blackwhite-miniflowers": true, "blackwhite-bigflowers": true, "blackwhite-bigdots": true, "blackwhite-checkered": true,
   },
-  badges: { "cherry-checkered": "loved", "lilac-ministars": "new" },
+  // Optional labels, e.g. "red-checkered": "loved" or "purple-mediumflowers": "new".
+  badges: {},
   photos: {},
 };
 const combo = (c, p) => `${c}-${p}`;
 const hasCombo = (c, p) => combo(c, p) in SCRUNCHIES.stock;
-const stockOf = key => SCRUNCHIES.stock[key] ?? 0;
+const stockOf = key => { const v = SCRUNCHIES.stock[key]; return v === true ? Infinity : v ?? 0; };
 function comboInfo(key, language = lang) {
   const [c, p] = key.split("-");
   const colour = SCRUNCHIES.colours.find(x => x.id === c), print = SCRUNCHIES.prints.find(x => x.id === p);
   const cn = colour.name[language], pn = print.name[language];
   return {
-    name: language === "nl" ? `${pn} in ${cn.toLowerCase()}` : `${cn} ${pn}`,
+    name: language === "nl" ? `${pn} in ${cn.toLowerCase()}` : `${cn} ${pn.toLowerCase()}`,
     desc: print.desc[language], price: print.price, colour, print,
     fabric: { type: print.fabric, base: colour.hex, ink: "#FFFFFF" },
   };
@@ -731,12 +742,8 @@ const lineOf = p => LINES.find(l => l.id === p.line);
 const isOpen = p => lineOf(p).status === "now";
 const CUSTOM = {
   prices: { scrunchie: 6, bow: 5 },
-  colors: [
-    { name: { en: "Cherry", nl: "Kers" }, hex: "#D7263D" }, { name: { en: "Blush", nl: "Roze" }, hex: "#F4A6B8" },
-    { name: { en: "Lemon", nl: "Citroen" }, hex: "#F6C945" }, { name: { en: "Mint", nl: "Mint" }, hex: "#8FD3BC" },
-    { name: { en: "Sky", nl: "Hemelsblauw" }, hex: "#8EC5F0" }, { name: { en: "Lilac", nl: "Lila" }, hex: "#B59BE0" },
-    { name: { en: "Navy", nl: "Donkerblauw" }, hex: "#2A3270" }, { name: { en: "Liquorice", nl: "Drop" }, hex: "#2B2B2E" },
-  ],
+  // The same colours as the scrunchies.
+  get colors() { return SCRUNCHIES.colours.map(c => ({ name: c.name, hex: c.hex })); },
   // The same prints as the scrunchies.
   get patterns() { return SCRUNCHIES.prints.map(p => ({ id: p.fabric, label: p.name })); },
 };
@@ -822,6 +829,8 @@ function fabricFill(f, id) {
       return tile(32, `<circle cx="8" cy="8" r="6.5" fill="${ink}"/><circle cx="24" cy="24" r="6.5" fill="${ink}"/>`);
     case "flowers-mini":
       return tile(20, flowerShape(5, 5, 5, ink) + flowerShape(15, 15, 5, ink), -10);
+    case "flowers-medium":
+      return tile(30, flowerShape(8, 8, 9, ink) + flowerShape(23, 22, 9, ink), -8);
     case "flowers-big":
       return tile(46, flowerShape(23, 23, 17, ink), -12);
     case "checker":
@@ -1009,7 +1018,7 @@ function renderShop() {
   ranges.querySelectorAll(".sizes input:checked").forEach(i => { chosen[i.name] = i.value; });
   tabsEl.innerHTML = LINES.map(l => {
     const first = PRODUCTS.find(p => p.line === l.id);
-    const thumb = l.id === "scrunchie" ? svg("scrunchie", comboInfo("cherry-checkered").fabric) : first ? svg(first.kind, first.fabric) : svg("scrunchie", designFabric());
+    const thumb = l.id === "scrunchie" ? svg("scrunchie", comboInfo("red-checkered").fabric) : first ? svg(first.kind, first.fabric) : svg("scrunchie", designFabric());
     return `<button class="tab" type="button" role="tab" id="tab-${l.id}" aria-controls="panel-${l.id}">
       <span class="tab-art" aria-hidden="true">${thumb}</span>
       <span class="tab-text"><strong>${tx(l.title)}</strong><span class="pill ${l.status}">${t("status." + l.status)}</span></span>
@@ -1103,7 +1112,7 @@ ranges.addEventListener("click", e => {
 });
 
 // ---- Scrunchie picker: choose a colour and see its prints, or a print and see its colours ----
-const pick = { colour: "cherry", print: "checkered", size: "regular", angle: 0, gridOpen: false };
+const pick = { colour: "red", print: "checkered", size: "regular", angle: 0, gridOpen: false };
 const colourOf = id => SCRUNCHIES.colours.find(c => c.id === id);
 const printOf = id => SCRUNCHIES.prints.find(p => p.id === id);
 const stateOf = (c, p) => !hasCombo(c, p) ? "missing" : stockOf(combo(c, p)) < 1 ? "out" : "ok";
@@ -1176,7 +1185,7 @@ function renderPicker(focusSel) {
     <div class="picker-info">
       <div class="card-top"><h4>${esc(ci.name)}</h4><span class="tag">${money.format(ci.price + (out ? 0 : size.delta))}</span></div>
       <p class="desc">${esc(ci.desc)}</p>
-      ${out ? `<span class="stock low">${t("card.soldOut")}</span>` : `<span class="stock${stock <= 3 ? " low" : ""}">${t(stock <= 3 ? "card.onlyLeft" : "card.left", { n: stock })}</span>`}
+      ${out ? `<span class="stock low">${t("card.soldOut")}</span>` : !isFinite(stock) ? `<span class="stock">${t("pick.inStock")}</span>` : `<span class="stock${stock <= 3 ? " low" : ""}">${t(stock <= 3 ? "card.onlyLeft" : "card.left", { n: stock })}</span>`}
       <fieldset class="opt"><legend>${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row">${colourBtns}</div></fieldset>
       <fieldset class="opt"><legend>${t("pick.print")}: <strong>${printName}</strong></legend><div class="opt-row">${printBtns}</div></fieldset>
       ${sizes}
@@ -1292,8 +1301,7 @@ const dColors = document.getElementById("d-colors");
 const dPattern = document.getElementById("d-pattern");
 function designFabric() {
   const hex = CUSTOM.colors[design.color].hex;
-  const ink = ["#F6C945", "#8FD3BC", "#8EC5F0", "#F4A6B8"].includes(hex) ? "#FFFFFF" : "#FFF3F5";
-  return { type: design.pattern, base: hex, ink };
+  return { type: design.pattern, base: hex, ink: "#FFFFFF" };
 }
 function renderDesigner() {
   dColors.innerHTML = CUSTOM.colors.map((c, i) => `<button type="button" style="background:${c.hex}" data-color="${i}" aria-label="${esc(tx(c.name))}" title="${esc(tx(c.name))}" aria-pressed="${i === design.color}"></button>`).join("");
@@ -1444,7 +1452,7 @@ function toast(msg) {
 document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", base: "#D7263D", ink: "#FFF8F0" });
 document.getElementById("footer-email").textContent = SHOP.email;
 document.getElementById("hero-art").insertAdjacentHTML("beforeend",
-  svg("scrunchie", comboInfo("cherry-checkered").fabric, "a") + svg("scrunchie", comboInfo("lilac-ministars").fabric, "b") + svg("scrunchie", comboInfo("lemon-minidots").fabric, "c"));
+  svg("scrunchie", comboInfo("red-checkered").fabric, "a") + svg("scrunchie", comboInfo("purple-mediumflowers").fabric, "b") + svg("scrunchie", comboInfo("yellow-miniflowers").fabric, "c"));
 applyStaticWords();
 renderShop();
 renderDesigner();
