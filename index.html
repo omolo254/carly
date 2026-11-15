@@ -1,9 +1,12 @@
-<title>Loop &amp; Ribbon</title>
+<meta charset="utf-8">
+<title>Sewing &amp; Growing</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" type="image/png" href="images/logo-mark.png">
+<link rel="apple-touch-icon" href="images/logo-mark.png">
 <meta name="description" content="Handmade scrunchies, hair bows and bedazzled claw clips, designed and sewn by a young maker in Amsterdam. Free pick-up in Amsterdam, posted across the Netherlands.">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Loop &amp; Ribbon">
-<meta property="og:title" content="Loop &amp; Ribbon · Handmade scrunchies from Amsterdam">
+<meta property="og:site_name" content="Sewing &amp; Growing">
+<meta property="og:title" content="Sewing &amp; Growing · Handmade scrunchies from Amsterdam">
 <meta property="og:description" content="Scrunchies sewn by hand, one at a time, by a young maker in Amsterdam. Bows and bedazzled claw clips coming soon.">
 <meta property="og:locale" content="en_GB">
 <meta property="og:locale:alternate" content="nl_NL">
@@ -21,7 +24,8 @@
     --ink: #1D2340;
     --muted: #586078;
     --line: #D3DCD7;
-    --accent: #C81E36;
+    --accent: #A8456A;
+    --brand: #BD6B81;
     --accent-ink: #FFFFFF;
     --butter: #F6C945;
     --mint: #BFE6D6;
@@ -37,13 +41,13 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
-      --line: #2F3656; --accent: #FF5C70; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
+      --line: #2F3656; --accent: #F08DB0; --brand: #F2A5BF; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
       --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
     --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
-    --line: #2F3656; --accent: #FF5C70; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
+    --line: #2F3656; --accent: #F08DB0; --brand: #F2A5BF; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
     --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
   }
 
@@ -73,7 +77,11 @@
   .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
   .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
   .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 1.35rem; }
-  .logo svg { width: 38px; height: 38px; }
+  .brand-full { display: block; height: 62px; aspect-ratio: 2060 / 842; background: var(--brand);
+    -webkit-mask: url("images/logo.png") center / contain no-repeat; mask: url("images/logo.png") center / contain no-repeat; }
+  .brand-mark { display: none; height: 42px; aspect-ratio: 1; background: var(--brand);
+    -webkit-mask: url("images/logo-mark.png") center / contain no-repeat; mask: url("images/logo-mark.png") center / contain no-repeat; }
+  @media (max-width: 520px) { .brand-full { display: none; } .brand-mark { display: block; } }
   .nav { display: flex; align-items: center; gap: 22px; }
   .nav a { text-decoration: none; font-weight: 500; color: var(--muted); }
   .nav a:hover { color: var(--ink); }
@@ -86,6 +94,8 @@
   .hero h1 { font-size: clamp(2.5rem, 6.2vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero-copy { display: grid; gap: 22px; min-width: 0; }
+  .hero-logo { display: block; width: min(440px, 100%); aspect-ratio: 2060 / 842; background: var(--brand); margin-bottom: 4px;
+    -webkit-mask: url("images/logo.png") left center / contain no-repeat; mask: url("images/logo.png") left center / contain no-repeat; }
   .hero-copy > p { font-size: 1.15rem; color: var(--muted); max-width: 34em; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .92rem; color: var(--muted); padding: 0; margin: 0; list-style: none; }
@@ -151,7 +161,7 @@
   .tab-art svg { width: 44px; height: 44px; }
   .tab-text { display: grid; gap: 5px; min-width: 0; }
   .tab .pill { white-space: nowrap; }
-  @media (max-width: 400px) { .bag-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bag-btn::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; } .seg button { min-width: 28px; padding: 0 6px; } .logo svg { width: 30px; height: 30px; } .nav, .prefs, .bar .wrap { gap: 6px; } .bag-btn { padding: .5em .75em; } }
+  @media (max-width: 400px) { .bag-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bag-btn::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; } .seg button { min-width: 28px; padding: 0 6px; } .brand-mark { height: 36px; } .nav, .prefs, .bar .wrap { gap: 6px; } .bag-btn { padding: .5em .75em; } }
   .tab strong { font-family: var(--display); font-weight: 600; font-size: 1.05rem; line-height: 1.15; }
   @media (max-width: 860px) { .tabs { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 420px) { .tabs { gap: 8px; } .tab { gap: 8px; padding: 8px; } .tab-art { width: 40px; height: 40px; } .tab-art svg { width: 34px; height: 34px; } .tab strong { font-size: .95rem; } .tab .pill { font-size: .6rem; padding: .25em .55em; } }
@@ -346,9 +356,9 @@
 
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="Loop &amp; Ribbon">
-      <span id="logo-art" aria-hidden="true"></span>
-      <span class="logo-name">Loop &amp; Ribbon</span>
+    <a class="logo" href="#top" aria-label="Sewing &amp; Growing">
+      <span class="brand-full" aria-hidden="true"></span>
+      <span class="brand-mark" aria-hidden="true"></span>
     </a>
     <nav class="nav" data-i18n-aria="nav.label" aria-label="Main">
       <a href="#shop" data-i18n="nav.shop">Shop</a>
@@ -378,13 +388,14 @@
   </div>
 </header>
 <noscript>
-  <p class="wrap" style="padding-block:16px">Loop &amp; Ribbon sells handmade scrunchies, sewn one at a time by a young maker in Amsterdam. Bows and bedazzled claw clips are coming soon. Please turn on JavaScript to see the shop and order.</p>
+  <p class="wrap" style="padding-block:16px">Sewing &amp; Growing sells handmade scrunchies, sewn one at a time by a young maker in Amsterdam. Bows and bedazzled claw clips are coming soon. Please turn on JavaScript to see the shop and order.</p>
 </noscript>
 
 <main id="top">
   <section class="hero">
     <div class="wrap">
       <div class="hero-copy">
+        <span class="hero-logo" role="img" aria-label="Sewing &amp; Growing"></span>
         <span class="eyebrow" data-i18n="hero.eyebrow">Hand-sewn in Amsterdam</span>
         <h1 data-i18n-html="hero.title">Scrunchies, <em>made one at a time.</em></h1>
         <p data-i18n="hero.text">A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.</p>
@@ -486,7 +497,7 @@
 
 <footer>
   <div class="wrap">
-    <span>Loop &amp; Ribbon · <span data-i18n="hero.eyebrow">Hand-sewn in Amsterdam</span></span>
+    <span>Sewing &amp; Growing · <span data-i18n="hero.eyebrow">Hand-sewn in Amsterdam</span></span>
     <span><span data-i18n="footer.questions">Questions? Email</span> <span id="footer-email"></span></span>
   </div>
 </footer>
@@ -517,7 +528,7 @@
 <script>
 // ---- Shop settings: change these to suit you ----
 const SHOP = {
-  name: "Loop & Ribbon",
+  name: "Sewing & Growing",
   email: "orders@example.com", // the parent's email address that receives orders
   postage: 2.5,
   // Colours follow the time in Amsterdam (CET, or CEST in summer): light from dayStarts until nightStarts.
@@ -1449,7 +1460,6 @@ function toast(msg) {
 }
 
 // ---- Start ----
-document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", base: "#D7263D", ink: "#FFF8F0" });
 document.getElementById("footer-email").textContent = SHOP.email;
 document.getElementById("hero-art").insertAdjacentHTML("beforeend",
   svg("scrunchie", comboInfo("red-checkered").fabric, "a") + svg("scrunchie", comboInfo("purple-mediumflowers").fabric, "b") + svg("scrunchie", comboInfo("yellow-miniflowers").fabric, "c"));
