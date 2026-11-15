@@ -118,6 +118,37 @@
   .sizes input:checked + label { background: var(--mint); box-shadow: inset 0 0 0 1.5px var(--ink); font-weight: 700; }
   .sizes input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
   .add { justify-self: start; padding: .6em 1.2em; }
+  .swatch { overflow: hidden; }
+  .swatch .photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-note { position: absolute; right: 10px; bottom: 10px; font-size: .72rem; font-weight: 500; color: var(--muted); background: var(--surface); padding: .25em .7em; border-radius: 999px; }
+  .badge.out { background: var(--ink); color: var(--bg); }
+  .angles { display: flex; flex-wrap: wrap; gap: 6px; }
+  .angles button { width: 52px; height: 52px; padding: 0; border-radius: 10px; overflow: hidden; border: 2px solid transparent; background: var(--swatch); cursor: pointer; }
+  .angles button[aria-pressed="true"] { border-color: var(--ink); }
+  .angles img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stock { font-size: .85rem; font-weight: 700; color: var(--muted); }
+  .stock.low { color: var(--accent); }
+  .soon-btn { justify-self: start; padding: .55em 1.2em; border-radius: 999px; border: 1.5px dashed var(--line); background: transparent; color: var(--muted); font-weight: 500; cursor: default; }
+
+  /* Product lines and what's coming */
+  .roadmap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .roadmap a { height: 100%; display: grid; gap: 8px; align-content: start; padding: 14px 16px; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); text-decoration: none; }
+  .roadmap a:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .roadmap .now a { box-shadow: inset 0 0 0 2px var(--ink); }
+  .roadmap strong { font-family: var(--display); font-weight: 600; font-size: 1.15rem; }
+  .roadmap span.when { color: var(--muted); font-size: .88rem; }
+  @media (max-width: 860px) { .roadmap { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .roadmap { grid-template-columns: 1fr; } }
+  .pill { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .75em; border-radius: 999px; }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .pill.now { background: var(--mint); color: var(--ink); }
+  .pill.next { background: var(--butter); color: #1D2340; }
+  .pill.later { background: var(--swatch); color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .range { display: grid; gap: 18px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
+  .range-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .range-head h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+  .range-head p { flex-basis: 100%; color: var(--muted); max-width: 40em; }
+  .card.soon .swatch > svg { opacity: .82; }
 
   /* Designer */
   .designer { background: var(--surface); border-block: 1px solid var(--line); }
@@ -172,6 +203,7 @@
   .line { display: grid; grid-template-columns: 56px 1fr auto; gap: 12px; align-items: center; }
   .line .mini { width: 56px; height: 56px; border-radius: 12px; background: var(--swatch); display: grid; place-items: center; }
   .line .mini svg { width: 46px; height: 46px; }
+  .line .mini img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
   .line-info { min-width: 0; display: grid; gap: 4px; }
   .line-info strong { font-size: .95rem; }
   .line-info span { color: var(--muted); font-size: .85rem; }
@@ -214,7 +246,7 @@
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#shop">Shop</a>
-      <a href="#design">Design your own</a>
+      <a href="#coming">What's coming</a>
       <a href="#how">How ordering works</a>
       <a href="#about">About</a>
       <button class="btn btn-primary bag-btn" id="open-bag" type="button" aria-haspopup="dialog">
@@ -229,11 +261,11 @@
     <div class="wrap">
       <div class="hero-copy">
         <span class="eyebrow">Hand-sewn in Amsterdam</span>
-        <h1>Scrunchies and bows, <em>made one at a time.</em></h1>
-        <p>Every piece is designed, cut and sewn by a young maker at her kitchen table. Soft on your hair, bright on your head, and never two exactly the same.</p>
+        <h1>Scrunchies, <em>made one at a time.</em></h1>
+        <p>Every piece is designed, cut and sewn by a young maker at her kitchen table. Soft on your hair, bright on your head, and never two exactly the same. Scrunchies are ready now, and bows and bedazzled pieces are on the way.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#shop">See the collection</a>
-          <a class="btn btn-ghost" href="#design">Design your own</a>
+          <a class="btn btn-primary" href="#line-scrunchie">Shop scrunchies</a>
+          <a class="btn btn-ghost" href="#coming">See what's coming</a>
         </div>
         <ul class="facts">
           <li>Free pick-up in Amsterdam</li>
@@ -253,16 +285,11 @@
       <div class="section-head">
         <div>
           <span class="eyebrow">The collection</span>
-          <h2>Pick your favourites</h2>
-        </div>
-        <div class="chips" role="group" aria-label="Filter the collection">
-          <button class="chip" type="button" data-filter="all" aria-pressed="true">Everything</button>
-          <button class="chip" type="button" data-filter="scrunchie" aria-pressed="false">Scrunchies</button>
-          <button class="chip" type="button" data-filter="bow" aria-pressed="false">Bows</button>
-          <button class="chip" type="button" data-filter="set" aria-pressed="false">Matching sets</button>
+          <h2>What's on the table</h2>
         </div>
       </div>
-      <div class="grid" id="grid"></div>
+      <ol class="roadmap" id="coming" aria-label="Our ranges, in the order they open"></ol>
+      <div id="ranges" style="display:grid;gap:40px"></div>
     </div>
   </section>
 
@@ -271,10 +298,10 @@
       <div class="preview" id="designer-preview" role="img" aria-label="Preview of your custom design"></div>
       <div class="controls">
         <div>
-          <span class="eyebrow">Made to order</span>
+          <span class="pill later">In the pipeline</span>
           <h2>Design your own</h2>
         </div>
-        <p>Pick a shape, a colour and a pattern. She'll find the closest fabric and sew it just for you. Custom pieces take about a week.</p>
+        <p>Soon you'll be able to pick a shape, a colour and a pattern, and she'll sew it just for you. Custom orders open after the bedazzled range. Have a play with ideas in the meantime.</p>
         <fieldset class="ctl">
           <legend>Shape</legend>
           <div class="chips" id="d-kind">
@@ -292,7 +319,7 @@
         </fieldset>
         <div class="designer-foot">
           <span class="tag" id="d-price">€ 6,00</span>
-          <button class="btn btn-primary" type="button" id="d-add">Add my design to the bag</button>
+          <button class="soon-btn" type="button" disabled>Custom orders open soon</button>
         </div>
       </div>
     </div>
@@ -307,7 +334,7 @@
         </div>
       </div>
       <ol class="steps">
-        <li><h3>Fill your bag</h3><p>Choose your pieces and sizes, or design your own.</p></li>
+        <li><h3>Fill your bag</h3><p>Choose your scrunchies and pick a size for each one.</p></li>
         <li><h3>Send your order</h3><p>Your order is written out for you. Send it to us by email.</p></li>
         <li><h3>Get a Tikkie</h3><p>A parent checks the order and replies within two days with a Tikkie link to pay.</p></li>
         <li><h3>Pick up or post</h3><p>Collect for free in Amsterdam, or we post it to you in the Netherlands for €2,50.</p></li>
@@ -320,7 +347,7 @@
       <div class="about-text">
         <span class="eyebrow">About the maker</span>
         <h2>Hi, I make every single one myself.</h2>
-        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Bows are my newest thing.</p>
+        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows, and after that sparkly bedazzled pieces with gems I set by hand.</p>
         <p>The money I earn goes into my savings and into more fabric, so every order helps me make the next design.</p>
         <span class="hand">Thank you for shopping small!</span>
       </div>
@@ -362,26 +389,49 @@ const SHOP = {
   postage: 2.5,
 };
 
+// ---- The ranges, in the order they open ----
+// status: "now" can be ordered, "next" is the next range, "later" is further down the pipeline.
+// When a range opens, change its status to "now".
+const LINES = [
+  { id: "scrunchie", title: "Scrunchies", status: "now", when: "Order today", blurb: "Hand-sewn scrunchies in three sizes. Ready to order today." },
+  { id: "bow", title: "Bows", status: "next", when: "Coming next", blurb: "Bow clips and matching sets are being sewn now. You'll be able to order them soon." },
+  { id: "bedazzled", title: "Bedazzled", status: "later", when: "In the pipeline", blurb: "Sparkly scrunchies and bows with crystals and pearls, each one set by hand." },
+  { id: "custom", title: "Design your own", status: "later", when: "In the pipeline", href: "#design" },
+];
+const STATUS = { now: "Available now", next: "Coming next", later: "In the pipeline" };
+
 // ---- The collection: add, remove or re-price pieces here ----
+// line:   which range above it belongs to
+// stock:  how many are ready to sell (0 shows "Sold out"); only used for ranges that are open
+// photos: real photos from different angles, e.g.
+//         photos: [{ src: "photos/cherry-front.jpg", angle: "Front" }, { src: "photos/cherry-side.jpg", angle: "Side" }, { src: "photos/cherry-worn.jpg", angle: "In hair" }]
+//         Put the image files in a "photos" folder next to this page. Without photos, a drawing is shown.
 const SIZES = [
   { id: "mini", label: "Mini", note: "2 cm wide", delta: -1 },
   { id: "regular", label: "Regular", note: "4 cm wide", delta: 0 },
   { id: "xl", label: "XL", note: "7 cm wide", delta: 1.5 },
 ];
 const PRODUCTS = [
-  { id: "cherry-scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, badge: "Bestseller", fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Cotton gingham picnic check. Our most-loved piece." },
-  { id: "midnight-scrunchie", kind: "scrunchie", name: "Midnight Velvet", price: 5, fabric: { type: "velvet", base: "#2A3270" }, desc: "Deep blue velvet that feels like a cloud." },
-  { id: "lemon-scrunchie", kind: "scrunchie", name: "Lemon Drop", price: 4, fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Sunny yellow cotton with white polka dots." },
-  { id: "mint-scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Candy-stripe cotton in fresh mint." },
-  { id: "lilac-scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, badge: "New", fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny satin, extra gentle for curly hair." },
-  { id: "garden-scrunchie", kind: "scrunchie", name: "Garden Party", price: 4.5, fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Pink cotton covered in tiny flowers." },
-  { id: "cherry-bow", kind: "bow", name: "Cherry Gingham Bow", price: 3.5, fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "On a 5 cm snap clip. Matches the scrunchie." },
-  { id: "berry-bow", kind: "bow", name: "Big Velvet Bow", price: 5, fabric: { type: "velvet", base: "#7C1F3E" }, desc: "A big berry velvet bow on a 7 cm clip." },
-  { id: "lemon-bow", kind: "bow", name: "Lemon Drop Bow", price: 3.5, fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Polka dots on a 5 cm snap clip." },
-  { id: "lilac-pair", kind: "bowpair", name: "Little Lilac Pair", price: 4, fabric: { type: "satin", base: "#B59BE0" }, desc: "Two small satin bows, perfect for pigtails." },
-  { id: "cherry-set", kind: "set", name: "Cherry Set", price: 7, fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Regular scrunchie and a matching bow. Save €0,50." },
-  { id: "garden-set", kind: "set", name: "Garden Party Set", price: 7.5, badge: "Gift idea", fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Regular scrunchie and a matching bow, gift-wrapped." },
+  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, stock: 6, badge: "Bestseller", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Cotton gingham picnic check. Our most-loved piece." },
+  { id: "midnight-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Midnight Velvet", price: 5, stock: 4, photos: [], fabric: { type: "velvet", base: "#2A3270" }, desc: "Deep blue velvet that feels like a cloud." },
+  { id: "lemon-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lemon Drop", price: 4, stock: 3, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Sunny yellow cotton with white polka dots." },
+  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Candy-stripe cotton in fresh mint. More being sewn." },
+  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, stock: 5, badge: "New", photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny satin, extra gentle for curly hair." },
+  { id: "garden-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Garden Party", price: 4.5, stock: 2, photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Pink cotton covered in tiny flowers." },
+
+  { id: "cherry-bow", line: "bow", kind: "bow", name: "Cherry Gingham Bow", price: 3.5, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "On a 5 cm snap clip. Matches the scrunchie." },
+  { id: "berry-bow", line: "bow", kind: "bow", name: "Big Velvet Bow", price: 5, photos: [], fabric: { type: "velvet", base: "#7C1F3E" }, desc: "A big berry velvet bow on a 7 cm clip." },
+  { id: "lemon-bow", line: "bow", kind: "bow", name: "Lemon Drop Bow", price: 3.5, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Polka dots on a 5 cm snap clip." },
+  { id: "lilac-pair", line: "bow", kind: "bowpair", name: "Little Lilac Pair", price: 4, photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Two small satin bows, perfect for pigtails." },
+  { id: "cherry-set", line: "bow", kind: "set", name: "Cherry Set", price: 7, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Regular scrunchie and a matching bow." },
+  { id: "garden-set", line: "bow", kind: "set", name: "Garden Party Set", price: 7.5, badge: "Gift idea", photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Regular scrunchie and a matching bow, gift-wrapped." },
+
+  { id: "crystal-night", line: "bedazzled", kind: "scrunchie", name: "Crystal Night", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" }, desc: "Midnight velvet scattered with clear crystals." },
+  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", name: "Pearl Blush", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" }, desc: "Blush satin with little pearls sewn all round." },
+  { id: "sparkle-bow", line: "bedazzled", kind: "bow", name: "Sparkle Bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" }, desc: "Berry velvet bow with a crystal centre." },
 ];
+const lineOf = p => LINES.find(l => l.id === p.line);
+const isOpen = p => lineOf(p).status === "now";
 const CUSTOM = {
   prices: { scrunchie: 6, bow: 5 },
   colors: [
@@ -443,10 +493,26 @@ function scrunchieArt(f) {
     folds += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
   }
   const d = ringPath(100, 100, R, r, n, 7, 3);
+  let sparkle = "";
+  if (f.gems) {
+    const spots = [];
+    for (let k = 0; k < 11; k++) { const t = (k / 11) * Math.PI * 2 + .3; const rad = k % 2 ? 50 : 64; spots.push([100 + rad * Math.cos(t), 100 + rad * Math.sin(t), k % 3 ? 4.2 : 5.4]); }
+    sparkle = gems(f.gems, spots, p);
+  }
   return `<defs>${fabricFill(f, p + "f")}<radialGradient id="${p}h" cx="100" cy="100" r="88" gradientUnits="userSpaceOnUse"><stop offset=".36" stop-color="#000" stop-opacity="${deep}"/><stop offset=".62" stop-color="#FFF" stop-opacity=".28"/><stop offset=".8" stop-color="#FFF" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${deep}"/></radialGradient></defs>
     <path d="${d}" fill="url(#${p}f)" fill-rule="evenodd"/>
     <path d="${d}" fill="url(#${p}h)" fill-rule="evenodd"/>
-    <g stroke="#000" stroke-opacity=".16" stroke-width="1.6" stroke-linecap="round" fill="none">${folds}</g>`;
+    <g stroke="#000" stroke-opacity=".16" stroke-width="1.6" stroke-linecap="round" fill="none">${folds}</g>${sparkle}`;
+}
+
+function gems(kind, spots, p) {
+  const id = p + "g";
+  const grad = kind === "pearl"
+    ? `<radialGradient id="${id}" cx=".35" cy=".35" r=".75"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F3EBDD"/><stop offset="1" stop-color="#C9B9A0"/></radialGradient>`
+    : `<radialGradient id="${id}" cx=".35" cy=".35" r=".8"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#DDEFFF"/><stop offset="1" stop-color="#8FB4D8"/></radialGradient>`;
+  return `<defs>${grad}</defs><g>${spots.map(([x, y, r]) => kind === "pearl"
+    ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="url(#${id})" stroke="#000" stroke-opacity=".12"/>`
+    : `<path d="M${x} ${(y - r).toFixed(1)} L${(x + r).toFixed(1)} ${y} L${x} ${(y + r).toFixed(1)} L${(x - r).toFixed(1)} ${y} Z" fill="url(#${id})" stroke="#FFFFFF" stroke-width=".8"/><circle cx="${(x - r / 3).toFixed(1)}" cy="${(y - r / 3).toFixed(1)}" r="1.1" fill="#FFFFFF"/>`).join("")}</g>`;
 }
 
 function bowArt(f) {
@@ -460,7 +526,7 @@ function bowArt(f) {
     <g fill="url(#${p}h)">${shapes}</g>
     <g stroke="#000" stroke-opacity=".14" stroke-width="1.6" fill="none" stroke-linecap="round"><path d="M88 92 C70 80 50 82 40 96"/><path d="M112 92 C130 80 150 82 160 96"/><path d="M88 108 C70 120 50 118 40 106"/><path d="M112 108 C130 120 150 118 160 106"/></g>
     <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}f)" stroke="#000" stroke-opacity=".16" stroke-width="1.5"/>
-    <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}k)"/>`;
+    <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}k)"/>${f.gems ? gems(f.gems, [[100, 100, 8], [52, 86, 4.5], [148, 86, 4.5], [46, 112, 3.8], [154, 112, 3.8], [70, 70, 3.6], [130, 70, 3.6]], p) : ""}`;
 }
 
 function art(kind, f) {
@@ -475,34 +541,78 @@ const svg = (kind, f, cls = "") => `<svg ${cls ? `class="${cls}"` : ""} viewBox=
 const KEY = "loop-ribbon-bag";
 let bag = [];
 try { bag = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(bag)) bag = []; } catch (e) { bag = []; }
+// Keep only pieces that can still be ordered.
+bag = bag.filter(l => { const p = PRODUCTS.find(x => x.id === l.productId); return p && isOpen(p) && p.stock > 0; });
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(bag)); } catch (e) {} };
 let delivery = "pickup";
 let preparedOrder = null;
 
+const inBag = productId => bag.filter(l => l.productId === productId).reduce((s, l) => s + l.qty, 0);
+const roomFor = productId => { const p = PRODUCTS.find(x => x.id === productId); return p ? p.stock - inBag(productId) : 0; };
+
 function addToBag(item) {
+  if (roomFor(item.productId) < 1) { toast(`That's all the ${item.name} we have right now`); return; }
   const found = bag.find(l => l.key === item.key);
   if (found) found.qty += 1; else bag.push({ ...item, qty: 1 });
   preparedOrder = null;
   save(); renderBag(); toast(`${item.name} is in your bag`);
 }
 
-// ---- Collection grid ----
-const grid = document.getElementById("grid");
-function renderGrid(filter = "all") {
-  grid.innerHTML = PRODUCTS.filter(p => filter === "all" || p.kind === filter || (filter === "bow" && p.kind === "bowpair")).map(p => {
-    const sized = p.kind === "scrunchie";
-    const sizes = sized ? `<fieldset class="sizes"><legend>Size for ${p.name}</legend>${SIZES.map(s => `
-        <input type="radio" name="size-${p.id}" id="size-${p.id}-${s.id}" value="${s.id}" ${s.id === "regular" ? "checked" : ""}>
-        <label for="size-${p.id}-${s.id}" title="${s.note}">${s.label}</label>`).join("")}</fieldset>` : "";
-    return `<article class="card" data-id="${p.id}">
-      <div class="swatch">${p.badge ? `<span class="badge">${p.badge}</span>` : ""}${svg(p.kind, p.fabric)}</div>
-      <div class="card-top"><h3>${p.name}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
-      <p class="desc">${p.desc}</p>
-      ${sizes}
-      <button class="btn btn-ghost add" type="button" data-add="${p.id}">Add to bag</button>
-    </article>`;
-  }).join("");
+// ---- Collection ----
+const ranges = document.getElementById("ranges");
+const esc0 = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+function media(p) {
+  const ph = p.photos || [];
+  if (ph.length) return `<img class="photo" src="${esc0(ph[0].src)}" alt="${esc0(p.name)}, ${esc0(ph[0].angle.toLowerCase())} view" loading="lazy">`;
+  return svg(p.kind, p.fabric) + `<span class="photo-note">Photo coming soon</span>`;
 }
+
+function card(p) {
+  const open = isOpen(p), out = open && p.stock < 1;
+  const ph = p.photos || [];
+  const badge = out ? `<span class="badge out">Sold out</span>` : p.badge ? `<span class="badge">${p.badge}</span>` : "";
+  const angles = ph.length > 1 ? `<div class="angles" role="group" aria-label="Views of ${esc0(p.name)}">${ph.map((x, i) => `
+      <button type="button" data-angle="${i}" aria-pressed="${i === 0}" aria-label="${esc0(x.angle)} view"><img src="${esc0(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  const stock = open && !out ? `<span class="stock${p.stock <= 3 ? " low" : ""}">${p.stock <= 3 ? `Only ${p.stock} left` : `${p.stock} ready to send`}</span>` : "";
+  const sizes = open && !out && p.kind === "scrunchie" ? `<fieldset class="sizes"><legend>Size for ${p.name}</legend>${SIZES.map(s => `
+      <input type="radio" name="size-${p.id}" id="size-${p.id}-${s.id}" value="${s.id}" ${s.id === "regular" ? "checked" : ""}>
+      <label for="size-${p.id}-${s.id}" title="${s.note}">${s.label}</label>`).join("")}</fieldset>` : "";
+  const action = !open ? `<button class="soon-btn" type="button" disabled>Coming soon</button>`
+    : out ? `<button class="btn btn-ghost add" type="button" disabled>Sold out</button>`
+    : `<button class="btn btn-ghost add" type="button" data-add="${p.id}">Add to bag</button>`;
+  return `<article class="card${open ? "" : " soon"}" data-id="${p.id}">
+    <div class="swatch">${badge}${media(p)}</div>
+    ${angles}
+    <div class="card-top"><h3>${p.name}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
+    <p class="desc">${p.desc}</p>
+    ${stock}${sizes}${action}
+  </article>`;
+}
+
+function renderShop() {
+  document.getElementById("coming").innerHTML = LINES.map(l => `
+    <li class="${l.status}"><a href="${l.href || "#line-" + l.id}">
+      <span class="pill ${l.status}">${STATUS[l.status]}</span>
+      <strong>${l.title}</strong>
+    </a></li>`).join("");
+  ranges.innerHTML = LINES.filter(l => !l.href).map(l => `
+    <div class="range" id="line-${l.id}">
+      <div class="range-head"><h3>${l.title}</h3><span class="pill ${l.status}">${STATUS[l.status]}</span><p>${l.blurb}</p></div>
+      <div class="grid">${PRODUCTS.filter(p => p.line === l.id).map(card).join("")}</div>
+    </div>`).join("");
+}
+
+ranges.addEventListener("error", e => {
+  const img = e.target;
+  if (!(img instanceof HTMLImageElement)) return;
+  if (img.classList.contains("photo")) {
+    const p = PRODUCTS.find(x => x.id === img.closest(".card").dataset.id);
+    img.insertAdjacentHTML("afterend", svg(p.kind, p.fabric) + `<span class="photo-note">Photo coming soon</span>`);
+    img.remove();
+  } else img.closest("button").hidden = true;
+}, true);
+const grid = ranges;
 grid.addEventListener("change", e => {
   if (!e.target.matches(".sizes input")) return;
   const card = e.target.closest(".card");
@@ -511,6 +621,14 @@ grid.addEventListener("change", e => {
   card.querySelector("[data-price]").textContent = money.format(p.price + s.delta);
 });
 grid.addEventListener("click", e => {
+  const angle = e.target.closest("[data-angle]");
+  if (angle) {
+    const c = angle.closest(".card"), p = PRODUCTS.find(x => x.id === c.dataset.id), ph = p.photos[+angle.dataset.angle];
+    const img = c.querySelector(".photo");
+    if (img) { img.src = ph.src; img.alt = `${p.name}, ${ph.angle.toLowerCase()} view`; }
+    c.querySelectorAll("[data-angle]").forEach(b => b.setAttribute("aria-pressed", String(b === angle)));
+    return;
+  }
   const btn = e.target.closest("[data-add]");
   if (!btn) return;
   const p = PRODUCTS.find(x => x.id === btn.dataset.add);
@@ -520,12 +638,8 @@ grid.addEventListener("click", e => {
     const s = SIZES.find(x => x.id === card.querySelector(".sizes input:checked").value);
     variant = `${s.label}, ${s.note}`; price += s.delta; sizeId = s.id;
   }
-  addToBag({ key: p.id + (sizeId ? "-" + sizeId : ""), name: p.name, variant, price, kind: p.kind, fabric: p.fabric });
+  addToBag({ key: p.id + (sizeId ? "-" + sizeId : ""), productId: p.id, name: p.name, variant, price, kind: p.kind, fabric: p.fabric, photo: p.photos?.[0]?.src || "" });
 });
-document.querySelectorAll("[data-filter]").forEach(chip => chip.addEventListener("click", () => {
-  document.querySelectorAll("[data-filter]").forEach(c => c.setAttribute("aria-pressed", String(c === chip)));
-  renderGrid(chip.dataset.filter);
-}));
 
 // ---- Designer ----
 const design = { kind: "scrunchie", color: CUSTOM.colors[0], pattern: "velvet" };
@@ -560,15 +674,6 @@ dPattern.addEventListener("click", e => {
   dPattern.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   renderDesigner();
 });
-document.getElementById("d-add").addEventListener("click", () => {
-  const pat = CUSTOM.patterns.find(p => p.id === design.pattern).label.toLowerCase();
-  const shape = design.kind === "bow" ? "bow clip" : "scrunchie";
-  addToBag({
-    key: `custom-${design.kind}-${design.color.name}-${design.pattern}`,
-    name: `Custom ${shape}`, variant: `${design.color.name}, ${pat}`,
-    price: CUSTOM.prices[design.kind], kind: design.kind, fabric: designFabric(),
-  });
-});
 
 // ---- Drawer ----
 const drawer = document.getElementById("drawer"), scrim = document.getElementById("scrim"), body = document.getElementById("drawer-body");
@@ -596,7 +701,7 @@ function renderBag() {
   body.innerHTML = `
     <div style="display:grid;gap:14px">${bag.map((l, i) => `
       <div class="line">
-        <div class="mini">${svg(l.kind, l.fabric)}</div>
+        <div class="mini">${l.photo ? `<img src="${esc(l.photo)}" alt="">` : svg(l.kind, l.fabric)}</div>
         <div class="line-info"><strong>${esc(l.name)}</strong>${l.variant ? `<span>${esc(l.variant)}</span>` : ""}
           <span class="qty"><button type="button" data-dec="${i}" aria-label="One less ${esc(l.name)}">−</button><output>${l.qty}</output><button type="button" data-inc="${i}" aria-label="One more ${esc(l.name)}">+</button></span>
         </div>
@@ -630,7 +735,7 @@ body.addEventListener("click", e => {
   if (t.closest("[data-close]")) return closeBag();
   const i = +(t.dataset.inc ?? t.dataset.dec ?? t.dataset.rm ?? -1);
   if (i < 0 || !bag[i]) return;
-  if (t.dataset.inc) bag[i].qty++;
+  if (t.dataset.inc) { if (roomFor(bag[i].productId) < 1) return toast(`That's all the ${bag[i].name} we have right now`); bag[i].qty++; }
   else if (t.dataset.dec) { bag[i].qty--; if (bag[i].qty < 1) bag.splice(i, 1); }
   else bag.splice(i, 1);
   preparedOrder = null; save(); renderBag();
@@ -698,8 +803,8 @@ document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", ba
 document.getElementById("footer-email").textContent = SHOP.email;
 const hero = document.getElementById("hero-art");
 hero.insertAdjacentHTML("beforeend",
-  svg("scrunchie", PRODUCTS[0].fabric, "a") + svg("scrunchie", PRODUCTS[4].fabric, "b") + svg("bow", PRODUCTS[2].fabric, "c"));
-renderGrid();
+  svg("scrunchie", PRODUCTS[0].fabric, "a") + svg("scrunchie", PRODUCTS[4].fabric, "b") + svg("scrunchie", PRODUCTS[2].fabric, "c"));
+renderShop();
 renderDesigner();
 renderBag();
 </script>
