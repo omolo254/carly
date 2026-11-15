@@ -151,7 +151,7 @@
   .tab-art svg { width: 44px; height: 44px; }
   .tab-text { display: grid; gap: 5px; min-width: 0; }
   .tab .pill { white-space: nowrap; }
-  @media (max-width: 400px) { .bag-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bag-btn::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 8h12l-1 13H7L6 8zm3 0a3 3 0 0 1 6 0' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 8h12l-1 13H7L6 8zm3 0a3 3 0 0 1 6 0' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; } .seg button { min-width: 28px; padding: 0 6px; } .logo svg { width: 30px; height: 30px; } .nav, .prefs, .bar .wrap { gap: 6px; } .bag-btn { padding: .5em .75em; } }
+  @media (max-width: 400px) { .bag-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bag-btn::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 8h14l-1.2 12.5H6.2L5 8zm4 2V6.5a3 3 0 0 1 6 0V10' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; } .seg button { min-width: 28px; padding: 0 6px; } .logo svg { width: 30px; height: 30px; } .nav, .prefs, .bar .wrap { gap: 6px; } .bag-btn { padding: .5em .75em; } }
   .tab strong { font-family: var(--display); font-weight: 600; font-size: 1.05rem; line-height: 1.15; }
   @media (max-width: 860px) { .tabs { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 420px) { .tabs { gap: 8px; } .tab { gap: 8px; padding: 8px; } .tab-art { width: 40px; height: 40px; } .tab-art svg { width: 34px; height: 34px; } .tab strong { font-size: .95rem; } .tab .pill { font-size: .6rem; padding: .25em .55em; } }
@@ -178,6 +178,56 @@
     .badge { top: 8px; left: 8px; font-size: .62rem; }
     .photo-note { right: 6px; bottom: 6px; font-size: .62rem; }
     .angles button { width: 40px; height: 40px; }
+  }
+
+  /* Scrunchie picker */
+  .picker { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 36px; align-items: start; }
+  .picker-media { display: grid; gap: 10px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); }
+  .picker-media .swatch svg { width: 74%; height: 74%; }
+  .picker-info { display: grid; gap: 16px; min-width: 0; align-content: start; }
+  .picker-info h4 { font-size: 1.6rem; }
+  .picker-info .add { justify-self: start; padding: .8em 1.6em; font-size: 1.05rem; }
+  .muted { color: var(--muted); font-weight: 400; }
+  .opt { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; min-width: 0; }
+  .opt legend { padding: 0; margin-bottom: 10px; font-size: .98rem; }
+  .opt-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sw { position: relative; width: 50px; height: 50px; padding: 3px; border-radius: 50%; border: 2.5px solid transparent; background: var(--surface); box-shadow: 0 0 0 1.5px var(--line); cursor: pointer; }
+  .sw svg { width: 100%; height: 100%; display: block; }
+  .sw[aria-pressed="true"] { border-color: var(--ink); box-shadow: none; }
+  .pr { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px 4px 4px; min-height: 40px; border-radius: 999px; border: 2px solid transparent; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; font-weight: 500; }
+  .pr.size { padding: 4px 16px; }
+  .pr svg { flex: none; }
+  .pr[aria-pressed="true"] { border-color: var(--ink); box-shadow: none; font-weight: 700; }
+  .sw[data-state="missing"], .pr[data-state="missing"] { opacity: .4; border: 2px dashed var(--muted); box-shadow: none; }
+  .sw[data-state="missing"][aria-pressed="true"], .pr[data-state="missing"][aria-pressed="true"] { opacity: 1; }
+  .sw[data-state="out"]::after, .cell.out::after, .lg.out::after { content: ""; position: absolute; left: 50%; top: 8%; bottom: 8%; width: 2.5px; margin-left: -1.25px; background: var(--accent); transform: rotate(45deg); border-radius: 2px; }
+  .pr[data-state="out"] .lbl { text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+  .matrix-box { border-top: 1px solid var(--line); padding-top: 12px; min-width: 0; }
+  .matrix-box summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+  .matrix-wrap { overflow-x: auto; margin-top: 10px; }
+  table.matrix { border-collapse: separate; border-spacing: 4px; font-size: .8rem; }
+  .matrix caption { text-align: left; color: var(--muted); padding: 0 4px 6px; caption-side: top; font-size: .88rem; }
+  .matrix th { font-weight: 600; color: var(--muted); padding: 2px 4px; white-space: nowrap; }
+  .matrix th[scope="row"] { text-align: left; padding-right: 8px; }
+  .matrix .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; box-shadow: 0 0 0 1px var(--line); }
+  .cell { position: relative; width: 48px; height: 48px; padding: 4px; border-radius: 12px; border: 2.5px solid transparent; background: var(--swatch); cursor: pointer; display: block; }
+  .cell svg { width: 100%; height: 100%; display: block; }
+  .cell[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); }
+  .cell.out svg { opacity: .5; }
+  .none { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; border: 1.5px dashed var(--line); color: var(--muted); }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: .82rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lg { position: relative; display: inline-block; width: 16px; height: 16px; border-radius: 5px; background: var(--swatch); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .lg.ok { background: var(--mint); }
+  .lg.none { background: none; box-shadow: none; border: 1.5px dashed var(--muted); }
+  @media (max-width: 760px) {
+    .picker { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .picker-media { position: static; }
+    .picker-media .swatch { max-width: 320px; width: 100%; justify-self: center; }
+    .picker-media .angles { justify-content: center; }
+    .picker-info h4 { font-size: 1.35rem; }
+    .picker-info .card-top { flex-direction: row; }
   }
 
   /* Picture viewer */
@@ -492,7 +542,7 @@ const WORDS = {
     "design.preview": "Preview of your design",
     "design.shape": "Shape", "design.scrunchie": "Scrunchie", "design.bow": "Bow clip", "design.colour": "Colour", "design.pattern": "Pattern",
     "how.eyebrow": "How ordering works", "how.title": "Four easy steps",
-    "how.1t": "Fill your bag", "how.1": "Pick your scrunchies and choose a size.",
+    "how.1t": "Fill your bag", "how.1": "Pick a colour, a print and a size.",
     "how.2t": "Send your order", "how.2": "We write your order out for you. Ask a grown-up to email it to us.",
     "how.3t": "Get a Tikkie", "how.3": "We reply within two days with a Tikkie link, so a grown-up can pay.",
     "how.4t": "Pick up or post", "how.4": "Pick it up for free in Amsterdam, or we post it to you in the Netherlands for {postage}.",
@@ -508,6 +558,11 @@ const WORDS = {
     "card.zoom": "See bigger pictures of {name}",
     "gallery.count": "Picture {i} of {n}", "gallery.prev": "Previous picture", "gallery.next": "Next picture", "gallery.close": "Close",
     "gallery.drawing": "This is a drawing. Real photos are coming soon.", "gallery.photo": "Picture {i}",
+    "pick.colour": "Colour", "pick.print": "Print", "pick.size": "Size",
+    "pick.missing": "{name} (not made in {other})", "pick.soldOutNote": "{name} (sold out)",
+    "pick.switched": "We don't make that one, so we picked {name}.",
+    "pick.all": "See all colours and prints", "pick.matrixCaption": "Every colour and print. Tap one to pick it.",
+    "pick.ready": "Ready", "pick.notMadeShort": "Not made",
     "toast.added": "{name} is in your bag", "toast.max": "That's all the {name} we have right now",
     "toast.copiedOrder": "Order copied", "toast.copiedEmail": "Email address copied", "toast.selected": "Selected. Press Ctrl+C or Cmd+C to copy",
     "bag.button": "Bag", "bag.title": "Your bag", "bag.close": "Close bag",
@@ -539,7 +594,7 @@ const WORDS = {
     "design.preview": "Voorbeeld van jouw ontwerp",
     "design.shape": "Vorm", "design.scrunchie": "Scrunchie", "design.bow": "Strikje", "design.colour": "Kleur", "design.pattern": "Patroon",
     "how.eyebrow": "Zo bestel je", "how.title": "Vier makkelijke stappen",
-    "how.1t": "Vul je tasje", "how.1": "Kies je scrunchies en een maat.",
+    "how.1t": "Vul je tasje", "how.1": "Kies een kleur, een print en een maat.",
     "how.2t": "Stuur je bestelling", "how.2": "Wij schrijven je bestelling voor je uit. Vraag een volwassene om hem naar ons te mailen.",
     "how.3t": "Krijg een Tikkie", "how.3": "Binnen twee dagen sturen we een Tikkie, zodat een volwassene kan betalen.",
     "how.4t": "Ophalen of opsturen", "how.4": "Haal het gratis op in Amsterdam, of we sturen het op binnen Nederland voor {postage}.",
@@ -555,6 +610,11 @@ const WORDS = {
     "card.zoom": "Bekijk grotere foto's van {name}",
     "gallery.count": "Foto {i} van {n}", "gallery.prev": "Vorige foto", "gallery.next": "Volgende foto", "gallery.close": "Sluiten",
     "gallery.drawing": "Dit is een tekening. Echte foto's komen snel.", "gallery.photo": "Foto {i}",
+    "pick.colour": "Kleur", "pick.print": "Print", "pick.size": "Maat",
+    "pick.missing": "{name} (maken we niet in {other})", "pick.soldOutNote": "{name} (uitverkocht)",
+    "pick.switched": "Die maken we niet, dus we kozen {name}.",
+    "pick.all": "Bekijk alle kleuren en prints", "pick.matrixCaption": "Alle kleuren en prints. Tik er een aan om hem te kiezen.",
+    "pick.ready": "Te koop", "pick.notMadeShort": "Maken we niet",
     "toast.added": "{name} zit in je tasje", "toast.max": "Meer {name} hebben we nu niet",
     "toast.copiedOrder": "Bestelling gekopieerd", "toast.copiedEmail": "E-mailadres gekopieerd", "toast.selected": "Geselecteerd. Druk op Ctrl+C of Cmd+C om te kopiëren",
     "bag.button": "Tasje", "bag.title": "Je tasje", "bag.close": "Tasje sluiten",
@@ -579,7 +639,7 @@ const WORDS = {
 // When a range opens, change its status to "now".
 const LINES = [
   { id: "scrunchie", status: "now", title: { en: "Scrunchies", nl: "Scrunchies" },
-    blurb: { en: "Sewn by hand, in three sizes. You can buy these now!", nl: "Met de hand genaaid, in drie maten. Deze kun je nu kopen!" } },
+    blurb: { en: "Pick a colour and a print. Every one is sewn by hand, in three sizes.", nl: "Kies een kleur en een print. Allemaal met de hand genaaid, in drie maten." } },
   { id: "bow", status: "next", title: { en: "Bows", nl: "Strikjes" },
     blurb: { en: "Bow clips and matching sets. She is sewing them now, so you can buy them soon.", nl: "Strikjes op een speldje en setjes die bij elkaar passen. Ze is ze nu aan het naaien, dus je kunt ze snel kopen." } },
   { id: "bedazzled", status: "later", title: { en: "Bedazzled claw clips", nl: "Bedazzled klauwclips" },
@@ -601,19 +661,6 @@ const SIZES = [
 ];
 const BADGES = { loved: { en: "Most loved", nl: "Favoriet" }, new: { en: "New", nl: "Nieuw" }, gift: { en: "Gift idea", nl: "Cadeautip" } };
 const PRODUCTS = [
-  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 6, badge: "loved", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" },
-    name: { en: "Cherry Gingham", nl: "Kersenruitje" }, desc: { en: "Red and white checks, like a picnic blanket.", nl: "Rood-witte ruitjes, net een picknickkleed." } },
-  { id: "midnight-scrunchie", line: "scrunchie", kind: "scrunchie", price: 5, stock: 4, photos: [], fabric: { type: "velvet", base: "#2A3270" },
-    name: { en: "Midnight Velvet", nl: "Middernachtfluweel" }, desc: { en: "Deep blue velvet that feels like a cloud.", nl: "Donkerblauw fluweel, zo zacht als een wolk." } },
-  { id: "lemon-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 3, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" },
-    name: { en: "Lemon Drop", nl: "Citroensnoepje" }, desc: { en: "Sunny yellow cotton with white polka dots.", nl: "Zonnig geel katoen met witte stippen." } },
-  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" },
-    name: { en: "Mint Candy", nl: "Muntsnoepje" }, desc: { en: "Minty stripes. More coming soon!", nl: "Mintgroene strepen. Er komen er snel meer!" } },
-  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", price: 5, stock: 5, badge: "new", photos: [], fabric: { type: "satin", base: "#B59BE0" },
-    name: { en: "Lilac Satin", nl: "Lila satijn" }, desc: { en: "Shiny and smooth. Extra gentle on curly hair.", nl: "Glanzend en glad. Extra zacht voor krullen." } },
-  { id: "garden-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4.5, stock: 2, photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" },
-    name: { en: "Garden Party", nl: "Tuinfeest" }, desc: { en: "Pink cotton covered in tiny flowers.", nl: "Roze katoen vol kleine bloemetjes." } },
-
   { id: "cherry-bow", line: "bow", kind: "bow", price: 3.5, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" },
     name: { en: "Cherry Gingham Bow", nl: "Kersenruitje-strik" }, desc: { en: "On a 5 cm snap clip. Matches the scrunchie.", nl: "Op een knipspeldje van 5 cm. Past bij de scrunchie." } },
   { id: "berry-bow", line: "bow", kind: "bow", price: 5, photos: [], fabric: { type: "velvet", base: "#7C1F3E" },
@@ -634,6 +681,50 @@ const PRODUCTS = [
   { id: "sunshine-clip", line: "bedazzled", kind: "claw", price: 8, photos: [], fabric: { type: "satin", base: "#E2B23C", gems: "crystal" },
     name: { en: "Sunshine Sparkle", nl: "Zonneglitter" }, desc: { en: "A golden claw clip that sparkles in the sun.", nl: "Een gouden klauwclip die glinstert in de zon." } },
 ];
+// ---- Scrunchies: every colour and print ----
+// stock: how many of each colour + print are ready (0 shows "Sold out"). Leave a pair out if she doesn't make it.
+// photos: real photos for a colour + print, e.g. "cherry-gingham": [{ src: "photos/cherry-gingham-front.jpg", angle: { en: "front", nl: "voorkant" } }]
+const SCRUNCHIES = {
+  colours: [
+    { id: "cherry", name: { en: "Cherry", nl: "Kers" }, hex: "#D7263D" },
+    { id: "blush", name: { en: "Blush", nl: "Roze" }, hex: "#F4A6B8" },
+    { id: "lemon", name: { en: "Lemon", nl: "Citroen" }, hex: "#F6C945" },
+    { id: "mint", name: { en: "Mint", nl: "Mint" }, hex: "#8FD3BC" },
+    { id: "lilac", name: { en: "Lilac", nl: "Lila" }, hex: "#B59BE0" },
+    { id: "navy", name: { en: "Navy", nl: "Donkerblauw" }, hex: "#2A3270" },
+  ],
+  prints: [
+    { id: "gingham", fabric: "gingham", price: 4, name: { en: "Gingham", nl: "Ruitjes" }, desc: { en: "Little checks, like a picnic blanket.", nl: "Kleine ruitjes, net een picknickkleed." } },
+    { id: "dots", fabric: "dots", price: 4, name: { en: "Polka dots", nl: "Stippen" }, desc: { en: "Cotton with white polka dots.", nl: "Katoen met witte stippen." } },
+    { id: "stripes", fabric: "stripes", price: 4, name: { en: "Stripes", nl: "Strepen" }, desc: { en: "Candy stripes, like a sweet shop.", nl: "Snoepstrepen, net een snoepwinkel." } },
+    { id: "flowers", fabric: "floral", price: 4.5, name: { en: "Flowers", nl: "Bloemetjes" }, desc: { en: "Cotton covered in tiny flowers.", nl: "Katoen vol kleine bloemetjes." } },
+    { id: "velvet", fabric: "velvet", price: 5, name: { en: "Velvet", nl: "Fluweel" }, desc: { en: "Soft velvet that feels like a cloud.", nl: "Fluweel, zo zacht als een wolk." } },
+    { id: "satin", fabric: "satin", price: 5, name: { en: "Satin", nl: "Satijn" }, desc: { en: "Shiny and smooth. Extra gentle on curly hair.", nl: "Glanzend en glad. Extra zacht voor krullen." } },
+  ],
+  stock: {
+    "cherry-gingham": 6, "cherry-dots": 2, "cherry-velvet": 3,
+    "blush-flowers": 2, "blush-gingham": 3, "blush-satin": 1,
+    "lemon-dots": 3, "lemon-gingham": 2, "lemon-stripes": 0,
+    "mint-stripes": 0, "mint-gingham": 2, "mint-dots": 1,
+    "lilac-satin": 5, "lilac-velvet": 2, "lilac-flowers": 1,
+    "navy-velvet": 4, "navy-dots": 3, "navy-stripes": 2,
+  },
+  badges: { "cherry-gingham": "loved", "lilac-satin": "new" },
+  photos: {},
+};
+const combo = (c, p) => `${c}-${p}`;
+const hasCombo = (c, p) => combo(c, p) in SCRUNCHIES.stock;
+const stockOf = key => SCRUNCHIES.stock[key] ?? 0;
+function comboInfo(key, language = lang) {
+  const [c, p] = key.split("-");
+  const colour = SCRUNCHIES.colours.find(x => x.id === c), print = SCRUNCHIES.prints.find(x => x.id === p);
+  const cn = colour.name[language], pn = print.name[language];
+  return {
+    name: language === "nl" ? `${pn} in ${cn.toLowerCase()}` : `${cn} ${pn}`,
+    desc: print.desc[language], price: print.price, colour, print,
+    fabric: { type: print.fabric, base: colour.hex, ink: print.fabric === "gingham" ? "#FFF8F0" : "#FFFFFF" },
+  };
+}
 const lineOf = p => LINES.find(l => l.id === p.line);
 const isOpen = p => lineOf(p).status === "now";
 const CUSTOM = {
@@ -807,29 +898,39 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;"
 
 // ---- Bag ----
 // Each bag line keeps only ids and amounts; names and prices come from the collection in the chosen language.
+// A line is either a scrunchie colour + print ({ combo }) or another piece ({ productId }).
 const KEY = "loop-ribbon-bag";
 let bag = [];
 try { bag = JSON.parse(store.get(KEY) || "[]"); if (!Array.isArray(bag)) bag = []; } catch (e) { bag = []; }
-bag = bag.filter(l => { const p = PRODUCTS.find(x => x.id === l.productId); return p && isOpen(p) && p.stock > 0 && Number.isInteger(l.qty) && l.qty > 0; })
-  .map(l => ({ key: l.productId + "-" + (l.sizeId || ""), productId: l.productId, sizeId: l.sizeId || "", qty: l.qty }));
+const refOf = l => l.combo ? "c:" + l.combo : "p:" + l.productId;
+function stockFor(l) {
+  if (l.combo) return stockOf(l.combo);
+  const p = PRODUCTS.find(x => x.id === l.productId);
+  return p && isOpen(p) ? p.stock ?? 0 : 0;
+}
+bag = bag.filter(l => (l.combo ? l.combo in SCRUNCHIES.stock : PRODUCTS.some(x => x.id === l.productId)) && stockFor(l) > 0 && Number.isInteger(l.qty) && l.qty > 0)
+  .map(l => ({ ...(l.combo ? { combo: l.combo } : { productId: l.productId }), sizeId: l.sizeId || "", qty: l.qty, key: refOf(l) + "-" + (l.sizeId || "") }));
 const save = () => store.set(KEY, JSON.stringify(bag));
 let delivery = "pickup";
 let preparedOrder = null;
 
-const productOf = l => PRODUCTS.find(x => x.id === l.productId);
 const sizeOf = l => SIZES.find(s => s.id === l.sizeId);
-const lineName = l => tx(productOf(l).name);
+function info(l) {
+  if (l.combo) { const ci = comboInfo(l.combo); return { name: ci.name, price: ci.price, kind: "scrunchie", fabric: ci.fabric, photo: SCRUNCHIES.photos[l.combo]?.[0]?.src }; }
+  const p = PRODUCTS.find(x => x.id === l.productId);
+  return { name: tx(p.name), price: p.price, kind: p.kind, fabric: p.fabric, photo: p.photos?.[0]?.src };
+}
+const lineName = l => info(l).name;
 const lineVariant = l => { const s = sizeOf(l); return s ? `${tx(s.label)}, ${tx(s.note)}` : ""; };
-const linePrice = l => productOf(l).price + (sizeOf(l)?.delta || 0);
-const inBag = productId => bag.filter(l => l.productId === productId).reduce((s, l) => s + l.qty, 0);
-const roomFor = productId => { const p = PRODUCTS.find(x => x.id === productId); return p ? p.stock - inBag(productId) : 0; };
+const linePrice = l => info(l).price + (sizeOf(l)?.delta || 0);
+const roomFor = l => stockFor(l) - bag.filter(x => refOf(x) === refOf(l)).reduce((s, x) => s + x.qty, 0);
 
-function addToBag(productId, sizeId) {
-  const name = tx(PRODUCTS.find(x => x.id === productId).name);
-  if (roomFor(productId) < 1) { toast(t("toast.max", { name })); return; }
-  const key = productId + "-" + sizeId;
+function addToBag(entry) {
+  const name = info(entry).name;
+  if (roomFor(entry) < 1) { toast(t("toast.max", { name })); return; }
+  const key = refOf(entry) + "-" + (entry.sizeId || "");
   const found = bag.find(l => l.key === key);
-  if (found) found.qty += 1; else bag.push({ key, productId, sizeId, qty: 1 });
+  if (found) found.qty += 1; else bag.push({ ...entry, sizeId: entry.sizeId || "", qty: 1, key });
   preparedOrder = null;
   save(); renderBag(); toast(t("toast.added", { name }));
 }
@@ -877,7 +978,7 @@ function renderShop() {
   ranges.querySelectorAll(".sizes input:checked").forEach(i => { chosen[i.name] = i.value; });
   tabsEl.innerHTML = LINES.map(l => {
     const first = PRODUCTS.find(p => p.line === l.id);
-    const thumb = first ? svg(first.kind, first.fabric) : svg("scrunchie", designFabric());
+    const thumb = l.id === "scrunchie" ? svg("scrunchie", comboInfo("cherry-gingham").fabric) : first ? svg(first.kind, first.fabric) : svg("scrunchie", designFabric());
     return `<button class="tab" type="button" role="tab" id="tab-${l.id}" aria-controls="panel-${l.id}">
       <span class="tab-art" aria-hidden="true">${thumb}</span>
       <span class="tab-text"><strong>${tx(l.title)}</strong><span class="pill ${l.status}">${t("status." + l.status)}</span></span>
@@ -886,8 +987,9 @@ function renderShop() {
   ranges.innerHTML = LINES.filter(l => l.id !== "custom").map(l => `
     <div class="panel" role="tabpanel" id="panel-${l.id}" aria-labelledby="tab-${l.id}" tabindex="0">
       <div class="panel-head">${panelHead(l)}</div>
-      <div class="grid">${PRODUCTS.filter(p => p.line === l.id).map(card).join("")}</div>
+      ${l.id === "scrunchie" ? `<div id="picker"></div>` : `<div class="grid">${PRODUCTS.filter(p => p.line === l.id).map(card).join("")}</div>`}
     </div>`).join("");
+  renderPicker();
   document.getElementById("custom-head").innerHTML = panelHead(LINES.find(l => l.id === "custom"));
   Object.entries(chosen).forEach(([name, value]) => {
     const input = ranges.querySelector(`input[name="${name}"][value="${value}"]`);
@@ -950,7 +1052,8 @@ ranges.addEventListener("click", e => {
   const zoom = e.target.closest("[data-zoom]");
   if (zoom) {
     const c = zoom.closest(".card"), pressed = c.querySelector('[data-angle][aria-pressed="true"]');
-    openGallery(zoom.dataset.zoom, pressed ? +pressed.dataset.angle : 0);
+    const p = PRODUCTS.find(x => x.id === zoom.dataset.zoom);
+    openGallery({ name: tx(p.name), photos: p.photos || [], kind: p.kind, fabric: p.fabric }, pressed ? +pressed.dataset.angle : 0);
     return;
   }
   const angle = e.target.closest("[data-angle]");
@@ -965,14 +1068,119 @@ ranges.addEventListener("click", e => {
   if (!btn) return;
   const p = PRODUCTS.find(x => x.id === btn.dataset.add);
   const sizeId = p.kind === "scrunchie" ? btn.closest(".card").querySelector(".sizes input:checked").value : "";
-  addToBag(p.id, sizeId);
+  addToBag({ productId: p.id, sizeId });
 });
+
+// ---- Scrunchie picker: choose a colour and see its prints, or a print and see its colours ----
+const pick = { colour: "cherry", print: "gingham", size: "regular", angle: 0, gridOpen: false };
+const colourOf = id => SCRUNCHIES.colours.find(c => c.id === id);
+const printOf = id => SCRUNCHIES.prints.find(p => p.id === id);
+const stateOf = (c, p) => !hasCombo(c, p) ? "missing" : stockOf(combo(c, p)) < 1 ? "out" : "ok";
+
+// Nearest pair that exists, preferring ones in stock.
+function bestMatch(fixed, value) {
+  const list = fixed === "colour" ? SCRUNCHIES.prints.map(p => [value, p.id]) : SCRUNCHIES.colours.map(c => [c.id, value]);
+  return list.find(([c, p]) => stateOf(c, p) === "ok") || list.find(([c, p]) => hasCombo(c, p));
+}
+function choose(dim, value) {
+  const c = dim === "colour" ? value : pick.colour, p = dim === "print" ? value : pick.print;
+  if (hasCombo(c, p)) { pick.colour = c; pick.print = p; }
+  else {
+    const m = bestMatch(dim, value); if (!m) return;
+    [pick.colour, pick.print] = m;
+    toast(t("pick.switched", { name: comboInfo(combo(...m)).name }));
+  }
+  pick.angle = 0;
+  renderPicker(dim === "colour" ? `[data-colour="${pick.colour}"]` : `[data-print="${pick.print}"]`);
+}
+
+function sampleDot(fabric, size = 40) {
+  const id = "d" + uid++;
+  return `<svg viewBox="0 0 40 40" width="${size}" height="${size}" aria-hidden="true"><defs>${fabricFill(fabric, id)}</defs><circle cx="20" cy="20" r="19" fill="url(#${id})"/></svg>`;
+}
+
+function renderPicker(focusSel) {
+  const host = document.getElementById("picker");
+  if (!host) return;
+  const key = combo(pick.colour, pick.print), ci = comboInfo(key), stock = stockOf(key), out = stock < 1;
+  const ph = SCRUNCHIES.photos[key] || [];
+  const colourName = tx(colourOf(pick.colour).name), printName = tx(printOf(pick.print).name);
+  const size = SIZES.find(s => s.id === pick.size);
+  const badge = out ? `<span class="badge out">${t("card.soldOut")}</span>` : SCRUNCHIES.badges[key] ? `<span class="badge">${tx(BADGES[SCRUNCHIES.badges[key]])}</span>` : "";
+  const shot = ph[pick.angle];
+  const mediaHtml = shot ? `<img class="photo" src="${esc(shot.src)}" alt="${esc(t("card.view", { name: ci.name, angle: tx(shot.angle) }))}">`
+    : svg("scrunchie", ci.fabric) + `<span class="photo-note">${t("card.photoSoon")}</span>`;
+  const angles = ph.length > 1 ? `<div class="angles" role="group" aria-label="${esc(t("card.views", { name: ci.name }))}">${ph.map((x, i) => `
+      <button type="button" data-pick-angle="${i}" aria-pressed="${i === pick.angle}" aria-label="${esc(tx(x.angle))}"><img src="${esc(x.src)}" alt=""></button>`).join("")}</div>` : "";
+  const note = (state, name, other) => state === "missing" ? t("pick.missing", { name, other }) : state === "out" ? t("pick.soldOutNote", { name }) : name;
+
+  const colourBtns = SCRUNCHIES.colours.map(c => {
+    const st = stateOf(c.id, pick.print), name = tx(c.name);
+    const f = st === "missing" ? { type: "velvet", base: c.hex } : comboInfo(combo(c.id, pick.print)).fabric;
+    return `<button type="button" class="sw" data-colour="${c.id}" data-state="${st}" aria-pressed="${c.id === pick.colour}" aria-label="${esc(note(st, name, printName.toLowerCase()))}" title="${esc(note(st, name, printName.toLowerCase()))}">${sampleDot(f)}</button>`;
+  }).join("");
+  const printBtns = SCRUNCHIES.prints.map(p => {
+    const st = stateOf(pick.colour, p.id), name = tx(p.name);
+    const f = { ...comboInfo(combo(pick.colour, p.id)).fabric };
+    return `<button type="button" class="pr" data-print="${p.id}" data-state="${st}" aria-pressed="${p.id === pick.print}" aria-label="${esc(note(st, name, colourName.toLowerCase()))}" title="${esc(note(st, name, colourName.toLowerCase()))}">${sampleDot(f, 28)}<span class="lbl">${name}</span></button>`;
+  }).join("");
+  const sizes = out ? "" : `<fieldset class="opt"><legend>${t("pick.size")}: <strong>${tx(size.label)}</strong> <span class="muted">(${tx(size.note)})</span></legend>
+      <div class="opt-row">${SIZES.map(s => `<button type="button" class="pr size" data-pick-size="${s.id}" aria-pressed="${s.id === pick.size}"><span class="lbl">${tx(s.label)}</span></button>`).join("")}</div></fieldset>`;
+  const grid = `<table class="matrix">
+      <caption>${t("pick.matrixCaption")}</caption>
+      <thead><tr><td></td>${SCRUNCHIES.prints.map(p => `<th scope="col">${tx(p.name)}</th>`).join("")}</tr></thead>
+      <tbody>${SCRUNCHIES.colours.map(c => `<tr><th scope="row"><span class="dot" style="background:${c.hex}"></span>${tx(c.name)}</th>${SCRUNCHIES.prints.map(p => {
+        const st = stateOf(c.id, p.id), k = combo(c.id, p.id);
+        if (st === "missing") return `<td><span class="none" title="${esc(t("pick.notMadeShort"))}"><span class="vh">${esc(t("pick.notMadeShort"))}</span>–</span></td>`;
+        const label = note(st, comboInfo(k).name);
+        return `<td><button type="button" class="cell${st === "out" ? " out" : ""}" data-cell="${k}" aria-pressed="${k === key}" aria-label="${esc(label)}" title="${esc(label)}">${svg("scrunchie", comboInfo(k).fabric)}</button></td>`;
+      }).join("")}</tr>`).join("")}</tbody>
+    </table>`;
+
+  host.innerHTML = `<div class="picker">
+    <div class="picker-media">
+      <div class="swatch">${badge}<button class="zoom" type="button" data-zoom-combo="${key}" aria-label="${esc(t("card.zoom", { name: ci.name }))}">${mediaHtml}</button></div>
+      ${angles}
+    </div>
+    <div class="picker-info">
+      <div class="card-top"><h4>${esc(ci.name)}</h4><span class="tag">${money.format(ci.price + (out ? 0 : size.delta))}</span></div>
+      <p class="desc">${esc(ci.desc)}</p>
+      ${out ? `<span class="stock low">${t("card.soldOut")}</span>` : `<span class="stock${stock <= 3 ? " low" : ""}">${t(stock <= 3 ? "card.onlyLeft" : "card.left", { n: stock })}</span>`}
+      <fieldset class="opt"><legend>${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row">${colourBtns}</div></fieldset>
+      <fieldset class="opt"><legend>${t("pick.print")}: <strong>${printName}</strong></legend><div class="opt-row">${printBtns}</div></fieldset>
+      ${sizes}
+      ${out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>` : `<button class="btn btn-primary add" type="button" data-add-combo="${key}">${t("card.add")}</button>`}
+      <details class="matrix-box" ${pick.gridOpen ? "open" : ""}>
+        <summary>${t("pick.all")}</summary>
+        <div class="matrix-wrap">${grid}</div>
+        <div class="legend"><span><i class="lg ok"></i>${t("pick.ready")}</span><span><i class="lg out"></i>${t("card.soldOut")}</span><span><i class="lg none"></i>${t("pick.notMadeShort")}</span></div>
+      </details>
+    </div>
+  </div>`;
+  if (focusSel) { const el = host.querySelector(focusSel); if (el) el.focus(); }
+}
+
+ranges.addEventListener("click", e => {
+  const el = e.target.closest("[data-colour],[data-print],[data-cell],[data-pick-size],[data-pick-angle],[data-add-combo],[data-zoom-combo]");
+  if (!el || !el.closest("#picker")) return;
+  if (el.dataset.colour) choose("colour", el.dataset.colour);
+  else if (el.dataset.print) choose("print", el.dataset.print);
+  else if (el.dataset.cell) { [pick.colour, pick.print] = el.dataset.cell.split("-"); pick.angle = 0; renderPicker(`[data-cell="${el.dataset.cell}"]`); }
+  else if (el.dataset.pickSize) { pick.size = el.dataset.pickSize; renderPicker(`[data-pick-size="${pick.size}"]`); }
+  else if (el.dataset.pickAngle) { pick.angle = +el.dataset.pickAngle; renderPicker(`[data-pick-angle="${pick.angle}"]`); }
+  else if (el.dataset.addCombo) addToBag({ combo: el.dataset.addCombo, sizeId: pick.size });
+  else if (el.dataset.zoomCombo) {
+    const ci = comboInfo(el.dataset.zoomCombo);
+    openGallery({ name: ci.name, photos: SCRUNCHIES.photos[el.dataset.zoomCombo] || [], kind: "scrunchie", fabric: ci.fabric }, pick.angle);
+  }
+});
+ranges.addEventListener("toggle", e => { if (e.target.matches(".matrix-box")) pick.gridOpen = e.target.open; }, true);
 
 // ---- Picture viewer: every photo of a piece, big ----
 const lightbox = document.getElementById("lightbox");
-const gallery = { product: null, index: 0, opener: null };
-function openGallery(productId, index = 0) {
-  gallery.product = PRODUCTS.find(x => x.id === productId);
+const gallery = { item: null, index: 0, opener: null };
+function openGallery(item, index = 0) {
+  gallery.item = item;
   gallery.index = index;
   gallery.opener = document.activeElement;
   lightbox.hidden = false;
@@ -981,13 +1189,13 @@ function openGallery(productId, index = 0) {
 }
 function closeGallery() { lightbox.hidden = true; if (gallery.opener) gallery.opener.focus(); }
 function renderGallery() {
-  const p = gallery.product, ph = p.photos || [], n = Math.max(ph.length, 1);
+  const p = gallery.item, ph = p.photos || [], n = Math.max(ph.length, 1);
   gallery.index = (gallery.index + n) % n;
   const item = ph[gallery.index];
-  document.getElementById("lb-title").textContent = tx(p.name);
+  document.getElementById("lb-title").textContent = p.name;
   document.getElementById("lb-count").textContent = n > 1 ? t("gallery.count", { i: gallery.index + 1, n }) : "";
   document.getElementById("lb-figure").innerHTML = item
-    ? `<img src="${esc(item.src)}" alt="${esc(t("card.view", { name: tx(p.name), angle: tx(item.angle) }))}"><figcaption class="lb-note">${esc(tx(item.angle))}</figcaption>`
+    ? `<img src="${esc(item.src)}" alt="${esc(t("card.view", { name: p.name, angle: tx(item.angle) }))}"><figcaption class="lb-note">${esc(tx(item.angle))}</figcaption>`
     : `${svg(p.kind, p.fabric)}<figcaption class="lb-note">${t("gallery.drawing")}</figcaption>`;
   document.getElementById("lb-prev").hidden = document.getElementById("lb-next").hidden = n < 2;
   document.getElementById("lb-thumbs").innerHTML = n > 1 ? ph.map((x, i) =>
@@ -1017,7 +1225,7 @@ document.getElementById("lb-stage").addEventListener("pointerdown", e => { swipe
 document.getElementById("lb-stage").addEventListener("pointerup", e => {
   if (swipeX === null) return;
   const dx = e.clientX - swipeX; swipeX = null;
-  if (Math.abs(dx) > 40 && (gallery.product.photos || []).length > 1) step(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 40 && (gallery.item.photos || []).length > 1) step(dx < 0 ? 1 : -1);
 });
 lightbox.addEventListener("click", e => { if (e.target === lightbox || e.target.id === "lb-stage") closeGallery(); });
 
@@ -1031,6 +1239,14 @@ function renderSeo() {
     areaServed: "NL", currenciesAccepted: "EUR", paymentAccepted: "Tikkie",
     ...(SHOP.email.endsWith("example.com") ? {} : { email: SHOP.email }),
   }];
+  Object.entries(SCRUNCHIES.stock).forEach(([key, n]) => {
+    const ci = comboInfo(key, "en"), ph = SCRUNCHIES.photos[key] || [];
+    graph.push({
+      "@type": "Product", name: `${ci.name} scrunchie`, description: ci.desc, color: ci.colour.name.en, pattern: ci.print.name.en,
+      brand: { "@type": "Brand", name: SHOP.name }, ...(ph.length ? { image: ph.map(x => abs(x.src)) } : {}),
+      offers: { "@type": "Offer", price: ci.price.toFixed(2), priceCurrency: "EUR", availability: n > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" },
+    });
+  });
   PRODUCTS.filter(isOpen).forEach(p => graph.push({
     "@type": "Product", name: p.name.en, description: p.desc.en, brand: { "@type": "Brand", name: SHOP.name },
     ...(p.photos?.length ? { image: p.photos.map(x => abs(x.src)) } : {}),
@@ -1093,10 +1309,10 @@ function renderBag() {
   const vals = { name: keep("cust-name"), contact: keep("cust-contact"), note: keep("cust-note") };
   body.innerHTML = `
     <div style="display:grid;gap:14px">${bag.map((l, i) => {
-      const p = productOf(l), name = esc(lineName(l)), photo = p.photos?.[0]?.src;
+      const it = info(l), name = esc(it.name), photo = it.photo;
       return `
       <div class="line">
-        <div class="mini">${photo ? `<img src="${esc(photo)}" alt="">` : svg(p.kind, p.fabric)}</div>
+        <div class="mini">${photo ? `<img src="${esc(photo)}" alt="">` : svg(it.kind, it.fabric)}</div>
         <div class="line-info"><strong>${name}</strong>${lineVariant(l) ? `<span>${esc(lineVariant(l))}</span>` : ""}
           <span class="qty"><button type="button" data-dec="${i}" aria-label="${esc(t("bag.less", { name: lineName(l) }))}">−</button><output>${l.qty}</output><button type="button" data-inc="${i}" aria-label="${esc(t("bag.more", { name: lineName(l) }))}">+</button></span>
         </div>
@@ -1130,7 +1346,7 @@ body.addEventListener("click", e => {
   if (el.closest("[data-close]")) return closeBag();
   const i = +(el.dataset.inc ?? el.dataset.dec ?? el.dataset.rm ?? -1);
   if (i < 0 || !bag[i]) return;
-  if (el.dataset.inc) { if (roomFor(bag[i].productId) < 1) return toast(t("toast.max", { name: lineName(bag[i]) })); bag[i].qty++; }
+  if (el.dataset.inc) { if (roomFor(bag[i]) < 1) return toast(t("toast.max", { name: lineName(bag[i]) })); bag[i].qty++; }
   else if (el.dataset.dec) { bag[i].qty--; if (bag[i].qty < 1) bag.splice(i, 1); }
   else bag.splice(i, 1);
   preparedOrder = null; save(); renderBag();
@@ -1197,7 +1413,7 @@ function toast(msg) {
 document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", base: "#D7263D", ink: "#FFF8F0" });
 document.getElementById("footer-email").textContent = SHOP.email;
 document.getElementById("hero-art").insertAdjacentHTML("beforeend",
-  svg("scrunchie", PRODUCTS[0].fabric, "a") + svg("scrunchie", PRODUCTS[4].fabric, "b") + svg("scrunchie", PRODUCTS[2].fabric, "c"));
+  svg("scrunchie", comboInfo("cherry-gingham").fabric, "a") + svg("scrunchie", comboInfo("lilac-satin").fabric, "b") + svg("scrunchie", comboInfo("lemon-dots").fabric, "c"));
 applyStaticWords();
 renderShop();
 renderDesigner();
