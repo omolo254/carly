@@ -40,7 +40,7 @@
   [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; }
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
   h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; text-wrap: balance; font-weight: 600; }
   p { margin: 0; }
@@ -108,7 +108,7 @@
   .badge { position: absolute; top: 12px; left: 12px; background: var(--butter); color: #1D2340; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .7em; border-radius: 999px; }
   .card-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
   .card h3 { font-size: 1.25rem; }
-  .card .desc { color: var(--muted); font-size: .93rem; }
+  .card .desc { color: var(--muted); font-size: 1rem; }
   .tag { position: relative; flex: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; padding: .2em .7em .2em 1.25em; border: 2px dashed var(--accent); border-radius: 6px 10px 10px 6px; color: var(--accent); transform: rotate(-3deg); font-variant-numeric: tabular-nums; background: var(--surface); }
   .tag::before { content: ""; position: absolute; left: .45em; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--accent); }
   .sizes { display: flex; gap: 6px; flex-wrap: wrap; border: 0; padding: 0; margin: 0; }
@@ -147,7 +147,7 @@
   .range { display: grid; gap: 18px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
   .range-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
   .range-head h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
-  .range-head p { flex-basis: 100%; color: var(--muted); max-width: 40em; }
+  .range-head p { flex-basis: 100%; color: var(--muted); max-width: 40em; font-size: 1.05rem; }
   .card.soon .swatch > svg { opacity: .82; }
 
   /* Designer */
@@ -262,14 +262,14 @@
       <div class="hero-copy">
         <span class="eyebrow">Hand-sewn in Amsterdam</span>
         <h1>Scrunchies, <em>made one at a time.</em></h1>
-        <p>Every piece is designed, cut and sewn by a young maker at her kitchen table. Soft on your hair, bright on your head, and never two exactly the same. Scrunchies are ready now, and bows and bedazzled pieces are on the way.</p>
+        <p>A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#line-scrunchie">Shop scrunchies</a>
           <a class="btn btn-ghost" href="#coming">See what's coming</a>
         </div>
         <ul class="facts">
           <li>Free pick-up in Amsterdam</li>
-          <li>Post anywhere in NL</li>
+          <li>We post anywhere in the Netherlands</li>
           <li>Pay by Tikkie</li>
         </ul>
       </div>
@@ -284,11 +284,11 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <span class="eyebrow">The collection</span>
-          <h2>What's on the table</h2>
+          <span class="eyebrow">Our shop</span>
+          <h2>What we make</h2>
         </div>
       </div>
-      <ol class="roadmap" id="coming" aria-label="Our ranges, in the order they open"></ol>
+      <ol class="roadmap" id="coming" aria-label="What you can buy now and what is coming"></ol>
       <div id="ranges" style="display:grid;gap:40px"></div>
     </div>
   </section>
@@ -298,10 +298,10 @@
       <div class="preview" id="designer-preview" role="img" aria-label="Preview of your custom design"></div>
       <div class="controls">
         <div>
-          <span class="pill later">In the pipeline</span>
+          <span class="pill later">Coming later</span>
           <h2>Design your own</h2>
         </div>
-        <p>Soon you'll be able to pick a shape, a colour and a pattern, and she'll sew it just for you. Custom orders open after the bedazzled range. Have a play with ideas in the meantime.</p>
+        <p>Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!</p>
         <fieldset class="ctl">
           <legend>Shape</legend>
           <div class="chips" id="d-kind">
@@ -319,7 +319,7 @@
         </fieldset>
         <div class="designer-foot">
           <span class="tag" id="d-price">€ 6,00</span>
-          <button class="soon-btn" type="button" disabled>Custom orders open soon</button>
+          <button class="soon-btn" type="button" disabled>Coming later</button>
         </div>
       </div>
     </div>
@@ -334,10 +334,10 @@
         </div>
       </div>
       <ol class="steps">
-        <li><h3>Fill your bag</h3><p>Choose your scrunchies and pick a size for each one.</p></li>
-        <li><h3>Send your order</h3><p>Your order is written out for you. Send it to us by email.</p></li>
-        <li><h3>Get a Tikkie</h3><p>A parent checks the order and replies within two days with a Tikkie link to pay.</p></li>
-        <li><h3>Pick up or post</h3><p>Collect for free in Amsterdam, or we post it to you in the Netherlands for €2,50.</p></li>
+        <li><h3>Fill your bag</h3><p>Pick your scrunchies and choose a size.</p></li>
+        <li><h3>Send your order</h3><p>We write your order out for you. Ask a grown-up to email it to us.</p></li>
+        <li><h3>Get a Tikkie</h3><p>We reply within two days with a Tikkie link, so a grown-up can pay.</p></li>
+        <li><h3>Pick up or post</h3><p>Pick it up for free in Amsterdam, or we post it to you in the Netherlands for €2,50.</p></li>
       </ol>
     </div>
   </section>
@@ -347,7 +347,7 @@
       <div class="about-text">
         <span class="eyebrow">About the maker</span>
         <h2>Hi, I make every single one myself.</h2>
-        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows, and after that sparkly bedazzled pieces with gems I set by hand.</p>
+        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly ones with gems I stick on by hand.</p>
         <p>The money I earn goes into my savings and into more fabric, so every order helps me make the next design.</p>
         <span class="hand">Thank you for shopping small!</span>
       </div>
@@ -355,9 +355,9 @@
         <h3 id="promise-title">Our promise</h3>
         <ul>
           <li>Soft elastic, no metal parts that pull hair</li>
-          <li>Every order is handled by a parent</li>
-          <li>Your details are only used for your order</li>
-          <li>Not happy? Tell us and we'll make it right</li>
+          <li>A grown-up looks after every order</li>
+          <li>We only use your details for your order</li>
+          <li>Not happy? Tell us and we will fix it</li>
         </ul>
       </aside>
     </div>
@@ -390,15 +390,15 @@ const SHOP = {
 };
 
 // ---- The ranges, in the order they open ----
-// status: "now" can be ordered, "next" is the next range, "later" is further down the pipeline.
+// status: "now" can be ordered, "next" is coming soon, "later" comes after that.
 // When a range opens, change its status to "now".
 const LINES = [
-  { id: "scrunchie", title: "Scrunchies", status: "now", when: "Order today", blurb: "Hand-sewn scrunchies in three sizes. Ready to order today." },
-  { id: "bow", title: "Bows", status: "next", when: "Coming next", blurb: "Bow clips and matching sets are being sewn now. You'll be able to order them soon." },
-  { id: "bedazzled", title: "Bedazzled", status: "later", when: "In the pipeline", blurb: "Sparkly scrunchies and bows with crystals and pearls, each one set by hand." },
-  { id: "custom", title: "Design your own", status: "later", when: "In the pipeline", href: "#design" },
+  { id: "scrunchie", title: "Scrunchies", status: "now", blurb: "Sewn by hand, in three sizes. You can buy these now!" },
+  { id: "bow", title: "Bows", status: "next", blurb: "Bow clips and matching sets. She is sewing them now, so you can buy them soon." },
+  { id: "bedazzled", title: "Bedazzled", status: "later", blurb: "Sparkly scrunchies and bows with little gems and pearls, all stuck on by hand. These come after the bows." },
+  { id: "custom", title: "Design your own", status: "later", href: "#design" },
 ];
-const STATUS = { now: "Available now", next: "Coming next", later: "In the pipeline" };
+const STATUS = { now: "Ready now", next: "Coming soon", later: "Coming later" };
 
 // ---- The collection: add, remove or re-price pieces here ----
 // line:   which range above it belongs to
@@ -412,11 +412,11 @@ const SIZES = [
   { id: "xl", label: "XL", note: "7 cm wide", delta: 1.5 },
 ];
 const PRODUCTS = [
-  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, stock: 6, badge: "Bestseller", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Cotton gingham picnic check. Our most-loved piece." },
+  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, stock: 6, badge: "Most loved", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Red and white checks, like a picnic blanket." },
   { id: "midnight-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Midnight Velvet", price: 5, stock: 4, photos: [], fabric: { type: "velvet", base: "#2A3270" }, desc: "Deep blue velvet that feels like a cloud." },
   { id: "lemon-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lemon Drop", price: 4, stock: 3, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Sunny yellow cotton with white polka dots." },
-  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Candy-stripe cotton in fresh mint. More being sewn." },
-  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, stock: 5, badge: "New", photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny satin, extra gentle for curly hair." },
+  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Minty stripes. More coming soon!" },
+  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, stock: 5, badge: "New", photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny and smooth. Extra gentle on curly hair." },
   { id: "garden-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Garden Party", price: 4.5, stock: 2, photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Pink cotton covered in tiny flowers." },
 
   { id: "cherry-bow", line: "bow", kind: "bow", name: "Cherry Gingham Bow", price: 3.5, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "On a 5 cm snap clip. Matches the scrunchie." },
@@ -426,9 +426,9 @@ const PRODUCTS = [
   { id: "cherry-set", line: "bow", kind: "set", name: "Cherry Set", price: 7, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Regular scrunchie and a matching bow." },
   { id: "garden-set", line: "bow", kind: "set", name: "Garden Party Set", price: 7.5, badge: "Gift idea", photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Regular scrunchie and a matching bow, gift-wrapped." },
 
-  { id: "crystal-night", line: "bedazzled", kind: "scrunchie", name: "Crystal Night", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" }, desc: "Midnight velvet scattered with clear crystals." },
-  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", name: "Pearl Blush", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" }, desc: "Blush satin with little pearls sewn all round." },
-  { id: "sparkle-bow", line: "bedazzled", kind: "bow", name: "Sparkle Bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" }, desc: "Berry velvet bow with a crystal centre." },
+  { id: "crystal-night", line: "bedazzled", kind: "scrunchie", name: "Crystal Night", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" }, desc: "Dark blue velvet with sparkly gems." },
+  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", name: "Pearl Blush", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" }, desc: "Shiny pink with little pearls all the way round." },
+  { id: "sparkle-bow", line: "bedazzled", kind: "bow", name: "Sparkle Bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" }, desc: "A velvet bow with a big sparkly gem in the middle." },
 ];
 const lineOf = p => LINES.find(l => l.id === p.line);
 const isOpen = p => lineOf(p).status === "now";
@@ -574,7 +574,7 @@ function card(p) {
   const badge = out ? `<span class="badge out">Sold out</span>` : p.badge ? `<span class="badge">${p.badge}</span>` : "";
   const angles = ph.length > 1 ? `<div class="angles" role="group" aria-label="Views of ${esc0(p.name)}">${ph.map((x, i) => `
       <button type="button" data-angle="${i}" aria-pressed="${i === 0}" aria-label="${esc0(x.angle)} view"><img src="${esc0(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
-  const stock = open && !out ? `<span class="stock${p.stock <= 3 ? " low" : ""}">${p.stock <= 3 ? `Only ${p.stock} left` : `${p.stock} ready to send`}</span>` : "";
+  const stock = open && !out ? `<span class="stock${p.stock <= 3 ? " low" : ""}">${p.stock <= 3 ? `Only ${p.stock} left` : `${p.stock} left`}</span>` : "";
   const sizes = open && !out && p.kind === "scrunchie" ? `<fieldset class="sizes"><legend>Size for ${p.name}</legend>${SIZES.map(s => `
       <input type="radio" name="size-${p.id}" id="size-${p.id}-${s.id}" value="${s.id}" ${s.id === "regular" ? "checked" : ""}>
       <label for="size-${p.id}-${s.id}" title="${s.note}">${s.label}</label>`).join("")}</fieldset>` : "";
@@ -722,7 +722,7 @@ function renderBag() {
       <legend>Your details</legend>
       <div class="field"><label for="cust-name">Your name</label><input id="cust-name" autocomplete="name" value="${esc(vals.name)}"></div>
       <div class="field"><label for="cust-contact">Email or phone number</label><input id="cust-contact" autocomplete="email" value="${esc(vals.contact)}"></div>
-      <div class="field"><label for="cust-note">Anything else? (optional)</label><textarea id="cust-note" placeholder="${delivery === "post" ? "Your postal address" : "A good day to pick up"}">${esc(vals.note)}</textarea></div>
+      <div class="field"><label for="cust-note">Anything else? (you can skip this)</label><textarea id="cust-note" placeholder="${delivery === "post" ? "Your postal address" : "A good day to pick up"}">${esc(vals.note)}</textarea></div>
       <p class="err" id="order-err" hidden></p>
       <button class="btn btn-primary" type="submit">Write out my order</button>
     </form>
@@ -767,7 +767,7 @@ function showReady() {
   document.getElementById("ready-slot").innerHTML = `
     <div class="ready">
       <h3>Your order is written out</h3>
-      <p>Copy it and email it to the address below. We'll reply within two days to confirm and send you a Tikkie to pay.</p>
+      <p>Copy it and email it to the address below. We will reply within two days with a Tikkie link to pay.</p>
       <label for="order-text" class="eyebrow">Your order</label>
       <textarea id="order-text" readonly>${esc(preparedOrder)}</textarea>
       <div class="address"><code id="order-email">${esc(SHOP.email)}</code></div>
