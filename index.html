@@ -236,21 +236,46 @@
   .row-btns .btn { padding: .6em 1.1em; }
 
   .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: .7em 1.2em; border-radius: 999px; font-weight: 500; z-index: 60; box-shadow: 0 8px 24px rgba(0, 0, 0, .2); max-width: calc(100% - 32px); }
+
+  /* Header settings: colours and language */
+  .prefs { display: flex; align-items: center; gap: 8px; }
+  .seg { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .seg button { border: 0; background: transparent; cursor: pointer; border-radius: 999px; min-width: 34px; height: 32px; padding: 0 9px; display: inline-grid; place-items: center; font-size: .85rem; font-weight: 700; color: var(--muted); }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .seg svg { width: 18px; height: 18px; }
+  @media (max-width: 520px) { .logo-name { display: none; } .bar .wrap { gap: 8px; } .nav { gap: 8px; } .bag-btn { padding: .55em .9em; } }
 </style>
 
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="#top" aria-label="Loop and Ribbon, back to top">
+    <a class="logo" href="#top" aria-label="Loop &amp; Ribbon">
       <span id="logo-art" aria-hidden="true"></span>
-      <span>Loop &amp; Ribbon</span>
+      <span class="logo-name">Loop &amp; Ribbon</span>
     </a>
-    <nav class="nav" aria-label="Main">
-      <a href="#shop">Shop</a>
-      <a href="#coming">What's coming</a>
-      <a href="#how">How ordering works</a>
-      <a href="#about">About</a>
+    <nav class="nav" data-i18n-aria="nav.label" aria-label="Main">
+      <a href="#shop" data-i18n="nav.shop">Shop</a>
+      <a href="#coming" data-i18n="nav.coming">What's coming</a>
+      <a href="#how" data-i18n="nav.how">How ordering works</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <div class="prefs">
+        <div class="seg" role="group" id="theme-switch" data-i18n-aria="theme.label" aria-label="Colours">
+          <button type="button" data-theme-choice="light" data-i18n-aria="theme.light" data-i18n-title="theme.light">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          </button>
+          <button type="button" data-theme-choice="dark" data-i18n-aria="theme.dark" data-i18n-title="theme.dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          </button>
+          <button type="button" data-theme-choice="auto" data-i18n-aria="theme.auto" data-i18n-title="theme.auto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </button>
+        </div>
+        <div class="seg" role="group" id="lang-switch" data-i18n-aria="lang.label" aria-label="Language">
+          <button type="button" data-lang-choice="en" lang="en" aria-label="English">EN</button>
+          <button type="button" data-lang-choice="nl" lang="nl" aria-label="Nederlands">NL</button>
+        </div>
+      </div>
       <button class="btn btn-primary bag-btn" id="open-bag" type="button" aria-haspopup="dialog">
-        Bag <span class="bag-count" id="bag-count">0</span>
+        <span data-i18n="bag.button">Bag</span> <span class="bag-count" id="bag-count">0</span>
       </button>
     </nav>
   </div>
@@ -260,22 +285,22 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-copy">
-        <span class="eyebrow">Hand-sewn in Amsterdam</span>
-        <h1>Scrunchies, <em>made one at a time.</em></h1>
-        <p>A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.</p>
+        <span class="eyebrow" data-i18n="hero.eyebrow">Hand-sewn in Amsterdam</span>
+        <h1 data-i18n-html="hero.title">Scrunchies, <em>made one at a time.</em></h1>
+        <p data-i18n="hero.text">A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#line-scrunchie">Shop scrunchies</a>
-          <a class="btn btn-ghost" href="#coming">See what's coming</a>
+          <a class="btn btn-primary" href="#line-scrunchie" data-i18n="hero.shop">Shop scrunchies</a>
+          <a class="btn btn-ghost" href="#coming" data-i18n="hero.coming">See what's coming</a>
         </div>
         <ul class="facts">
-          <li>Free pick-up in Amsterdam</li>
-          <li>We post anywhere in the Netherlands</li>
-          <li>Pay by Tikkie</li>
+          <li data-i18n="fact.pickup">Free pick-up in Amsterdam</li>
+          <li data-i18n="fact.post">We post anywhere in the Netherlands</li>
+          <li data-i18n="fact.tikkie">Pay by Tikkie</li>
         </ul>
       </div>
       <div class="hero-art" id="hero-art" aria-hidden="true">
         <div class="disc"></div>
-        <span class="hand note">sewn by hand!</span>
+        <span class="hand note" data-i18n="hero.note">sewn by hand!</span>
       </div>
     </div>
   </section>
@@ -284,42 +309,42 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Our shop</span>
-          <h2>What we make</h2>
+          <span class="eyebrow" data-i18n="shop.eyebrow">Our shop</span>
+          <h2 data-i18n="shop.title">What we make</h2>
         </div>
       </div>
-      <ol class="roadmap" id="coming" aria-label="What you can buy now and what is coming"></ol>
+      <ol class="roadmap" id="coming" data-i18n-aria="shop.roadmap" aria-label="What you can buy now and what is coming"></ol>
       <div id="ranges" style="display:grid;gap:40px"></div>
     </div>
   </section>
 
   <section class="designer" id="design">
     <div class="wrap">
-      <div class="preview" id="designer-preview" role="img" aria-label="Preview of your custom design"></div>
+      <div class="preview" id="designer-preview" role="img" data-i18n-aria="design.preview" aria-label="Preview of your design"></div>
       <div class="controls">
         <div>
-          <span class="pill later">Coming later</span>
-          <h2>Design your own</h2>
+          <span class="pill later" data-i18n="status.later">Coming later</span>
+          <h2 data-i18n="design.title">Design your own</h2>
         </div>
-        <p>Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!</p>
+        <p data-i18n="design.text">Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!</p>
         <fieldset class="ctl">
-          <legend>Shape</legend>
+          <legend data-i18n="design.shape">Shape</legend>
           <div class="chips" id="d-kind">
-            <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true">Scrunchie</button>
-            <button class="chip" type="button" data-kind="bow" aria-pressed="false">Bow clip</button>
+            <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true" data-i18n="design.scrunchie">Scrunchie</button>
+            <button class="chip" type="button" data-kind="bow" aria-pressed="false" data-i18n="design.bow">Bow clip</button>
           </div>
         </fieldset>
         <fieldset class="ctl">
-          <legend>Colour: <span id="d-color-name">Cherry</span></legend>
+          <legend><span data-i18n="design.colour">Colour</span>: <span id="d-color-name">Cherry</span></legend>
           <div class="colors" id="d-colors"></div>
         </fieldset>
         <fieldset class="ctl">
-          <legend>Pattern</legend>
+          <legend data-i18n="design.pattern">Pattern</legend>
           <div class="chips" id="d-pattern"></div>
         </fieldset>
         <div class="designer-foot">
           <span class="tag" id="d-price">€ 6,00</span>
-          <button class="soon-btn" type="button" disabled>Coming later</button>
+          <button class="soon-btn" type="button" disabled data-i18n="status.later">Coming later</button>
         </div>
       </div>
     </div>
@@ -329,15 +354,15 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <span class="eyebrow">How ordering works</span>
-          <h2>Four easy steps</h2>
+          <span class="eyebrow" data-i18n="how.eyebrow">How ordering works</span>
+          <h2 data-i18n="how.title">Four easy steps</h2>
         </div>
       </div>
       <ol class="steps">
-        <li><h3>Fill your bag</h3><p>Pick your scrunchies and choose a size.</p></li>
-        <li><h3>Send your order</h3><p>We write your order out for you. Ask a grown-up to email it to us.</p></li>
-        <li><h3>Get a Tikkie</h3><p>We reply within two days with a Tikkie link, so a grown-up can pay.</p></li>
-        <li><h3>Pick up or post</h3><p>Pick it up for free in Amsterdam, or we post it to you in the Netherlands for €2,50.</p></li>
+        <li><h3 data-i18n="how.1t">Fill your bag</h3><p data-i18n="how.1">Pick your scrunchies and choose a size.</p></li>
+        <li><h3 data-i18n="how.2t">Send your order</h3><p data-i18n="how.2">We write your order out for you. Ask a grown-up to email it to us.</p></li>
+        <li><h3 data-i18n="how.3t">Get a Tikkie</h3><p data-i18n="how.3">We reply within two days with a Tikkie link, so a grown-up can pay.</p></li>
+        <li><h3 data-i18n="how.4t">Pick up or post</h3><p data-i18n="how.4">Pick it up for free in Amsterdam, or we post it to you in the Netherlands.</p></li>
       </ol>
     </div>
   </section>
@@ -345,19 +370,19 @@
   <section class="about" id="about">
     <div class="wrap">
       <div class="about-text">
-        <span class="eyebrow">About the maker</span>
-        <h2>Hi, I make every single one myself.</h2>
-        <p>I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly ones with gems I stick on by hand.</p>
-        <p>The money I earn goes into my savings and into more fabric, so every order helps me make the next design.</p>
-        <span class="hand">Thank you for shopping small!</span>
+        <span class="eyebrow" data-i18n="about.eyebrow">About the maker</span>
+        <h2 data-i18n="about.title">Hi, I make every single one myself.</h2>
+        <p data-i18n="about.1">I started sewing scrunchies for my friends and now I can't stop.</p>
+        <p data-i18n="about.2">The money I earn goes into my savings and into more fabric.</p>
+        <span class="hand" data-i18n="about.thanks">Thank you for shopping small!</span>
       </div>
       <aside class="promise" aria-labelledby="promise-title">
-        <h3 id="promise-title">Our promise</h3>
+        <h3 id="promise-title" data-i18n="promise.title">Our promise</h3>
         <ul>
-          <li>Soft elastic, no metal parts that pull hair</li>
-          <li>A grown-up looks after every order</li>
-          <li>We only use your details for your order</li>
-          <li>Not happy? Tell us and we will fix it</li>
+          <li data-i18n="promise.1">Soft elastic, no metal parts that pull hair</li>
+          <li data-i18n="promise.2">A grown-up looks after every order</li>
+          <li data-i18n="promise.3">We only use your details for your order</li>
+          <li data-i18n="promise.4">Not happy? Tell us and we will fix it</li>
         </ul>
       </aside>
     </div>
@@ -366,16 +391,16 @@
 
 <footer>
   <div class="wrap">
-    <span>Loop &amp; Ribbon · Hand-sewn in Amsterdam</span>
-    <span>Questions? Email <span id="footer-email"></span></span>
+    <span>Loop &amp; Ribbon · <span data-i18n="hero.eyebrow">Hand-sewn in Amsterdam</span></span>
+    <span><span data-i18n="footer.questions">Questions? Email</span> <span id="footer-email"></span></span>
   </div>
 </footer>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="bag-title" hidden>
   <div class="drawer-head">
-    <h2 id="bag-title">Your bag</h2>
-    <button class="icon-btn" id="close-bag" type="button" aria-label="Close bag">×</button>
+    <h2 id="bag-title" data-i18n="bag.title">Your bag</h2>
+    <button class="icon-btn" id="close-bag" type="button" data-i18n-aria="bag.close" aria-label="Close bag">×</button>
   </div>
   <div class="drawer-body" id="drawer-body"></div>
 </aside>
@@ -387,66 +412,230 @@ const SHOP = {
   name: "Loop & Ribbon",
   email: "orders@example.com", // the parent's email address that receives orders
   postage: 2.5,
+  // Colours follow the time in Amsterdam (CET, or CEST in summer): light from dayStarts until nightStarts.
+  dayStarts: 7,
+  nightStarts: 19,
+};
+
+// ---- Words on the page, in English and Dutch ----
+// {name}-style words in curly brackets are filled in by the page.
+const WORDS = {
+  en: {
+    "nav.label": "Main", "nav.shop": "Shop", "nav.coming": "What's coming", "nav.how": "How ordering works", "nav.about": "About",
+    "theme.label": "Colours", "theme.light": "Light colours", "theme.dark": "Dark colours", "theme.auto": "Automatic: light in the day, dark at night",
+    "lang.label": "Language",
+    "hero.eyebrow": "Hand-sewn in Amsterdam",
+    "hero.title": "Scrunchies, <em>made one at a time.</em>",
+    "hero.text": "A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.",
+    "hero.shop": "Shop scrunchies", "hero.coming": "See what's coming", "hero.note": "sewn by hand!",
+    "fact.pickup": "Free pick-up in Amsterdam", "fact.post": "We post anywhere in the Netherlands", "fact.tikkie": "Pay by Tikkie",
+    "shop.eyebrow": "Our shop", "shop.title": "What we make", "shop.roadmap": "What you can buy now and what is coming",
+    "status.now": "Ready now", "status.next": "Coming soon", "status.later": "Coming later",
+    "design.preview": "Preview of your design", "design.title": "Design your own",
+    "design.text": "Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!",
+    "design.shape": "Shape", "design.scrunchie": "Scrunchie", "design.bow": "Bow clip", "design.colour": "Colour", "design.pattern": "Pattern",
+    "how.eyebrow": "How ordering works", "how.title": "Four easy steps",
+    "how.1t": "Fill your bag", "how.1": "Pick your scrunchies and choose a size.",
+    "how.2t": "Send your order", "how.2": "We write your order out for you. Ask a grown-up to email it to us.",
+    "how.3t": "Get a Tikkie", "how.3": "We reply within two days with a Tikkie link, so a grown-up can pay.",
+    "how.4t": "Pick up or post", "how.4": "Pick it up for free in Amsterdam, or we post it to you in the Netherlands for {postage}.",
+    "about.eyebrow": "About the maker", "about.title": "Hi, I make every single one myself.",
+    "about.1": "I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly ones with gems I stick on by hand.",
+    "about.2": "The money I earn goes into my savings and into more fabric, so every order helps me make the next design.",
+    "about.thanks": "Thank you for shopping small!",
+    "promise.title": "Our promise", "promise.1": "Soft elastic, no metal parts that pull hair", "promise.2": "A grown-up looks after every order",
+    "promise.3": "We only use your details for your order", "promise.4": "Not happy? Tell us and we will fix it",
+    "footer.questions": "Questions? Email",
+    "card.photoSoon": "Photo coming soon", "card.soldOut": "Sold out", "card.comingSoon": "Coming soon", "card.add": "Add to bag",
+    "card.left": "{n} left", "card.onlyLeft": "Only {n} left", "card.sizeFor": "Size for {name}", "card.views": "Photos of {name}", "card.view": "{name}, {angle}",
+    "toast.added": "{name} is in your bag", "toast.max": "That's all the {name} we have right now",
+    "toast.copiedOrder": "Order copied", "toast.copiedEmail": "Email address copied", "toast.selected": "Selected. Press Ctrl+C or Cmd+C to copy",
+    "bag.button": "Bag", "bag.title": "Your bag", "bag.close": "Close bag",
+    "bag.empty": "Your bag is empty", "bag.emptyText": "Add a scrunchie and it will show up here.", "bag.browse": "Keep looking",
+    "bag.less": "One less {name}", "bag.more": "One more {name}", "bag.remove": "Remove",
+    "bag.delivery": "Delivery", "bag.pickup": "Pick up in Amsterdam", "bag.post": "Post in the Netherlands", "bag.free": "Free",
+    "bag.items": "Items", "bag.total": "Total",
+    "bag.details": "Your details", "bag.name": "Your name", "bag.contact": "Email or phone number", "bag.note": "Anything else? (you can skip this)",
+    "bag.notePost": "Your postal address", "bag.notePickup": "A good day to pick up", "bag.write": "Write out my order",
+    "bag.errContact": "Please add your name and an email or phone number so we can reply.",
+    "bag.errAddress": "Please add your postal address in the last box so we know where to send it.",
+    "order.hello": "Hello {shop}! I'd like to order:", "order.delivery": "Delivery", "order.total": "Total", "order.name": "Name",
+    "order.contact": "Contact", "order.note": "Note", "order.subject": "Order for {shop}",
+    "ready.title": "Your order is written out",
+    "ready.text": "Copy it and email it to the address below. We will reply within two days with a Tikkie link to pay.",
+    "ready.label": "Your order", "ready.copy": "Copy order", "ready.copyEmail": "Copy email address", "ready.open": "Open my email app",
+  },
+  nl: {
+    "nav.label": "Menu", "nav.shop": "Winkel", "nav.coming": "Wat komt er", "nav.how": "Zo bestel je", "nav.about": "Over mij",
+    "theme.label": "Kleuren", "theme.light": "Lichte kleuren", "theme.dark": "Donkere kleuren", "theme.auto": "Automatisch: licht overdag, donker 's avonds",
+    "lang.label": "Taal",
+    "hero.eyebrow": "Met de hand genaaid in Amsterdam",
+    "hero.title": "Scrunchies, <em>één voor één gemaakt.</em>",
+    "hero.text": "Een jonge maker tekent, knipt en naait ze allemaal zelf aan de keukentafel. Ze zijn zacht voor je haar en geen twee zijn precies hetzelfde. Scrunchies kun je nu kopen. Strikjes en glinsterende spulletjes komen snel.",
+    "hero.shop": "Bekijk de scrunchies", "hero.coming": "Kijk wat er komt", "hero.note": "met de hand genaaid!",
+    "fact.pickup": "Gratis ophalen in Amsterdam", "fact.post": "We versturen door heel Nederland", "fact.tikkie": "Betalen met Tikkie",
+    "shop.eyebrow": "Onze winkel", "shop.title": "Wat we maken", "shop.roadmap": "Wat je nu kunt kopen en wat er nog komt",
+    "status.now": "Nu te koop", "status.next": "Komt snel", "status.later": "Komt later",
+    "design.preview": "Voorbeeld van jouw ontwerp", "design.title": "Ontwerp je eigen",
+    "design.text": "Binnenkort kies je een vorm, een kleur en een patroon, en dan naait ze het speciaal voor jou. Je kunt je eigen ontwerp nog niet bestellen, maar je kunt nu al ideeën uitproberen!",
+    "design.shape": "Vorm", "design.scrunchie": "Scrunchie", "design.bow": "Strikje", "design.colour": "Kleur", "design.pattern": "Patroon",
+    "how.eyebrow": "Zo bestel je", "how.title": "Vier makkelijke stappen",
+    "how.1t": "Vul je tasje", "how.1": "Kies je scrunchies en een maat.",
+    "how.2t": "Stuur je bestelling", "how.2": "Wij schrijven je bestelling voor je uit. Vraag een volwassene om hem naar ons te mailen.",
+    "how.3t": "Krijg een Tikkie", "how.3": "Binnen twee dagen sturen we een Tikkie, zodat een volwassene kan betalen.",
+    "how.4t": "Ophalen of opsturen", "how.4": "Haal het gratis op in Amsterdam, of we sturen het op binnen Nederland voor {postage}.",
+    "about.eyebrow": "Over de maker", "about.title": "Hoi, ik maak ze allemaal zelf!",
+    "about.1": "Ik begon met scrunchies naaien voor mijn vriendinnen en nu kan ik niet meer stoppen. Ik kies de stoffen, teken de ontwerpen en naai ze op mijn naaimachine. Hierna maak ik strikjes. Daarna komen er glinsterende, met steentjes die ik er met de hand op plak.",
+    "about.2": "Het geld dat ik verdien gaat naar mijn spaarpot en naar nieuwe stof, dus elke bestelling helpt me om het volgende ontwerp te maken.",
+    "about.thanks": "Dankjewel voor je steun!",
+    "promise.title": "Onze belofte", "promise.1": "Zacht elastiek, geen metaal dat aan je haar trekt", "promise.2": "Een volwassene regelt elke bestelling",
+    "promise.3": "We gebruiken je gegevens alleen voor je bestelling", "promise.4": "Niet blij? Laat het ons weten, dan lossen we het op",
+    "footer.questions": "Vragen? Mail naar",
+    "card.photoSoon": "Foto komt snel", "card.soldOut": "Uitverkocht", "card.comingSoon": "Komt snel", "card.add": "In mijn tasje",
+    "card.left": "Nog {n}", "card.onlyLeft": "Nog maar {n}", "card.sizeFor": "Maat voor {name}", "card.views": "Foto's van {name}", "card.view": "{name}, {angle}",
+    "toast.added": "{name} zit in je tasje", "toast.max": "Meer {name} hebben we nu niet",
+    "toast.copiedOrder": "Bestelling gekopieerd", "toast.copiedEmail": "E-mailadres gekopieerd", "toast.selected": "Geselecteerd. Druk op Ctrl+C of Cmd+C om te kopiëren",
+    "bag.button": "Tasje", "bag.title": "Je tasje", "bag.close": "Tasje sluiten",
+    "bag.empty": "Je tasje is leeg", "bag.emptyText": "Doe er een scrunchie in, dan zie je hem hier.", "bag.browse": "Verder kijken",
+    "bag.less": "Eén {name} minder", "bag.more": "Eén {name} meer", "bag.remove": "Weghalen",
+    "bag.delivery": "Bezorging", "bag.pickup": "Ophalen in Amsterdam", "bag.post": "Opsturen binnen Nederland", "bag.free": "Gratis",
+    "bag.items": "Spulletjes", "bag.total": "Totaal",
+    "bag.details": "Jouw gegevens", "bag.name": "Je naam", "bag.contact": "E-mail of telefoonnummer", "bag.note": "Nog iets? (mag je overslaan)",
+    "bag.notePost": "Je adres", "bag.notePickup": "Een goede dag om op te halen", "bag.write": "Schrijf mijn bestelling uit",
+    "bag.errContact": "Vul je naam en een e-mail of telefoonnummer in, zodat we je kunnen antwoorden.",
+    "bag.errAddress": "Zet je adres in het laatste vakje, zodat we weten waar we het heen moeten sturen.",
+    "order.hello": "Hallo {shop}! Ik wil graag bestellen:", "order.delivery": "Bezorging", "order.total": "Totaal", "order.name": "Naam",
+    "order.contact": "Contact", "order.note": "Opmerking", "order.subject": "Bestelling voor {shop}",
+    "ready.title": "Je bestelling staat klaar",
+    "ready.text": "Kopieer hem en mail hem naar het adres hieronder. Binnen twee dagen sturen we een Tikkie om te betalen.",
+    "ready.label": "Je bestelling", "ready.copy": "Kopieer bestelling", "ready.copyEmail": "Kopieer e-mailadres", "ready.open": "Open mijn mail-app",
+  },
 };
 
 // ---- The ranges, in the order they open ----
 // status: "now" can be ordered, "next" is coming soon, "later" comes after that.
 // When a range opens, change its status to "now".
 const LINES = [
-  { id: "scrunchie", title: "Scrunchies", status: "now", blurb: "Sewn by hand, in three sizes. You can buy these now!" },
-  { id: "bow", title: "Bows", status: "next", blurb: "Bow clips and matching sets. She is sewing them now, so you can buy them soon." },
-  { id: "bedazzled", title: "Bedazzled", status: "later", blurb: "Sparkly scrunchies and bows with little gems and pearls, all stuck on by hand. These come after the bows." },
-  { id: "custom", title: "Design your own", status: "later", href: "#design" },
+  { id: "scrunchie", status: "now", title: { en: "Scrunchies", nl: "Scrunchies" },
+    blurb: { en: "Sewn by hand, in three sizes. You can buy these now!", nl: "Met de hand genaaid, in drie maten. Deze kun je nu kopen!" } },
+  { id: "bow", status: "next", title: { en: "Bows", nl: "Strikjes" },
+    blurb: { en: "Bow clips and matching sets. She is sewing them now, so you can buy them soon.", nl: "Strikjes op een speldje en setjes die bij elkaar passen. Ze is ze nu aan het naaien, dus je kunt ze snel kopen." } },
+  { id: "bedazzled", status: "later", title: { en: "Bedazzled", nl: "Bedazzled" },
+    blurb: { en: "Sparkly scrunchies and bows with little gems and pearls, all stuck on by hand. These come after the bows.", nl: "Glinsterende scrunchies en strikjes met steentjes en pareltjes, allemaal met de hand opgeplakt. Deze komen na de strikjes." } },
+  { id: "custom", status: "later", href: "#design", title: { en: "Design your own", nl: "Ontwerp je eigen" } },
 ];
-const STATUS = { now: "Ready now", next: "Coming soon", later: "Coming later" };
 
 // ---- The collection: add, remove or re-price pieces here ----
 // line:   which range above it belongs to
 // stock:  how many are ready to sell (0 shows "Sold out"); only used for ranges that are open
 // photos: real photos from different angles, e.g.
-//         photos: [{ src: "photos/cherry-front.jpg", angle: "Front" }, { src: "photos/cherry-side.jpg", angle: "Side" }, { src: "photos/cherry-worn.jpg", angle: "In hair" }]
+//         photos: [{ src: "photos/cherry-front.jpg", angle: { en: "front", nl: "voorkant" } }, { src: "photos/cherry-worn.jpg", angle: { en: "in hair", nl: "in het haar" } }]
 //         Put the image files in a "photos" folder next to this page. Without photos, a drawing is shown.
 const SIZES = [
-  { id: "mini", label: "Mini", note: "2 cm wide", delta: -1 },
-  { id: "regular", label: "Regular", note: "4 cm wide", delta: 0 },
-  { id: "xl", label: "XL", note: "7 cm wide", delta: 1.5 },
+  { id: "mini", label: { en: "Mini", nl: "Mini" }, note: { en: "2 cm wide", nl: "2 cm breed" }, delta: -1 },
+  { id: "regular", label: { en: "Regular", nl: "Normaal" }, note: { en: "4 cm wide", nl: "4 cm breed" }, delta: 0 },
+  { id: "xl", label: { en: "XL", nl: "XL" }, note: { en: "7 cm wide", nl: "7 cm breed" }, delta: 1.5 },
 ];
+const BADGES = { loved: { en: "Most loved", nl: "Favoriet" }, new: { en: "New", nl: "Nieuw" }, gift: { en: "Gift idea", nl: "Cadeautip" } };
 const PRODUCTS = [
-  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Cherry Gingham", price: 4, stock: 6, badge: "Most loved", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Red and white checks, like a picnic blanket." },
-  { id: "midnight-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Midnight Velvet", price: 5, stock: 4, photos: [], fabric: { type: "velvet", base: "#2A3270" }, desc: "Deep blue velvet that feels like a cloud." },
-  { id: "lemon-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lemon Drop", price: 4, stock: 3, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Sunny yellow cotton with white polka dots." },
-  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Mint Candy", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" }, desc: "Minty stripes. More coming soon!" },
-  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Lilac Satin", price: 5, stock: 5, badge: "New", photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Shiny and smooth. Extra gentle on curly hair." },
-  { id: "garden-scrunchie", line: "scrunchie", kind: "scrunchie", name: "Garden Party", price: 4.5, stock: 2, photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Pink cotton covered in tiny flowers." },
+  { id: "cherry-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 6, badge: "loved", photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" },
+    name: { en: "Cherry Gingham", nl: "Kersenruitje" }, desc: { en: "Red and white checks, like a picnic blanket.", nl: "Rood-witte ruitjes, net een picknickkleed." } },
+  { id: "midnight-scrunchie", line: "scrunchie", kind: "scrunchie", price: 5, stock: 4, photos: [], fabric: { type: "velvet", base: "#2A3270" },
+    name: { en: "Midnight Velvet", nl: "Middernachtfluweel" }, desc: { en: "Deep blue velvet that feels like a cloud.", nl: "Donkerblauw fluweel, zo zacht als een wolk." } },
+  { id: "lemon-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 3, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" },
+    name: { en: "Lemon Drop", nl: "Citroensnoepje" }, desc: { en: "Sunny yellow cotton with white polka dots.", nl: "Zonnig geel katoen met witte stippen." } },
+  { id: "mint-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4, stock: 0, photos: [], fabric: { type: "stripes", base: "#8FD3BC", ink: "#FFFFFF" },
+    name: { en: "Mint Candy", nl: "Muntsnoepje" }, desc: { en: "Minty stripes. More coming soon!", nl: "Mintgroene strepen. Er komen er snel meer!" } },
+  { id: "lilac-scrunchie", line: "scrunchie", kind: "scrunchie", price: 5, stock: 5, badge: "new", photos: [], fabric: { type: "satin", base: "#B59BE0" },
+    name: { en: "Lilac Satin", nl: "Lila satijn" }, desc: { en: "Shiny and smooth. Extra gentle on curly hair.", nl: "Glanzend en glad. Extra zacht voor krullen." } },
+  { id: "garden-scrunchie", line: "scrunchie", kind: "scrunchie", price: 4.5, stock: 2, photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" },
+    name: { en: "Garden Party", nl: "Tuinfeest" }, desc: { en: "Pink cotton covered in tiny flowers.", nl: "Roze katoen vol kleine bloemetjes." } },
 
-  { id: "cherry-bow", line: "bow", kind: "bow", name: "Cherry Gingham Bow", price: 3.5, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "On a 5 cm snap clip. Matches the scrunchie." },
-  { id: "berry-bow", line: "bow", kind: "bow", name: "Big Velvet Bow", price: 5, photos: [], fabric: { type: "velvet", base: "#7C1F3E" }, desc: "A big berry velvet bow on a 7 cm clip." },
-  { id: "lemon-bow", line: "bow", kind: "bow", name: "Lemon Drop Bow", price: 3.5, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" }, desc: "Polka dots on a 5 cm snap clip." },
-  { id: "lilac-pair", line: "bow", kind: "bowpair", name: "Little Lilac Pair", price: 4, photos: [], fabric: { type: "satin", base: "#B59BE0" }, desc: "Two small satin bows, perfect for pigtails." },
-  { id: "cherry-set", line: "bow", kind: "set", name: "Cherry Set", price: 7, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" }, desc: "Regular scrunchie and a matching bow." },
-  { id: "garden-set", line: "bow", kind: "set", name: "Garden Party Set", price: 7.5, badge: "Gift idea", photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" }, desc: "Regular scrunchie and a matching bow, gift-wrapped." },
+  { id: "cherry-bow", line: "bow", kind: "bow", price: 3.5, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" },
+    name: { en: "Cherry Gingham Bow", nl: "Kersenruitje-strik" }, desc: { en: "On a 5 cm snap clip. Matches the scrunchie.", nl: "Op een knipspeldje van 5 cm. Past bij de scrunchie." } },
+  { id: "berry-bow", line: "bow", kind: "bow", price: 5, photos: [], fabric: { type: "velvet", base: "#7C1F3E" },
+    name: { en: "Big Velvet Bow", nl: "Grote fluwelen strik" }, desc: { en: "A big berry velvet bow on a 7 cm clip.", nl: "Een grote bessenrode strik van fluweel, op een speldje van 7 cm." } },
+  { id: "lemon-bow", line: "bow", kind: "bow", price: 3.5, photos: [], fabric: { type: "dots", base: "#F6C945", ink: "#FFFFFF" },
+    name: { en: "Lemon Drop Bow", nl: "Citroensnoepje-strik" }, desc: { en: "Polka dots on a 5 cm snap clip.", nl: "Stippen op een knipspeldje van 5 cm." } },
+  { id: "lilac-pair", line: "bow", kind: "bowpair", price: 4, photos: [], fabric: { type: "satin", base: "#B59BE0" },
+    name: { en: "Little Lilac Pair", nl: "Twee lila strikjes" }, desc: { en: "Two small satin bows, perfect for pigtails.", nl: "Twee kleine satijnen strikjes, perfect voor staartjes." } },
+  { id: "cherry-set", line: "bow", kind: "set", price: 7, photos: [], fabric: { type: "gingham", base: "#D7263D", ink: "#FFF8F0" },
+    name: { en: "Cherry Set", nl: "Kersenset" }, desc: { en: "Regular scrunchie and a matching bow.", nl: "Een normale scrunchie en een strikje dat erbij past." } },
+  { id: "garden-set", line: "bow", kind: "set", price: 7.5, badge: "gift", photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" },
+    name: { en: "Garden Party Set", nl: "Tuinfeest-set" }, desc: { en: "Regular scrunchie and a matching bow, gift-wrapped.", nl: "Een normale scrunchie en een strikje dat erbij past, ingepakt als cadeautje." } },
 
-  { id: "crystal-night", line: "bedazzled", kind: "scrunchie", name: "Crystal Night", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" }, desc: "Dark blue velvet with sparkly gems." },
-  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", name: "Pearl Blush", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" }, desc: "Shiny pink with little pearls all the way round." },
-  { id: "sparkle-bow", line: "bedazzled", kind: "bow", name: "Sparkle Bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" }, desc: "A velvet bow with a big sparkly gem in the middle." },
+  { id: "starry-night", line: "bedazzled", kind: "scrunchie", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" },
+    name: { en: "Starry Night", nl: "Sterrennacht" }, desc: { en: "Dark blue velvet with sparkly gems.", nl: "Donkerblauw fluweel met glinsterende steentjes." } },
+  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" },
+    name: { en: "Pearl Blush", nl: "Roze parel" }, desc: { en: "Shiny pink with little pearls all the way round.", nl: "Glanzend roze met kleine pareltjes rondom." } },
+  { id: "sparkle-bow", line: "bedazzled", kind: "bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" },
+    name: { en: "Sparkle Bow", nl: "Glitterstrik" }, desc: { en: "A velvet bow with a big sparkly gem in the middle.", nl: "Een fluwelen strik met een grote glinstersteen in het midden." } },
 ];
 const lineOf = p => LINES.find(l => l.id === p.line);
 const isOpen = p => lineOf(p).status === "now";
 const CUSTOM = {
   prices: { scrunchie: 6, bow: 5 },
   colors: [
-    { name: "Cherry", hex: "#D7263D" }, { name: "Blush", hex: "#F4A6B8" }, { name: "Lemon", hex: "#F6C945" },
-    { name: "Mint", hex: "#8FD3BC" }, { name: "Sky", hex: "#8EC5F0" }, { name: "Lilac", hex: "#B59BE0" },
-    { name: "Navy", hex: "#2A3270" }, { name: "Liquorice", hex: "#2B2B2E" },
+    { name: { en: "Cherry", nl: "Kers" }, hex: "#D7263D" }, { name: { en: "Blush", nl: "Roze" }, hex: "#F4A6B8" },
+    { name: { en: "Lemon", nl: "Citroen" }, hex: "#F6C945" }, { name: { en: "Mint", nl: "Mint" }, hex: "#8FD3BC" },
+    { name: { en: "Sky", nl: "Hemelsblauw" }, hex: "#8EC5F0" }, { name: { en: "Lilac", nl: "Lila" }, hex: "#B59BE0" },
+    { name: { en: "Navy", nl: "Donkerblauw" }, hex: "#2A3270" }, { name: { en: "Liquorice", nl: "Drop" }, hex: "#2B2B2E" },
   ],
   patterns: [
-    { id: "velvet", label: "Plain velvet" }, { id: "gingham", label: "Gingham" }, { id: "dots", label: "Polka dots" },
-    { id: "stripes", label: "Stripes" }, { id: "floral", label: "Flowers" },
+    { id: "velvet", label: { en: "Plain velvet", nl: "Effen fluweel" } }, { id: "gingham", label: { en: "Gingham", nl: "Ruitjes" } },
+    { id: "dots", label: { en: "Polka dots", nl: "Stippen" } }, { id: "stripes", label: { en: "Stripes", nl: "Strepen" } },
+    { id: "floral", label: { en: "Flowers", nl: "Bloemetjes" } },
   ],
 };
 
-// ---- Drawing the fabric pieces ----
+// ---- Language ----
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+};
+let lang = store.get("loop-ribbon-lang") === "nl" ? "nl" : "en";
 const money = new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR" });
+const t = (key, vars = {}) => (WORDS[lang][key] ?? WORDS.en[key] ?? key).replace(/\{(\w+)\}/g, (m, k) => (k in vars ? vars[k] : m));
+const tx = v => (v && typeof v === "object" ? v[lang] ?? v.en : v ?? "");
+
+function applyStaticWords() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n, { postage: money.format(SHOP.postage) }); });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  document.querySelectorAll("[data-i18n-title]").forEach(el => el.setAttribute("title", t(el.dataset.i18nTitle)));
+  document.querySelectorAll("[data-lang-choice]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.langChoice === lang)));
+}
+function setLang(next) {
+  lang = next; store.set("loop-ribbon-lang", lang);
+  applyStaticWords(); renderShop(); renderDesigner(); renderBag();
+}
+document.getElementById("lang-switch").addEventListener("click", e => {
+  const b = e.target.closest("[data-lang-choice]"); if (b && b.dataset.langChoice !== lang) setLang(b.dataset.langChoice);
+});
+
+// ---- Light by day, dark at night (Amsterdam time) ----
+let themeChoice = ["light", "dark"].includes(store.get("loop-ribbon-theme")) ? store.get("loop-ribbon-theme") : "auto";
+function amsterdamHour() {
+  try { return +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Amsterdam", hour: "numeric", hourCycle: "h23" }).format(new Date()); }
+  catch (e) { return new Date().getHours(); }
+}
+function applyTheme() {
+  const h = amsterdamHour();
+  const look = themeChoice === "auto" ? (h >= SHOP.dayStarts && h < SHOP.nightStarts ? "light" : "dark") : themeChoice;
+  document.documentElement.setAttribute("data-theme", look);
+  document.querySelectorAll("[data-theme-choice]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.themeChoice === themeChoice)));
+}
+document.getElementById("theme-switch").addEventListener("click", e => {
+  const b = e.target.closest("[data-theme-choice]"); if (!b) return;
+  themeChoice = b.dataset.themeChoice;
+  store.set("loop-ribbon-theme", themeChoice);
+  applyTheme();
+});
+applyTheme();
+setInterval(applyTheme, 60 * 1000);
+
+// ---- Drawing the fabric pieces ----
 let uid = 0;
 
 function fabricFill(f, id) {
@@ -472,9 +661,9 @@ function ringPath(cx, cy, R, r, n, a, b) {
     let d = "";
     for (let i = 0; i <= 180; i++) {
       const k = reverse ? 180 - i : i;
-      const t = (k / 180) * Math.PI * 2;
-      const rr = rad + amp * Math.sin(n * t + phase);
-      d += (i ? "L" : "M") + (cx + rr * Math.cos(t)).toFixed(1) + " " + (cy + rr * Math.sin(t)).toFixed(1);
+      const th = (k / 180) * Math.PI * 2;
+      const rr = rad + amp * Math.sin(n * th + phase);
+      d += (i ? "L" : "M") + (cx + rr * Math.cos(th)).toFixed(1) + " " + (cy + rr * Math.sin(th)).toFixed(1);
     }
     return d + "Z";
   };
@@ -487,16 +676,16 @@ function scrunchieArt(f) {
   const deep = f.type === "velvet" ? .45 : .3;
   let folds = "";
   for (let k = 0; k < n; k++) {
-    const t = (1.5 * Math.PI + 2 * Math.PI * k) / n;
-    const x1 = 100 + (r + 6) * Math.cos(t), y1 = 100 + (r + 6) * Math.sin(t);
-    const x2 = 100 + (R - 10) * Math.cos(t + .08), y2 = 100 + (R - 10) * Math.sin(t + .08);
+    const th = (1.5 * Math.PI + 2 * Math.PI * k) / n;
+    const x1 = 100 + (r + 6) * Math.cos(th), y1 = 100 + (r + 6) * Math.sin(th);
+    const x2 = 100 + (R - 10) * Math.cos(th + .08), y2 = 100 + (R - 10) * Math.sin(th + .08);
     folds += `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} L${x2.toFixed(1)} ${y2.toFixed(1)}"/>`;
   }
   const d = ringPath(100, 100, R, r, n, 7, 3);
   let sparkle = "";
   if (f.gems) {
     const spots = [];
-    for (let k = 0; k < 11; k++) { const t = (k / 11) * Math.PI * 2 + .3; const rad = k % 2 ? 50 : 64; spots.push([100 + rad * Math.cos(t), 100 + rad * Math.sin(t), k % 3 ? 4.2 : 5.4]); }
+    for (let k = 0; k < 11; k++) { const th = (k / 11) * Math.PI * 2 + .3; const rad = k % 2 ? 50 : 64; spots.push([100 + rad * Math.cos(th), 100 + rad * Math.sin(th), k % 3 ? 4.2 : 5.4]); }
     sparkle = gems(f.gems, spots, p);
   }
   return `<defs>${fabricFill(f, p + "f")}<radialGradient id="${p}h" cx="100" cy="100" r="88" gradientUnits="userSpaceOnUse"><stop offset=".36" stop-color="#000" stop-opacity="${deep}"/><stop offset=".62" stop-color="#FFF" stop-opacity=".28"/><stop offset=".8" stop-color="#FFF" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="${deep}"/></radialGradient></defs>
@@ -536,71 +725,87 @@ function art(kind, f) {
   return `<g transform="translate(-4 14) scale(.84)">${scrunchieArt(f)}</g><g transform="translate(92 -6) scale(.56) rotate(10 100 100)">${bowArt(f)}</g>`;
 }
 const svg = (kind, f, cls = "") => `<svg ${cls ? `class="${cls}"` : ""} viewBox="0 0 200 200" aria-hidden="true">${art(kind, f)}</svg>`;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 // ---- Bag ----
+// Each bag line keeps only ids and amounts; names and prices come from the collection in the chosen language.
 const KEY = "loop-ribbon-bag";
 let bag = [];
-try { bag = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(bag)) bag = []; } catch (e) { bag = []; }
-// Keep only pieces that can still be ordered.
-bag = bag.filter(l => { const p = PRODUCTS.find(x => x.id === l.productId); return p && isOpen(p) && p.stock > 0; });
-const save = () => { try { localStorage.setItem(KEY, JSON.stringify(bag)); } catch (e) {} };
+try { bag = JSON.parse(store.get(KEY) || "[]"); if (!Array.isArray(bag)) bag = []; } catch (e) { bag = []; }
+bag = bag.filter(l => { const p = PRODUCTS.find(x => x.id === l.productId); return p && isOpen(p) && p.stock > 0 && Number.isInteger(l.qty) && l.qty > 0; })
+  .map(l => ({ key: l.productId + "-" + (l.sizeId || ""), productId: l.productId, sizeId: l.sizeId || "", qty: l.qty }));
+const save = () => store.set(KEY, JSON.stringify(bag));
 let delivery = "pickup";
 let preparedOrder = null;
 
+const productOf = l => PRODUCTS.find(x => x.id === l.productId);
+const sizeOf = l => SIZES.find(s => s.id === l.sizeId);
+const lineName = l => tx(productOf(l).name);
+const lineVariant = l => { const s = sizeOf(l); return s ? `${tx(s.label)}, ${tx(s.note)}` : ""; };
+const linePrice = l => productOf(l).price + (sizeOf(l)?.delta || 0);
 const inBag = productId => bag.filter(l => l.productId === productId).reduce((s, l) => s + l.qty, 0);
 const roomFor = productId => { const p = PRODUCTS.find(x => x.id === productId); return p ? p.stock - inBag(productId) : 0; };
 
-function addToBag(item) {
-  if (roomFor(item.productId) < 1) { toast(`That's all the ${item.name} we have right now`); return; }
-  const found = bag.find(l => l.key === item.key);
-  if (found) found.qty += 1; else bag.push({ ...item, qty: 1 });
+function addToBag(productId, sizeId) {
+  const name = tx(PRODUCTS.find(x => x.id === productId).name);
+  if (roomFor(productId) < 1) { toast(t("toast.max", { name })); return; }
+  const key = productId + "-" + sizeId;
+  const found = bag.find(l => l.key === key);
+  if (found) found.qty += 1; else bag.push({ key, productId, sizeId, qty: 1 });
   preparedOrder = null;
-  save(); renderBag(); toast(`${item.name} is in your bag`);
+  save(); renderBag(); toast(t("toast.added", { name }));
 }
 
 // ---- Collection ----
 const ranges = document.getElementById("ranges");
-const esc0 = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+function drawing(p) { return svg(p.kind, p.fabric) + `<span class="photo-note">${t("card.photoSoon")}</span>`; }
 function media(p) {
   const ph = p.photos || [];
-  if (ph.length) return `<img class="photo" src="${esc0(ph[0].src)}" alt="${esc0(p.name)}, ${esc0(ph[0].angle.toLowerCase())} view" loading="lazy">`;
-  return svg(p.kind, p.fabric) + `<span class="photo-note">Photo coming soon</span>`;
+  if (ph.length) return `<img class="photo" src="${esc(ph[0].src)}" alt="${esc(t("card.view", { name: tx(p.name), angle: tx(ph[0].angle) }))}" loading="lazy">`;
+  return drawing(p);
 }
 
 function card(p) {
-  const open = isOpen(p), out = open && p.stock < 1;
+  const open = isOpen(p), out = open && p.stock < 1, name = tx(p.name);
   const ph = p.photos || [];
-  const badge = out ? `<span class="badge out">Sold out</span>` : p.badge ? `<span class="badge">${p.badge}</span>` : "";
-  const angles = ph.length > 1 ? `<div class="angles" role="group" aria-label="Views of ${esc0(p.name)}">${ph.map((x, i) => `
-      <button type="button" data-angle="${i}" aria-pressed="${i === 0}" aria-label="${esc0(x.angle)} view"><img src="${esc0(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
-  const stock = open && !out ? `<span class="stock${p.stock <= 3 ? " low" : ""}">${p.stock <= 3 ? `Only ${p.stock} left` : `${p.stock} left`}</span>` : "";
-  const sizes = open && !out && p.kind === "scrunchie" ? `<fieldset class="sizes"><legend>Size for ${p.name}</legend>${SIZES.map(s => `
+  const badge = out ? `<span class="badge out">${t("card.soldOut")}</span>` : p.badge ? `<span class="badge">${tx(BADGES[p.badge])}</span>` : "";
+  const angles = ph.length > 1 ? `<div class="angles" role="group" aria-label="${esc(t("card.views", { name }))}">${ph.map((x, i) => `
+      <button type="button" data-angle="${i}" aria-pressed="${i === 0}" aria-label="${esc(tx(x.angle))}"><img src="${esc(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : "";
+  const stock = open && !out ? `<span class="stock${p.stock <= 3 ? " low" : ""}">${t(p.stock <= 3 ? "card.onlyLeft" : "card.left", { n: p.stock })}</span>` : "";
+  const sizes = open && !out && p.kind === "scrunchie" ? `<fieldset class="sizes"><legend>${esc(t("card.sizeFor", { name }))}</legend>${SIZES.map(s => `
       <input type="radio" name="size-${p.id}" id="size-${p.id}-${s.id}" value="${s.id}" ${s.id === "regular" ? "checked" : ""}>
-      <label for="size-${p.id}-${s.id}" title="${s.note}">${s.label}</label>`).join("")}</fieldset>` : "";
-  const action = !open ? `<button class="soon-btn" type="button" disabled>Coming soon</button>`
-    : out ? `<button class="btn btn-ghost add" type="button" disabled>Sold out</button>`
-    : `<button class="btn btn-ghost add" type="button" data-add="${p.id}">Add to bag</button>`;
+      <label for="size-${p.id}-${s.id}" title="${esc(tx(s.note))}">${tx(s.label)}</label>`).join("")}</fieldset>` : "";
+  const action = !open ? `<button class="soon-btn" type="button" disabled>${t("card.comingSoon")}</button>`
+    : out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>`
+    : `<button class="btn btn-ghost add" type="button" data-add="${p.id}">${t("card.add")}</button>`;
   return `<article class="card${open ? "" : " soon"}" data-id="${p.id}">
     <div class="swatch">${badge}${media(p)}</div>
     ${angles}
-    <div class="card-top"><h3>${p.name}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
-    <p class="desc">${p.desc}</p>
+    <div class="card-top"><h3>${esc(name)}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
+    <p class="desc">${esc(tx(p.desc))}</p>
     ${stock}${sizes}${action}
   </article>`;
 }
 
 function renderShop() {
+  // Keep chosen sizes when the language changes.
+  const chosen = {};
+  ranges.querySelectorAll(".sizes input:checked").forEach(i => { chosen[i.name] = i.value; });
   document.getElementById("coming").innerHTML = LINES.map(l => `
     <li class="${l.status}"><a href="${l.href || "#line-" + l.id}">
-      <span class="pill ${l.status}">${STATUS[l.status]}</span>
-      <strong>${l.title}</strong>
+      <span class="pill ${l.status}">${t("status." + l.status)}</span>
+      <strong>${tx(l.title)}</strong>
     </a></li>`).join("");
   ranges.innerHTML = LINES.filter(l => !l.href).map(l => `
     <div class="range" id="line-${l.id}">
-      <div class="range-head"><h3>${l.title}</h3><span class="pill ${l.status}">${STATUS[l.status]}</span><p>${l.blurb}</p></div>
+      <div class="range-head"><h3>${tx(l.title)}</h3><span class="pill ${l.status}">${t("status." + l.status)}</span><p>${tx(l.blurb)}</p></div>
       <div class="grid">${PRODUCTS.filter(p => p.line === l.id).map(card).join("")}</div>
     </div>`).join("");
+  Object.entries(chosen).forEach(([name, value]) => {
+    const input = ranges.querySelector(`input[name="${name}"][value="${value}"]`);
+    if (input) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); }
+  });
 }
 
 ranges.addEventListener("error", e => {
@@ -608,71 +813,62 @@ ranges.addEventListener("error", e => {
   if (!(img instanceof HTMLImageElement)) return;
   if (img.classList.contains("photo")) {
     const p = PRODUCTS.find(x => x.id === img.closest(".card").dataset.id);
-    img.insertAdjacentHTML("afterend", svg(p.kind, p.fabric) + `<span class="photo-note">Photo coming soon</span>`);
+    img.insertAdjacentHTML("afterend", drawing(p));
     img.remove();
   } else img.closest("button").hidden = true;
 }, true);
-const grid = ranges;
-grid.addEventListener("change", e => {
+ranges.addEventListener("change", e => {
   if (!e.target.matches(".sizes input")) return;
-  const card = e.target.closest(".card");
-  const p = PRODUCTS.find(x => x.id === card.dataset.id);
+  const c = e.target.closest(".card");
+  const p = PRODUCTS.find(x => x.id === c.dataset.id);
   const s = SIZES.find(x => x.id === e.target.value);
-  card.querySelector("[data-price]").textContent = money.format(p.price + s.delta);
+  c.querySelector("[data-price]").textContent = money.format(p.price + s.delta);
 });
-grid.addEventListener("click", e => {
+ranges.addEventListener("click", e => {
   const angle = e.target.closest("[data-angle]");
   if (angle) {
     const c = angle.closest(".card"), p = PRODUCTS.find(x => x.id === c.dataset.id), ph = p.photos[+angle.dataset.angle];
     const img = c.querySelector(".photo");
-    if (img) { img.src = ph.src; img.alt = `${p.name}, ${ph.angle.toLowerCase()} view`; }
+    if (img) { img.src = ph.src; img.alt = t("card.view", { name: tx(p.name), angle: tx(ph.angle) }); }
     c.querySelectorAll("[data-angle]").forEach(b => b.setAttribute("aria-pressed", String(b === angle)));
     return;
   }
   const btn = e.target.closest("[data-add]");
   if (!btn) return;
   const p = PRODUCTS.find(x => x.id === btn.dataset.add);
-  const card = btn.closest(".card");
-  let variant = "", price = p.price, sizeId = "";
-  if (p.kind === "scrunchie") {
-    const s = SIZES.find(x => x.id === card.querySelector(".sizes input:checked").value);
-    variant = `${s.label}, ${s.note}`; price += s.delta; sizeId = s.id;
-  }
-  addToBag({ key: p.id + (sizeId ? "-" + sizeId : ""), productId: p.id, name: p.name, variant, price, kind: p.kind, fabric: p.fabric, photo: p.photos?.[0]?.src || "" });
+  const sizeId = p.kind === "scrunchie" ? btn.closest(".card").querySelector(".sizes input:checked").value : "";
+  addToBag(p.id, sizeId);
 });
 
 // ---- Designer ----
-const design = { kind: "scrunchie", color: CUSTOM.colors[0], pattern: "velvet" };
+const design = { kind: "scrunchie", color: 0, pattern: "velvet" };
 const dColors = document.getElementById("d-colors");
 const dPattern = document.getElementById("d-pattern");
-dColors.innerHTML = CUSTOM.colors.map((c, i) => `<button type="button" style="background:${c.hex}" data-color="${i}" aria-label="${c.name}" aria-pressed="${i === 0}"></button>`).join("");
-dPattern.innerHTML = CUSTOM.patterns.map(p => `<button class="chip" type="button" data-pattern="${p.id}" aria-pressed="${p.id === design.pattern}">${p.label}</button>`).join("");
 function designFabric() {
-  const ink = ["#F6C945", "#8FD3BC", "#8EC5F0", "#F4A6B8"].includes(design.color.hex) ? "#FFFFFF" : "#FFF3F5";
-  return { type: design.pattern, base: design.color.hex, ink };
+  const hex = CUSTOM.colors[design.color].hex;
+  const ink = ["#F6C945", "#8FD3BC", "#8EC5F0", "#F4A6B8"].includes(hex) ? "#FFFFFF" : "#FFF3F5";
+  return { type: design.pattern, base: hex, ink };
 }
 function renderDesigner() {
+  dColors.innerHTML = CUSTOM.colors.map((c, i) => `<button type="button" style="background:${c.hex}" data-color="${i}" aria-label="${esc(tx(c.name))}" title="${esc(tx(c.name))}" aria-pressed="${i === design.color}"></button>`).join("");
+  dPattern.innerHTML = CUSTOM.patterns.map(p => `<button class="chip" type="button" data-pattern="${p.id}" aria-pressed="${p.id === design.pattern}">${tx(p.label)}</button>`).join("");
+  document.querySelectorAll("[data-kind]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.kind === design.kind)));
   document.getElementById("designer-preview").innerHTML = svg(design.kind, designFabric());
-  document.getElementById("d-color-name").textContent = design.color.name;
+  document.getElementById("d-color-name").textContent = tx(CUSTOM.colors[design.color].name);
   document.getElementById("d-price").textContent = money.format(CUSTOM.prices[design.kind]);
 }
+function refocus(sel) { const el = document.querySelector(sel); if (el) el.focus(); }
 document.getElementById("d-kind").addEventListener("click", e => {
   const b = e.target.closest("[data-kind]"); if (!b) return;
-  design.kind = b.dataset.kind;
-  document.querySelectorAll("[data-kind]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  renderDesigner();
+  design.kind = b.dataset.kind; renderDesigner();
 });
 dColors.addEventListener("click", e => {
   const b = e.target.closest("[data-color]"); if (!b) return;
-  design.color = CUSTOM.colors[+b.dataset.color];
-  dColors.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  renderDesigner();
+  design.color = +b.dataset.color; renderDesigner(); refocus(`[data-color="${design.color}"]`);
 });
 dPattern.addEventListener("click", e => {
   const b = e.target.closest("[data-pattern]"); if (!b) return;
-  design.pattern = b.dataset.pattern;
-  dPattern.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  renderDesigner();
+  design.pattern = b.dataset.pattern; renderDesigner(); refocus(`[data-pattern="${design.pattern}"]`);
 });
 
 // ---- Drawer ----
@@ -685,58 +881,58 @@ document.getElementById("close-bag").addEventListener("click", closeBag);
 scrim.addEventListener("click", closeBag);
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !drawer.hidden) closeBag(); });
 
-const subtotal = () => bag.reduce((s, l) => s + l.price * l.qty, 0);
+const subtotal = () => bag.reduce((s, l) => s + linePrice(l) * l.qty, 0);
 const shipping = () => (delivery === "post" && bag.length ? SHOP.postage : 0);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 function renderBag() {
-  const count = bag.reduce((s, l) => s + l.qty, 0);
-  document.getElementById("bag-count").textContent = count;
+  document.getElementById("bag-count").textContent = bag.reduce((s, l) => s + l.qty, 0);
   if (!bag.length) {
-    body.innerHTML = `<div class="empty"><span class="hand">Your bag is empty</span><p>Add a scrunchie or bow and it will show up here.</p><button class="btn btn-ghost" type="button" data-close>Keep browsing</button></div>`;
+    body.innerHTML = `<div class="empty"><span class="hand">${t("bag.empty")}</span><p>${t("bag.emptyText")}</p><button class="btn btn-ghost" type="button" data-close>${t("bag.browse")}</button></div>`;
     return;
   }
   const keep = id => { const el = document.getElementById(id); return el ? el.value : ""; };
   const vals = { name: keep("cust-name"), contact: keep("cust-contact"), note: keep("cust-note") };
   body.innerHTML = `
-    <div style="display:grid;gap:14px">${bag.map((l, i) => `
+    <div style="display:grid;gap:14px">${bag.map((l, i) => {
+      const p = productOf(l), name = esc(lineName(l)), photo = p.photos?.[0]?.src;
+      return `
       <div class="line">
-        <div class="mini">${l.photo ? `<img src="${esc(l.photo)}" alt="">` : svg(l.kind, l.fabric)}</div>
-        <div class="line-info"><strong>${esc(l.name)}</strong>${l.variant ? `<span>${esc(l.variant)}</span>` : ""}
-          <span class="qty"><button type="button" data-dec="${i}" aria-label="One less ${esc(l.name)}">−</button><output>${l.qty}</output><button type="button" data-inc="${i}" aria-label="One more ${esc(l.name)}">+</button></span>
+        <div class="mini">${photo ? `<img src="${esc(photo)}" alt="">` : svg(p.kind, p.fabric)}</div>
+        <div class="line-info"><strong>${name}</strong>${lineVariant(l) ? `<span>${esc(lineVariant(l))}</span>` : ""}
+          <span class="qty"><button type="button" data-dec="${i}" aria-label="${esc(t("bag.less", { name: lineName(l) }))}">−</button><output>${l.qty}</output><button type="button" data-inc="${i}" aria-label="${esc(t("bag.more", { name: lineName(l) }))}">+</button></span>
         </div>
-        <div style="display:grid;gap:6px"><span class="line-price">${money.format(l.price * l.qty)}</span><button class="remove" type="button" data-rm="${i}">Remove</button></div>
-      </div>`).join("")}
+        <div style="display:grid;gap:6px"><span class="line-price">${money.format(linePrice(l) * l.qty)}</span><button class="remove" type="button" data-rm="${i}">${t("bag.remove")}</button></div>
+      </div>`; }).join("")}
     </div>
     <fieldset class="fieldset">
-      <legend>Delivery</legend>
-      <label class="radio"><input type="radio" name="delivery" id="del-pickup" value="pickup" ${delivery === "pickup" ? "checked" : ""}> Pick up in Amsterdam <small>Free</small></label>
-      <label class="radio"><input type="radio" name="delivery" id="del-post" value="post" ${delivery === "post" ? "checked" : ""}> Post in the Netherlands <small>${money.format(SHOP.postage)}</small></label>
+      <legend>${t("bag.delivery")}</legend>
+      <label class="radio"><input type="radio" name="delivery" id="del-pickup" value="pickup" ${delivery === "pickup" ? "checked" : ""}> ${t("bag.pickup")} <small>${t("bag.free")}</small></label>
+      <label class="radio"><input type="radio" name="delivery" id="del-post" value="post" ${delivery === "post" ? "checked" : ""}> ${t("bag.post")} <small>${money.format(SHOP.postage)}</small></label>
     </fieldset>
     <div class="totals">
-      <div><span>Items</span><span>${money.format(subtotal())}</span></div>
-      <div><span>Delivery</span><span>${shipping() ? money.format(shipping()) : "Free"}</span></div>
-      <div class="grand"><span>Total</span><span>${money.format(subtotal() + shipping())}</span></div>
+      <div><span>${t("bag.items")}</span><span>${money.format(subtotal())}</span></div>
+      <div><span>${t("bag.delivery")}</span><span>${shipping() ? money.format(shipping()) : t("bag.free")}</span></div>
+      <div class="grand"><span>${t("bag.total")}</span><span>${money.format(subtotal() + shipping())}</span></div>
     </div>
     <form id="order-form" class="fieldset" novalidate>
-      <legend>Your details</legend>
-      <div class="field"><label for="cust-name">Your name</label><input id="cust-name" autocomplete="name" value="${esc(vals.name)}"></div>
-      <div class="field"><label for="cust-contact">Email or phone number</label><input id="cust-contact" autocomplete="email" value="${esc(vals.contact)}"></div>
-      <div class="field"><label for="cust-note">Anything else? (you can skip this)</label><textarea id="cust-note" placeholder="${delivery === "post" ? "Your postal address" : "A good day to pick up"}">${esc(vals.note)}</textarea></div>
+      <legend>${t("bag.details")}</legend>
+      <div class="field"><label for="cust-name">${t("bag.name")}</label><input id="cust-name" autocomplete="name" value="${esc(vals.name)}"></div>
+      <div class="field"><label for="cust-contact">${t("bag.contact")}</label><input id="cust-contact" autocomplete="email" value="${esc(vals.contact)}"></div>
+      <div class="field"><label for="cust-note">${t("bag.note")}</label><textarea id="cust-note" placeholder="${esc(t(delivery === "post" ? "bag.notePost" : "bag.notePickup"))}">${esc(vals.note)}</textarea></div>
       <p class="err" id="order-err" hidden></p>
-      <button class="btn btn-primary" type="submit">Write out my order</button>
+      <button class="btn btn-primary" type="submit">${t("bag.write")}</button>
     </form>
     <div id="ready-slot"></div>`;
   if (preparedOrder) showReady();
 }
 
 body.addEventListener("click", e => {
-  const t = e.target;
-  if (t.closest("[data-close]")) return closeBag();
-  const i = +(t.dataset.inc ?? t.dataset.dec ?? t.dataset.rm ?? -1);
+  const el = e.target;
+  if (el.closest("[data-close]")) return closeBag();
+  const i = +(el.dataset.inc ?? el.dataset.dec ?? el.dataset.rm ?? -1);
   if (i < 0 || !bag[i]) return;
-  if (t.dataset.inc) { if (roomFor(bag[i].productId) < 1) return toast(`That's all the ${bag[i].name} we have right now`); bag[i].qty++; }
-  else if (t.dataset.dec) { bag[i].qty--; if (bag[i].qty < 1) bag.splice(i, 1); }
+  if (el.dataset.inc) { if (roomFor(bag[i].productId) < 1) return toast(t("toast.max", { name: lineName(bag[i]) })); bag[i].qty++; }
+  else if (el.dataset.dec) { bag[i].qty--; if (bag[i].qty < 1) bag.splice(i, 1); }
   else bag.splice(i, 1);
   preparedOrder = null; save(); renderBag();
 });
@@ -749,36 +945,36 @@ body.addEventListener("submit", e => {
   const contact = document.getElementById("cust-contact").value.trim();
   const note = document.getElementById("cust-note").value.trim();
   const err = document.getElementById("order-err");
-  if (!name || !contact) { err.textContent = "Please add your name and an email or phone number so we can reply."; err.hidden = false; return; }
-  if (delivery === "post" && !note) { err.textContent = "Please add your postal address in the last box so we know where to send it."; err.hidden = false; return; }
+  if (!name || !contact) { err.textContent = t("bag.errContact"); err.hidden = false; return; }
+  if (delivery === "post" && !note) { err.textContent = t("bag.errAddress"); err.hidden = false; return; }
   err.hidden = true;
-  const lines = bag.map(l => `${l.qty} × ${l.name}${l.variant ? " (" + l.variant + ")" : ""}: ${money.format(l.price * l.qty)}`);
+  const lines = bag.map(l => `${l.qty} × ${lineName(l)}${lineVariant(l) ? " (" + lineVariant(l) + ")" : ""}: ${money.format(linePrice(l) * l.qty)}`);
   preparedOrder = [
-    `Hello ${SHOP.name}! I'd like to order:`, "", ...lines, "",
-    `Delivery: ${delivery === "post" ? "Post in the Netherlands (" + money.format(SHOP.postage) + ")" : "Pick up in Amsterdam (free)"}`,
-    `Total: ${money.format(subtotal() + shipping())}`, "",
-    `Name: ${name}`, `Contact: ${contact}`, ...(note ? [`Note: ${note}`] : []),
+    t("order.hello", { shop: SHOP.name }), "", ...lines, "",
+    `${t("order.delivery")}: ${delivery === "post" ? t("bag.post") + " (" + money.format(SHOP.postage) + ")" : t("bag.pickup") + " (" + t("bag.free").toLowerCase() + ")"}`,
+    `${t("order.total")}: ${money.format(subtotal() + shipping())}`, "",
+    `${t("order.name")}: ${name}`, `${t("order.contact")}: ${contact}`, ...(note ? [`${t("order.note")}: ${note}`] : []),
   ].join("\n");
   showReady();
 });
 
 function showReady() {
-  const mail = `mailto:${SHOP.email}?subject=${encodeURIComponent("Order for " + SHOP.name)}&body=${encodeURIComponent(preparedOrder)}`;
+  const mail = `mailto:${SHOP.email}?subject=${encodeURIComponent(t("order.subject", { shop: SHOP.name }))}&body=${encodeURIComponent(preparedOrder)}`;
   document.getElementById("ready-slot").innerHTML = `
     <div class="ready">
-      <h3>Your order is written out</h3>
-      <p>Copy it and email it to the address below. We will reply within two days with a Tikkie link to pay.</p>
-      <label for="order-text" class="eyebrow">Your order</label>
+      <h3>${t("ready.title")}</h3>
+      <p>${t("ready.text")}</p>
+      <label for="order-text" class="eyebrow">${t("ready.label")}</label>
       <textarea id="order-text" readonly>${esc(preparedOrder)}</textarea>
       <div class="address"><code id="order-email">${esc(SHOP.email)}</code></div>
       <div class="row-btns">
-        <button class="btn btn-primary" type="button" id="copy-order">Copy order</button>
-        <button class="btn btn-ghost" type="button" id="copy-email">Copy email address</button>
-        <a class="btn btn-ghost" href="${mail}">Open my email app</a>
+        <button class="btn btn-primary" type="button" id="copy-order">${t("ready.copy")}</button>
+        <button class="btn btn-ghost" type="button" id="copy-email">${t("ready.copyEmail")}</button>
+        <a class="btn btn-ghost" href="${esc(mail)}">${t("ready.open")}</a>
       </div>
     </div>`;
-  document.getElementById("copy-order").addEventListener("click", () => copy(preparedOrder, "order-text", "Order copied"));
-  document.getElementById("copy-email").addEventListener("click", () => copy(SHOP.email, "order-email", "Email address copied"));
+  document.getElementById("copy-order").addEventListener("click", () => copy(preparedOrder, "order-text", t("toast.copiedOrder")));
+  document.getElementById("copy-email").addEventListener("click", () => copy(SHOP.email, "order-email", t("toast.copiedEmail")));
   document.getElementById("ready-slot").scrollIntoView({ block: "nearest" });
 }
 
@@ -786,24 +982,24 @@ function copy(text, fallbackId, msg) {
   const fallback = () => {
     const el = document.getElementById(fallbackId);
     if (el.select) el.select(); else { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
-    toast("Selected. Press Ctrl+C or Cmd+C to copy");
+    toast(t("toast.selected"));
   };
   try { navigator.clipboard.writeText(text).then(() => toast(msg), fallback); } catch (e) { fallback(); }
 }
 
 let toastTimer;
 function toast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.hidden = false;
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2200);
+  const el = document.getElementById("toast");
+  el.textContent = msg; el.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { el.hidden = true; }, 2200);
 }
 
 // ---- Start ----
 document.getElementById("logo-art").innerHTML = svg("bow", { type: "gingham", base: "#D7263D", ink: "#FFF8F0" });
 document.getElementById("footer-email").textContent = SHOP.email;
-const hero = document.getElementById("hero-art");
-hero.insertAdjacentHTML("beforeend",
+document.getElementById("hero-art").insertAdjacentHTML("beforeend",
   svg("scrunchie", PRODUCTS[0].fabric, "a") + svg("scrunchie", PRODUCTS[4].fabric, "b") + svg("scrunchie", PRODUCTS[2].fabric, "c"));
+applyStaticWords();
 renderShop();
 renderDesigner();
 renderBag();
