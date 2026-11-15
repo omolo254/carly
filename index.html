@@ -1,6 +1,14 @@
 <title>Loop &amp; Ribbon</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Hand-sewn scrunchies and hair bows, designed and made by a young maker in Amsterdam.">
+<meta name="description" content="Handmade scrunchies, hair bows and bedazzled claw clips, designed and sewn by a young maker in Amsterdam. Free pick-up in Amsterdam, posted across the Netherlands.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Loop &amp; Ribbon">
+<meta property="og:title" content="Loop &amp; Ribbon · Handmade scrunchies from Amsterdam">
+<meta property="og:description" content="Scrunchies sewn by hand, one at a time, by a young maker in Amsterdam. Bows and bedazzled claw clips coming soon.">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F2F6F3">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fredoka:wght@500;600;700&display=swap">
@@ -18,6 +26,9 @@
     --butter: #F6C945;
     --mint: #BFE6D6;
     --scrim: rgba(29, 35, 64, .42);
+    --lb: #0E1121;
+    --lb-ink: #F4F5FA;
+    --lb-soft: rgba(255, 255, 255, .14);
     --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
     --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     --hand: "Caveat", "Comic Sans MS", "Marker Felt", cursive;
@@ -88,7 +99,7 @@
   .hero-art .note { position: absolute; right: 2%; top: 2%; transform: rotate(8deg); }
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(2deg); } }
   @media (prefers-reduced-motion: reduce) { .hero-art svg { animation: none; } }
-  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 32px 24px; } .hero-art { max-width: 320px; } }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 24px 8px; gap: 20px; } .hero-art { max-width: 220px; } }
 
   /* Shop */
   section { scroll-margin-top: 80px; }
@@ -107,7 +118,7 @@
   @media (prefers-reduced-motion: reduce) { .card:hover .swatch svg { transform: none; } }
   .badge { position: absolute; top: 12px; left: 12px; background: var(--butter); color: #1D2340; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .7em; border-radius: 999px; }
   .card-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
-  .card h3 { font-size: 1.25rem; }
+  .card h4 { font-size: 1.2rem; font-family: var(--display); font-weight: 600; line-height: 1.15; margin: 0; }
   .card .desc { color: var(--muted); font-size: 1rem; }
   .tag { position: relative; flex: none; font-family: var(--display); font-weight: 600; font-size: 1.05rem; padding: .2em .7em .2em 1.25em; border: 2px dashed var(--accent); border-radius: 6px 10px 10px 6px; color: var(--accent); transform: rotate(-3deg); font-variant-numeric: tabular-nums; background: var(--surface); }
   .tag::before { content: ""; position: absolute; left: .45em; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--accent); }
@@ -130,34 +141,71 @@
   .stock.low { color: var(--accent); }
   .soon-btn { justify-self: start; padding: .55em 1.2em; border-radius: 999px; border: 1.5px dashed var(--line); background: transparent; color: var(--muted); font-weight: 500; cursor: default; }
 
-  /* Product lines and what's coming */
-  .roadmap { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .roadmap a { height: 100%; display: grid; gap: 8px; align-content: start; padding: 14px 16px; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); text-decoration: none; }
-  .roadmap a:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
-  .roadmap .now a { box-shadow: inset 0 0 0 2px var(--ink); }
-  .roadmap strong { font-family: var(--display); font-weight: 600; font-size: 1.15rem; }
-  .roadmap span.when { color: var(--muted); font-size: .88rem; }
-  @media (max-width: 860px) { .roadmap { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 420px) { .roadmap { grid-template-columns: 1fr; } }
+  /* Ranges as tabs: one range on screen at a time */
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tab { display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border: 0; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); cursor: pointer; text-align: left; min-width: 0; color: var(--ink); }
+  .tab:hover { box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .tab[aria-selected="true"] { background: var(--swatch); box-shadow: inset 0 0 0 2.5px var(--ink); }
+  .tab-art { flex: none; width: 52px; height: 52px; border-radius: 12px; background: var(--swatch); display: grid; place-items: center; }
+  .tab[aria-selected="true"] .tab-art { background: var(--surface); }
+  .tab-art svg { width: 44px; height: 44px; }
+  .tab-text { display: grid; gap: 5px; min-width: 0; }
+  .tab .pill { white-space: nowrap; }
+  @media (max-width: 400px) { .bag-word { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } .bag-btn::before { content: ""; width: 18px; height: 18px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 8h12l-1 13H7L6 8zm3 0a3 3 0 0 1 6 0' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 8h12l-1 13H7L6 8zm3 0a3 3 0 0 1 6 0' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat; } .seg button { min-width: 28px; padding: 0 6px; } .logo svg { width: 30px; height: 30px; } .nav, .prefs, .bar .wrap { gap: 6px; } .bag-btn { padding: .5em .75em; } }
+  .tab strong { font-family: var(--display); font-weight: 600; font-size: 1.05rem; line-height: 1.15; }
+  @media (max-width: 860px) { .tabs { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .tabs { gap: 8px; } .tab { gap: 8px; padding: 8px; } .tab-art { width: 40px; height: 40px; } .tab-art svg { width: 34px; height: 34px; } .tab strong { font-size: .95rem; } .tab .pill { font-size: .6rem; padding: .25em .55em; } }
   .pill { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .3em .75em; border-radius: 999px; }
   .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .pill.now { background: var(--mint); color: var(--ink); }
   .pill.next { background: var(--butter); color: #1D2340; }
   .pill.later { background: var(--swatch); color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); }
-  .range { display: grid; gap: 18px; padding-top: 28px; border-top: 1px solid var(--line); scroll-margin-top: 80px; }
-  .range-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
-  .range-head h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
-  .range-head p { flex-basis: 100%; color: var(--muted); max-width: 40em; font-size: 1.05rem; }
-  .card.soon .swatch > svg { opacity: .82; }
+  .panel { display: grid; gap: 20px; }
+  .panel-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .panel-head h3 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+  .panel-head p { flex-basis: 100%; color: var(--muted); max-width: 42em; font-size: 1.05rem; }
+  .zoom { position: relative; border: 0; padding: 0; background: none; width: 100%; height: 100%; display: grid; place-items: center; cursor: zoom-in; color: inherit; }
+  .zoom:focus-visible { outline-offset: -3px; }
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+    .card { gap: 8px; }
+    .card-top { flex-direction: column; gap: 6px; }
+    .card h4 { font-size: 1.02rem; }
+    .card .desc { font-size: .9rem; }
+    .tag { font-size: .95rem; }
+    .sizes label { padding: .25em .6em; font-size: .8rem; }
+    .add, .soon-btn { padding: .5em .9em; font-size: .88rem; }
+    .badge { top: 8px; left: 8px; font-size: .62rem; }
+    .photo-note { right: 6px; bottom: 6px; font-size: .62rem; }
+    .angles button { width: 40px; height: 40px; }
+  }
+
+  /* Picture viewer */
+  .lightbox { position: fixed; inset: 0; z-index: 70; background: var(--lb); color: var(--lb-ink); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 12px;
+    padding: calc(env(safe-area-inset-top, 0px) + 12px) max(16px, env(safe-area-inset-right, 0px)) calc(env(safe-area-inset-bottom, 0px) + 16px) max(16px, env(safe-area-inset-left, 0px)); }
+  .lb-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .lb-top h2 { font-size: 1.3rem; }
+  .lb-count { opacity: .75; font-size: .9rem; font-variant-numeric: tabular-nums; }
+  .lb-btn { border: 0; cursor: pointer; color: inherit; background: var(--lb-soft); width: 46px; height: 46px; border-radius: 50%; font-size: 1.5rem; line-height: 1; display: grid; place-items: center; flex: none; }
+  .lb-btn:focus-visible { outline-color: var(--lb-ink); }
+  .lb-stage { position: relative; height: 100%; min-height: 0; display: grid; place-items: center; touch-action: pan-y; user-select: none; }
+  .lb-stage img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 14px; }
+  .lb-stage svg { width: min(68vmin, 440px); height: auto; max-height: 100%; }
+  .lb-figure { margin: 0; display: grid; gap: 10px; justify-items: center; max-height: 100%; min-height: 0; height: 100%; align-content: center; }
+  .lb-note { font-size: .9rem; opacity: .8; text-align: center; }
+  .lb-prev, .lb-next { position: absolute; top: 50%; transform: translateY(-50%); }
+  .lb-prev { left: 0; } .lb-next { right: 0; }
+  .lb-thumbs { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .lb-thumbs button { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; border: 2px solid transparent; padding: 0; background: var(--lb-soft); cursor: pointer; }
+  .lb-thumbs button[aria-pressed="true"] { border-color: var(--lb-ink); }
+  .lb-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card.soon .swatch svg { opacity: .85; }
 
   /* Designer */
-  .designer { background: var(--surface); border-block: 1px solid var(--line); }
-  .designer .wrap { padding-block: 56px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
-  .designer .preview { border-radius: 50%; background: var(--swatch); aspect-ratio: 1; display: grid; place-items: center; max-width: 380px; width: 100%; justify-self: center; }
+  .designer { display: grid; grid-template-columns: .8fr 1.2fr; gap: 32px; align-items: center; background: var(--surface); border-radius: var(--r); padding: 28px; box-shadow: inset 0 0 0 1.5px var(--line); }
+  .designer .preview { border-radius: 50%; background: var(--swatch); aspect-ratio: 1; display: grid; place-items: center; max-width: 300px; width: 100%; justify-self: center; }
   .designer .preview svg { width: 74%; height: 74%; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .2)); }
-  .controls { display: grid; gap: 22px; min-width: 0; }
-  .controls h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
-  .controls > p { color: var(--muted); max-width: 34em; }
+  .controls { display: grid; gap: 20px; min-width: 0; }
   .ctl { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; }
   .ctl legend { font-weight: 700; font-size: .9rem; margin-bottom: 8px; padding: 0; }
   .colors { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -165,7 +213,7 @@
   .colors button[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--ink); }
   .designer-foot { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
   .designer-foot .tag { font-size: 1.2rem; }
-  @media (max-width: 760px) { .designer .wrap { grid-template-columns: 1fr; padding-block: 40px; } .designer .preview { max-width: 260px; } }
+  @media (max-width: 760px) { .designer { grid-template-columns: 1fr; padding: 20px; gap: 20px; } .designer .preview { max-width: 180px; } }
 
   /* How it works */
   .how .wrap { padding-block: 56px; display: grid; gap: 28px; }
@@ -178,7 +226,7 @@
   @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
 
   /* About */
-  .about .wrap { padding-block: 24px 64px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
+  .about .wrap { padding-block: 8px 56px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
   .about-text { display: grid; gap: 16px; max-width: 36em; min-width: 0; }
   .about-text h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
   .about-text p { color: var(--muted); font-size: 1.05rem; }
@@ -254,7 +302,6 @@
     </a>
     <nav class="nav" data-i18n-aria="nav.label" aria-label="Main">
       <a href="#shop" data-i18n="nav.shop">Shop</a>
-      <a href="#coming" data-i18n="nav.coming">What's coming</a>
       <a href="#how" data-i18n="nav.how">How ordering works</a>
       <a href="#about" data-i18n="nav.about">About</a>
       <div class="prefs">
@@ -275,11 +322,14 @@
         </div>
       </div>
       <button class="btn btn-primary bag-btn" id="open-bag" type="button" aria-haspopup="dialog">
-        <span data-i18n="bag.button">Bag</span> <span class="bag-count" id="bag-count">0</span>
+        <span class="bag-word" data-i18n="bag.button">Bag</span> <span class="bag-count" id="bag-count">0</span>
       </button>
     </nav>
   </div>
 </header>
+<noscript>
+  <p class="wrap" style="padding-block:16px">Loop &amp; Ribbon sells handmade scrunchies, sewn one at a time by a young maker in Amsterdam. Bows and bedazzled claw clips are coming soon. Please turn on JavaScript to see the shop and order.</p>
+</noscript>
 
 <main id="top">
   <section class="hero">
@@ -290,7 +340,7 @@
         <p data-i18n="hero.text">A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#line-scrunchie" data-i18n="hero.shop">Shop scrunchies</a>
-          <a class="btn btn-ghost" href="#coming" data-i18n="hero.coming">See what's coming</a>
+          <a class="btn btn-ghost" href="#line-bow" data-i18n="hero.coming">See what's coming</a>
         </div>
         <ul class="facts">
           <li data-i18n="fact.pickup">Free pick-up in Amsterdam</li>
@@ -313,38 +363,33 @@
           <h2 data-i18n="shop.title">What we make</h2>
         </div>
       </div>
-      <ol class="roadmap" id="coming" data-i18n-aria="shop.roadmap" aria-label="What you can buy now and what is coming"></ol>
-      <div id="ranges" style="display:grid;gap:40px"></div>
-    </div>
-  </section>
-
-  <section class="designer" id="design">
-    <div class="wrap">
-      <div class="preview" id="designer-preview" role="img" data-i18n-aria="design.preview" aria-label="Preview of your design"></div>
-      <div class="controls">
-        <div>
-          <span class="pill later" data-i18n="status.later">Coming later</span>
-          <h2 data-i18n="design.title">Design your own</h2>
-        </div>
-        <p data-i18n="design.text">Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!</p>
-        <fieldset class="ctl">
-          <legend data-i18n="design.shape">Shape</legend>
-          <div class="chips" id="d-kind">
-            <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true" data-i18n="design.scrunchie">Scrunchie</button>
-            <button class="chip" type="button" data-kind="bow" aria-pressed="false" data-i18n="design.bow">Bow clip</button>
+      <div class="tabs" role="tablist" id="tabs" data-i18n-aria="shop.tabs" aria-label="Choose what to look at"></div>
+      <div id="panels"></div>
+      <div class="panel" role="tabpanel" id="panel-custom" aria-labelledby="tab-custom" tabindex="0" hidden>
+        <div class="panel-head" id="custom-head"></div>
+        <div class="designer">
+          <div class="preview" id="designer-preview" role="img" data-i18n-aria="design.preview" aria-label="Preview of your design"></div>
+          <div class="controls">
+            <fieldset class="ctl">
+              <legend data-i18n="design.shape">Shape</legend>
+              <div class="chips" id="d-kind">
+                <button class="chip" type="button" data-kind="scrunchie" aria-pressed="true" data-i18n="design.scrunchie">Scrunchie</button>
+                <button class="chip" type="button" data-kind="bow" aria-pressed="false" data-i18n="design.bow">Bow clip</button>
+              </div>
+            </fieldset>
+            <fieldset class="ctl">
+              <legend><span data-i18n="design.colour">Colour</span>: <span id="d-color-name">Cherry</span></legend>
+              <div class="colors" id="d-colors"></div>
+            </fieldset>
+            <fieldset class="ctl">
+              <legend data-i18n="design.pattern">Pattern</legend>
+              <div class="chips" id="d-pattern"></div>
+            </fieldset>
+            <div class="designer-foot">
+              <span class="tag" id="d-price">€ 6,00</span>
+              <button class="soon-btn" type="button" disabled data-i18n="status.later">Coming later</button>
+            </div>
           </div>
-        </fieldset>
-        <fieldset class="ctl">
-          <legend><span data-i18n="design.colour">Colour</span>: <span id="d-color-name">Cherry</span></legend>
-          <div class="colors" id="d-colors"></div>
-        </fieldset>
-        <fieldset class="ctl">
-          <legend data-i18n="design.pattern">Pattern</legend>
-          <div class="chips" id="d-pattern"></div>
-        </fieldset>
-        <div class="designer-foot">
-          <span class="tag" id="d-price">€ 6,00</span>
-          <button class="soon-btn" type="button" disabled data-i18n="status.later">Coming later</button>
         </div>
       </div>
     </div>
@@ -404,7 +449,20 @@
   </div>
   <div class="drawer-body" id="drawer-body"></div>
 </aside>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lb-title" hidden>
+  <div class="lb-top">
+    <div><h2 id="lb-title"></h2><span class="lb-count" id="lb-count"></span></div>
+    <button class="lb-btn" type="button" id="lb-close" data-i18n-aria="gallery.close" aria-label="Close">×</button>
+  </div>
+  <div class="lb-stage" id="lb-stage">
+    <figure class="lb-figure" id="lb-figure"></figure>
+    <button class="lb-btn lb-prev" type="button" id="lb-prev" data-i18n-aria="gallery.prev" aria-label="Previous picture">‹</button>
+    <button class="lb-btn lb-next" type="button" id="lb-next" data-i18n-aria="gallery.next" aria-label="Next picture">›</button>
+  </div>
+  <div class="lb-thumbs" id="lb-thumbs"></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script type="application/ld+json" id="ld"></script>
 
 <script>
 // ---- Shop settings: change these to suit you ----
@@ -421,18 +479,17 @@ const SHOP = {
 // {name}-style words in curly brackets are filled in by the page.
 const WORDS = {
   en: {
-    "nav.label": "Main", "nav.shop": "Shop", "nav.coming": "What's coming", "nav.how": "How ordering works", "nav.about": "About",
+    "nav.label": "Main", "nav.shop": "Shop", "nav.how": "How ordering works", "nav.about": "About",
     "theme.label": "Colours", "theme.light": "Light colours", "theme.dark": "Dark colours", "theme.auto": "Automatic: light in the day, dark at night",
     "lang.label": "Language",
     "hero.eyebrow": "Hand-sewn in Amsterdam",
     "hero.title": "Scrunchies, <em>made one at a time.</em>",
-    "hero.text": "A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly pieces are coming soon.",
+    "hero.text": "A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly claw clips are coming soon.",
     "hero.shop": "Shop scrunchies", "hero.coming": "See what's coming", "hero.note": "sewn by hand!",
     "fact.pickup": "Free pick-up in Amsterdam", "fact.post": "We post anywhere in the Netherlands", "fact.tikkie": "Pay by Tikkie",
-    "shop.eyebrow": "Our shop", "shop.title": "What we make", "shop.roadmap": "What you can buy now and what is coming",
+    "shop.eyebrow": "Our shop", "shop.title": "What we make", "shop.tabs": "Choose what to look at",
     "status.now": "Ready now", "status.next": "Coming soon", "status.later": "Coming later",
-    "design.preview": "Preview of your design", "design.title": "Design your own",
-    "design.text": "Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!",
+    "design.preview": "Preview of your design",
     "design.shape": "Shape", "design.scrunchie": "Scrunchie", "design.bow": "Bow clip", "design.colour": "Colour", "design.pattern": "Pattern",
     "how.eyebrow": "How ordering works", "how.title": "Four easy steps",
     "how.1t": "Fill your bag", "how.1": "Pick your scrunchies and choose a size.",
@@ -440,7 +497,7 @@ const WORDS = {
     "how.3t": "Get a Tikkie", "how.3": "We reply within two days with a Tikkie link, so a grown-up can pay.",
     "how.4t": "Pick up or post", "how.4": "Pick it up for free in Amsterdam, or we post it to you in the Netherlands for {postage}.",
     "about.eyebrow": "About the maker", "about.title": "Hi, I make every single one myself.",
-    "about.1": "I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly ones with gems I stick on by hand.",
+    "about.1": "I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly claw clips with gems I stick on by hand.",
     "about.2": "The money I earn goes into my savings and into more fabric, so every order helps me make the next design.",
     "about.thanks": "Thank you for shopping small!",
     "promise.title": "Our promise", "promise.1": "Soft elastic, no metal parts that pull hair", "promise.2": "A grown-up looks after every order",
@@ -448,6 +505,9 @@ const WORDS = {
     "footer.questions": "Questions? Email",
     "card.photoSoon": "Photo coming soon", "card.soldOut": "Sold out", "card.comingSoon": "Coming soon", "card.add": "Add to bag",
     "card.left": "{n} left", "card.onlyLeft": "Only {n} left", "card.sizeFor": "Size for {name}", "card.views": "Photos of {name}", "card.view": "{name}, {angle}",
+    "card.zoom": "See bigger pictures of {name}",
+    "gallery.count": "Picture {i} of {n}", "gallery.prev": "Previous picture", "gallery.next": "Next picture", "gallery.close": "Close",
+    "gallery.drawing": "This is a drawing. Real photos are coming soon.", "gallery.photo": "Picture {i}",
     "toast.added": "{name} is in your bag", "toast.max": "That's all the {name} we have right now",
     "toast.copiedOrder": "Order copied", "toast.copiedEmail": "Email address copied", "toast.selected": "Selected. Press Ctrl+C or Cmd+C to copy",
     "bag.button": "Bag", "bag.title": "Your bag", "bag.close": "Close bag",
@@ -466,18 +526,17 @@ const WORDS = {
     "ready.label": "Your order", "ready.copy": "Copy order", "ready.copyEmail": "Copy email address", "ready.open": "Open my email app",
   },
   nl: {
-    "nav.label": "Menu", "nav.shop": "Winkel", "nav.coming": "Wat komt er", "nav.how": "Zo bestel je", "nav.about": "Over mij",
+    "nav.label": "Menu", "nav.shop": "Winkel", "nav.how": "Zo bestel je", "nav.about": "Over mij",
     "theme.label": "Kleuren", "theme.light": "Lichte kleuren", "theme.dark": "Donkere kleuren", "theme.auto": "Automatisch: licht overdag, donker 's avonds",
     "lang.label": "Taal",
     "hero.eyebrow": "Met de hand genaaid in Amsterdam",
     "hero.title": "Scrunchies, <em>één voor één gemaakt.</em>",
-    "hero.text": "Een jonge maker tekent, knipt en naait ze allemaal zelf aan de keukentafel. Ze zijn zacht voor je haar en geen twee zijn precies hetzelfde. Scrunchies kun je nu kopen. Strikjes en glinsterende spulletjes komen snel.",
+    "hero.text": "Een jonge maker tekent, knipt en naait ze allemaal zelf aan de keukentafel. Ze zijn zacht voor je haar en geen twee zijn precies hetzelfde. Scrunchies kun je nu kopen. Strikjes en glinsterende klauwclips komen snel.",
     "hero.shop": "Bekijk de scrunchies", "hero.coming": "Kijk wat er komt", "hero.note": "met de hand genaaid!",
     "fact.pickup": "Gratis ophalen in Amsterdam", "fact.post": "We versturen door heel Nederland", "fact.tikkie": "Betalen met Tikkie",
-    "shop.eyebrow": "Onze winkel", "shop.title": "Wat we maken", "shop.roadmap": "Wat je nu kunt kopen en wat er nog komt",
+    "shop.eyebrow": "Onze winkel", "shop.title": "Wat we maken", "shop.tabs": "Kies wat je wilt bekijken",
     "status.now": "Nu te koop", "status.next": "Komt snel", "status.later": "Komt later",
-    "design.preview": "Voorbeeld van jouw ontwerp", "design.title": "Ontwerp je eigen",
-    "design.text": "Binnenkort kies je een vorm, een kleur en een patroon, en dan naait ze het speciaal voor jou. Je kunt je eigen ontwerp nog niet bestellen, maar je kunt nu al ideeën uitproberen!",
+    "design.preview": "Voorbeeld van jouw ontwerp",
     "design.shape": "Vorm", "design.scrunchie": "Scrunchie", "design.bow": "Strikje", "design.colour": "Kleur", "design.pattern": "Patroon",
     "how.eyebrow": "Zo bestel je", "how.title": "Vier makkelijke stappen",
     "how.1t": "Vul je tasje", "how.1": "Kies je scrunchies en een maat.",
@@ -485,7 +544,7 @@ const WORDS = {
     "how.3t": "Krijg een Tikkie", "how.3": "Binnen twee dagen sturen we een Tikkie, zodat een volwassene kan betalen.",
     "how.4t": "Ophalen of opsturen", "how.4": "Haal het gratis op in Amsterdam, of we sturen het op binnen Nederland voor {postage}.",
     "about.eyebrow": "Over de maker", "about.title": "Hoi, ik maak ze allemaal zelf!",
-    "about.1": "Ik begon met scrunchies naaien voor mijn vriendinnen en nu kan ik niet meer stoppen. Ik kies de stoffen, teken de ontwerpen en naai ze op mijn naaimachine. Hierna maak ik strikjes. Daarna komen er glinsterende, met steentjes die ik er met de hand op plak.",
+    "about.1": "Ik begon met scrunchies naaien voor mijn vriendinnen en nu kan ik niet meer stoppen. Ik kies de stoffen, teken de ontwerpen en naai ze op mijn naaimachine. Hierna maak ik strikjes. Daarna komen er glinsterende klauwclips, met steentjes die ik er met de hand op plak.",
     "about.2": "Het geld dat ik verdien gaat naar mijn spaarpot en naar nieuwe stof, dus elke bestelling helpt me om het volgende ontwerp te maken.",
     "about.thanks": "Dankjewel voor je steun!",
     "promise.title": "Onze belofte", "promise.1": "Zacht elastiek, geen metaal dat aan je haar trekt", "promise.2": "Een volwassene regelt elke bestelling",
@@ -493,6 +552,9 @@ const WORDS = {
     "footer.questions": "Vragen? Mail naar",
     "card.photoSoon": "Foto komt snel", "card.soldOut": "Uitverkocht", "card.comingSoon": "Komt snel", "card.add": "In mijn tasje",
     "card.left": "Nog {n}", "card.onlyLeft": "Nog maar {n}", "card.sizeFor": "Maat voor {name}", "card.views": "Foto's van {name}", "card.view": "{name}, {angle}",
+    "card.zoom": "Bekijk grotere foto's van {name}",
+    "gallery.count": "Foto {i} van {n}", "gallery.prev": "Vorige foto", "gallery.next": "Volgende foto", "gallery.close": "Sluiten",
+    "gallery.drawing": "Dit is een tekening. Echte foto's komen snel.", "gallery.photo": "Foto {i}",
     "toast.added": "{name} zit in je tasje", "toast.max": "Meer {name} hebben we nu niet",
     "toast.copiedOrder": "Bestelling gekopieerd", "toast.copiedEmail": "E-mailadres gekopieerd", "toast.selected": "Geselecteerd. Druk op Ctrl+C of Cmd+C om te kopiëren",
     "bag.button": "Tasje", "bag.title": "Je tasje", "bag.close": "Tasje sluiten",
@@ -520,9 +582,10 @@ const LINES = [
     blurb: { en: "Sewn by hand, in three sizes. You can buy these now!", nl: "Met de hand genaaid, in drie maten. Deze kun je nu kopen!" } },
   { id: "bow", status: "next", title: { en: "Bows", nl: "Strikjes" },
     blurb: { en: "Bow clips and matching sets. She is sewing them now, so you can buy them soon.", nl: "Strikjes op een speldje en setjes die bij elkaar passen. Ze is ze nu aan het naaien, dus je kunt ze snel kopen." } },
-  { id: "bedazzled", status: "later", title: { en: "Bedazzled", nl: "Bedazzled" },
-    blurb: { en: "Sparkly scrunchies and bows with little gems and pearls, all stuck on by hand. These come after the bows.", nl: "Glinsterende scrunchies en strikjes met steentjes en pareltjes, allemaal met de hand opgeplakt. Deze komen na de strikjes." } },
-  { id: "custom", status: "later", href: "#design", title: { en: "Design your own", nl: "Ontwerp je eigen" } },
+  { id: "bedazzled", status: "later", title: { en: "Bedazzled claw clips", nl: "Bedazzled klauwclips" },
+    blurb: { en: "Big claw clips covered in sparkly gems and pearls, all stuck on by hand. These come after the bows.", nl: "Grote klauwclips vol glinsterende steentjes en pareltjes, allemaal met de hand opgeplakt. Deze komen na de strikjes." } },
+  { id: "custom", status: "later", title: { en: "Design your own", nl: "Ontwerp je eigen" },
+    blurb: { en: "Soon you can pick a shape, a colour and a pattern, and she will sew it just for you. You can't order your own design yet, but you can try out ideas right now!", nl: "Binnenkort kies je een vorm, een kleur en een patroon, en dan naait ze het speciaal voor jou. Je kunt je eigen ontwerp nog niet bestellen, maar je kunt nu al ideeën uitproberen!" } },
 ];
 
 // ---- The collection: add, remove or re-price pieces here ----
@@ -564,12 +627,12 @@ const PRODUCTS = [
   { id: "garden-set", line: "bow", kind: "set", price: 7.5, badge: "gift", photos: [], fabric: { type: "floral", base: "#F4A6B8", ink: "#FFFFFF" },
     name: { en: "Garden Party Set", nl: "Tuinfeest-set" }, desc: { en: "Regular scrunchie and a matching bow, gift-wrapped.", nl: "Een normale scrunchie en een strikje dat erbij past, ingepakt als cadeautje." } },
 
-  { id: "starry-night", line: "bedazzled", kind: "scrunchie", price: 7, photos: [], fabric: { type: "velvet", base: "#2A3270", gems: "crystal" },
-    name: { en: "Starry Night", nl: "Sterrennacht" }, desc: { en: "Dark blue velvet with sparkly gems.", nl: "Donkerblauw fluweel met glinsterende steentjes." } },
-  { id: "pearl-blush", line: "bedazzled", kind: "scrunchie", price: 7, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" },
-    name: { en: "Pearl Blush", nl: "Roze parel" }, desc: { en: "Shiny pink with little pearls all the way round.", nl: "Glanzend roze met kleine pareltjes rondom." } },
-  { id: "sparkle-bow", line: "bedazzled", kind: "bow", price: 6.5, photos: [], fabric: { type: "velvet", base: "#7C1F3E", gems: "crystal" },
-    name: { en: "Sparkle Bow", nl: "Glitterstrik" }, desc: { en: "A velvet bow with a big sparkly gem in the middle.", nl: "Een fluwelen strik met een grote glinstersteen in het midden." } },
+  { id: "starry-night-clip", line: "bedazzled", kind: "claw", price: 8, photos: [], fabric: { type: "satin", base: "#2A3270", gems: "crystal" },
+    name: { en: "Starry Night", nl: "Sterrennacht" }, desc: { en: "A big navy claw clip covered in sparkly gems.", nl: "Een grote donkerblauwe klauwclip vol glinsterende steentjes." } },
+  { id: "pearl-blush-clip", line: "bedazzled", kind: "claw", price: 8, photos: [], fabric: { type: "satin", base: "#F4A6B8", gems: "pearl" },
+    name: { en: "Pearl Blush", nl: "Roze parel" }, desc: { en: "A pink claw clip with little pearls all along the top.", nl: "Een roze klauwclip met kleine pareltjes over de hele bovenkant." } },
+  { id: "sunshine-clip", line: "bedazzled", kind: "claw", price: 8, photos: [], fabric: { type: "satin", base: "#E2B23C", gems: "crystal" },
+    name: { en: "Sunshine Sparkle", nl: "Zonneglitter" }, desc: { en: "A golden claw clip that sparkles in the sun.", nl: "Een gouden klauwclip die glinstert in de zon." } },
 ];
 const lineOf = p => LINES.find(l => l.id === p.line);
 const isOpen = p => lineOf(p).status === "now";
@@ -718,7 +781,22 @@ function bowArt(f) {
     <rect x="87" y="84" width="26" height="32" rx="9" fill="url(#${p}k)"/>${f.gems ? gems(f.gems, [[100, 100, 8], [52, 86, 4.5], [148, 86, 4.5], [46, 112, 3.8], [154, 112, 3.8], [70, 70, 3.6], [130, 70, 3.6]], p) : ""}`;
 }
 
+function clawArt(f) {
+  const p = "c" + uid++;
+  const tooth = (x, y0) => `<path d="M${x} ${y0} C${x - 3} ${y0 + 32} ${x + 2} ${y0 + 56} ${x + 12} ${y0 + 74} C${x + 15} ${y0 + 78} ${x + 22} ${y0 + 76} ${x + 21} ${y0 + 70} C${x + 15} ${y0 + 52} ${x + 15} ${y0 + 30} ${x + 19} ${y0} Z"/>`;
+  const back = [0, 1, 2, 3, 4, 5].map(i => tooth(42 + i * 21, 96)).join("");
+  const front = [0, 1, 2, 3, 4].map(i => tooth(48 + i * 23, 100)).join("");
+  const top = `<rect x="28" y="54" width="144" height="54" rx="26"/>`;
+  return `<defs>${fabricFill(f, p + "f")}<linearGradient id="${p}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF" stop-opacity=".35"/><stop offset=".45" stop-color="#FFF" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient></defs>
+    <g transform="translate(6 -4)" fill="url(#${p}f)">${back}</g><g transform="translate(6 -4)" fill="#000" fill-opacity=".28">${back}</g>
+    <rect x="90" y="44" width="20" height="16" rx="5" fill="#C9CCD6" stroke="#000" stroke-opacity=".15"/>
+    <g fill="url(#${p}f)" stroke="#000" stroke-opacity=".14" stroke-width="1.4">${front}${top}</g>
+    <g fill="url(#${p}h)">${front}${top}</g>
+    ${f.gems ? gems(f.gems, [40, 54, 68, 82, 96, 110, 124, 138, 152, 166].map((x, i) => [x - 6, i % 2 ? 74 : 88, i % 3 ? 5 : 6.2]).concat([[59, 150, 3.6], [82, 152, 3.6], [105, 152, 3.6], [128, 152, 3.6]]), p) : ""}`;
+}
+
 function art(kind, f) {
+  if (kind === "claw") return clawArt(f);
   if (kind === "scrunchie") return scrunchieArt(f);
   if (kind === "bow") return bowArt(f);
   if (kind === "bowpair") return `<g transform="translate(-8 -18) scale(.62)">${bowArt(f)}</g><g transform="translate(84 62) scale(.62) rotate(14 100 100)">${bowArt(f)}</g>`;
@@ -756,8 +834,11 @@ function addToBag(productId, sizeId) {
   save(); renderBag(); toast(t("toast.added", { name }));
 }
 
-// ---- Collection ----
-const ranges = document.getElementById("ranges");
+// ---- Collection: one tab per range ----
+const ranges = document.getElementById("panels");
+const tabsEl = document.getElementById("tabs");
+const allPanels = () => [...ranges.querySelectorAll(".panel"), document.getElementById("panel-custom")];
+let activeLine = "scrunchie";
 
 function drawing(p) { return svg(p.kind, p.fabric) + `<span class="photo-note">${t("card.photoSoon")}</span>`; }
 function media(p) {
@@ -780,33 +861,74 @@ function card(p) {
     : out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>`
     : `<button class="btn btn-ghost add" type="button" data-add="${p.id}">${t("card.add")}</button>`;
   return `<article class="card${open ? "" : " soon"}" data-id="${p.id}">
-    <div class="swatch">${badge}${media(p)}</div>
+    <div class="swatch">${badge}<button class="zoom" type="button" data-zoom="${p.id}" aria-label="${esc(t("card.zoom", { name }))}">${media(p)}</button></div>
     ${angles}
-    <div class="card-top"><h3>${esc(name)}</h3><span class="tag" data-price>${money.format(p.price)}</span></div>
+    <div class="card-top"><h4>${esc(name)}</h4><span class="tag" data-price>${money.format(p.price)}</span></div>
     <p class="desc">${esc(tx(p.desc))}</p>
     ${stock}${sizes}${action}
   </article>`;
 }
 
+const panelHead = l => `<h3>${tx(l.title)}</h3><span class="pill ${l.status}">${t("status." + l.status)}</span><p>${tx(l.blurb)}</p>`;
+
 function renderShop() {
   // Keep chosen sizes when the language changes.
   const chosen = {};
   ranges.querySelectorAll(".sizes input:checked").forEach(i => { chosen[i.name] = i.value; });
-  document.getElementById("coming").innerHTML = LINES.map(l => `
-    <li class="${l.status}"><a href="${l.href || "#line-" + l.id}">
-      <span class="pill ${l.status}">${t("status." + l.status)}</span>
-      <strong>${tx(l.title)}</strong>
-    </a></li>`).join("");
-  ranges.innerHTML = LINES.filter(l => !l.href).map(l => `
-    <div class="range" id="line-${l.id}">
-      <div class="range-head"><h3>${tx(l.title)}</h3><span class="pill ${l.status}">${t("status." + l.status)}</span><p>${tx(l.blurb)}</p></div>
+  tabsEl.innerHTML = LINES.map(l => {
+    const first = PRODUCTS.find(p => p.line === l.id);
+    const thumb = first ? svg(first.kind, first.fabric) : svg("scrunchie", designFabric());
+    return `<button class="tab" type="button" role="tab" id="tab-${l.id}" aria-controls="panel-${l.id}">
+      <span class="tab-art" aria-hidden="true">${thumb}</span>
+      <span class="tab-text"><strong>${tx(l.title)}</strong><span class="pill ${l.status}">${t("status." + l.status)}</span></span>
+    </button>`;
+  }).join("");
+  ranges.innerHTML = LINES.filter(l => l.id !== "custom").map(l => `
+    <div class="panel" role="tabpanel" id="panel-${l.id}" aria-labelledby="tab-${l.id}" tabindex="0">
+      <div class="panel-head">${panelHead(l)}</div>
       <div class="grid">${PRODUCTS.filter(p => p.line === l.id).map(card).join("")}</div>
     </div>`).join("");
+  document.getElementById("custom-head").innerHTML = panelHead(LINES.find(l => l.id === "custom"));
   Object.entries(chosen).forEach(([name, value]) => {
     const input = ranges.querySelector(`input[name="${name}"][value="${value}"]`);
     if (input) { input.checked = true; input.dispatchEvent(new Event("change", { bubbles: true })); }
   });
+  selectLine(activeLine);
+  renderSeo();
 }
+
+function selectLine(id, focusTab = false) {
+  if (!LINES.some(l => l.id === id)) return;
+  activeLine = id;
+  tabsEl.querySelectorAll("[role=tab]").forEach(tab => {
+    const on = tab.id === "tab-" + id;
+    tab.setAttribute("aria-selected", String(on));
+    tab.tabIndex = on ? 0 : -1;
+    if (on && focusTab) tab.focus();
+  });
+  allPanels().forEach(panel => { panel.hidden = panel.id !== "panel-" + id; });
+}
+tabsEl.addEventListener("click", e => { const tab = e.target.closest("[role=tab]"); if (tab) selectLine(tab.id.slice(4)); });
+tabsEl.addEventListener("keydown", e => {
+  const ids = LINES.map(l => l.id), i = ids.indexOf(activeLine);
+  const next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: ids.length - 1 }[e.key];
+  if (next === undefined) return;
+  e.preventDefault();
+  selectLine(ids[(next + ids.length) % ids.length], true);
+});
+// Links such as #line-bow open that tab and jump to the shop.
+function openFromHash(hash, scroll) {
+  const id = hash.startsWith("#line-") ? hash.slice(6) : hash === "#design" ? "custom" : "";
+  if (!id) return false;
+  selectLine(id);
+  if (scroll) document.getElementById("shop").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  return true;
+}
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="#line-"], a[href="#design"]');
+  if (a && openFromHash(a.getAttribute("href"), true)) e.preventDefault();
+});
+window.addEventListener("hashchange", () => openFromHash(location.hash, true));
 
 ranges.addEventListener("error", e => {
   const img = e.target;
@@ -825,6 +947,12 @@ ranges.addEventListener("change", e => {
   c.querySelector("[data-price]").textContent = money.format(p.price + s.delta);
 });
 ranges.addEventListener("click", e => {
+  const zoom = e.target.closest("[data-zoom]");
+  if (zoom) {
+    const c = zoom.closest(".card"), pressed = c.querySelector('[data-angle][aria-pressed="true"]');
+    openGallery(zoom.dataset.zoom, pressed ? +pressed.dataset.angle : 0);
+    return;
+  }
   const angle = e.target.closest("[data-angle]");
   if (angle) {
     const c = angle.closest(".card"), p = PRODUCTS.find(x => x.id === c.dataset.id), ph = p.photos[+angle.dataset.angle];
@@ -839,6 +967,77 @@ ranges.addEventListener("click", e => {
   const sizeId = p.kind === "scrunchie" ? btn.closest(".card").querySelector(".sizes input:checked").value : "";
   addToBag(p.id, sizeId);
 });
+
+// ---- Picture viewer: every photo of a piece, big ----
+const lightbox = document.getElementById("lightbox");
+const gallery = { product: null, index: 0, opener: null };
+function openGallery(productId, index = 0) {
+  gallery.product = PRODUCTS.find(x => x.id === productId);
+  gallery.index = index;
+  gallery.opener = document.activeElement;
+  lightbox.hidden = false;
+  renderGallery();
+  document.getElementById("lb-close").focus();
+}
+function closeGallery() { lightbox.hidden = true; if (gallery.opener) gallery.opener.focus(); }
+function renderGallery() {
+  const p = gallery.product, ph = p.photos || [], n = Math.max(ph.length, 1);
+  gallery.index = (gallery.index + n) % n;
+  const item = ph[gallery.index];
+  document.getElementById("lb-title").textContent = tx(p.name);
+  document.getElementById("lb-count").textContent = n > 1 ? t("gallery.count", { i: gallery.index + 1, n }) : "";
+  document.getElementById("lb-figure").innerHTML = item
+    ? `<img src="${esc(item.src)}" alt="${esc(t("card.view", { name: tx(p.name), angle: tx(item.angle) }))}"><figcaption class="lb-note">${esc(tx(item.angle))}</figcaption>`
+    : `${svg(p.kind, p.fabric)}<figcaption class="lb-note">${t("gallery.drawing")}</figcaption>`;
+  document.getElementById("lb-prev").hidden = document.getElementById("lb-next").hidden = n < 2;
+  document.getElementById("lb-thumbs").innerHTML = n > 1 ? ph.map((x, i) =>
+    `<button type="button" data-shot="${i}" aria-pressed="${i === gallery.index}" aria-label="${esc(tx(x.angle) || t("gallery.photo", { i: i + 1 }))}"><img src="${esc(x.src)}" alt=""></button>`).join("") : "";
+}
+const step = d => { gallery.index += d; renderGallery(); };
+document.getElementById("lb-close").addEventListener("click", closeGallery);
+document.getElementById("lb-prev").addEventListener("click", () => step(-1));
+document.getElementById("lb-next").addEventListener("click", () => step(1));
+document.getElementById("lb-thumbs").addEventListener("click", e => {
+  const b = e.target.closest("[data-shot]"); if (!b) return;
+  gallery.index = +b.dataset.shot; renderGallery();
+});
+lightbox.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeGallery();
+  else if (e.key === "ArrowLeft") step(-1);
+  else if (e.key === "ArrowRight") step(1);
+  else if (e.key === "Tab") {
+    // Keep keyboard focus inside the viewer.
+    const f = [...lightbox.querySelectorAll("button:not([hidden])")];
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+});
+let swipeX = null;
+document.getElementById("lb-stage").addEventListener("pointerdown", e => { swipeX = e.clientX; });
+document.getElementById("lb-stage").addEventListener("pointerup", e => {
+  if (swipeX === null) return;
+  const dx = e.clientX - swipeX; swipeX = null;
+  if (Math.abs(dx) > 40 && (gallery.product.photos || []).length > 1) step(dx < 0 ? 1 : -1);
+});
+lightbox.addEventListener("click", e => { if (e.target === lightbox || e.target.id === "lb-stage") closeGallery(); });
+
+// ---- Search engines: describe the shop and what is for sale ----
+function renderSeo() {
+  const abs = src => { try { return new URL(src, location.href).href; } catch (e) { return src; } };
+  const graph = [{
+    "@type": "Store", name: SHOP.name,
+    description: "Handmade scrunchies, hair bows and bedazzled claw clips, sewn by a young maker in Amsterdam.",
+    address: { "@type": "PostalAddress", addressLocality: "Amsterdam", addressCountry: "NL" },
+    areaServed: "NL", currenciesAccepted: "EUR", paymentAccepted: "Tikkie",
+    ...(SHOP.email.endsWith("example.com") ? {} : { email: SHOP.email }),
+  }];
+  PRODUCTS.filter(isOpen).forEach(p => graph.push({
+    "@type": "Product", name: p.name.en, description: p.desc.en, brand: { "@type": "Brand", name: SHOP.name },
+    ...(p.photos?.length ? { image: p.photos.map(x => abs(x.src)) } : {}),
+    offers: { "@type": "Offer", price: p.price.toFixed(2), priceCurrency: "EUR", availability: p.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock" },
+  }));
+  document.getElementById("ld").textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": graph });
+}
 
 // ---- Designer ----
 const design = { kind: "scrunchie", color: 0, pattern: "velvet" };
@@ -1003,4 +1202,5 @@ applyStaticWords();
 renderShop();
 renderDesigner();
 renderBag();
+openFromHash(location.hash, false);
 </script>
