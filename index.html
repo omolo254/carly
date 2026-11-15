@@ -31,6 +31,7 @@
     --mint: #BFE6D6;
     --scrim: rgba(29, 35, 64, .42);
     --lb: #0E1121;
+    --faded: .42;
     --lb-ink: #F4F5FA;
     --lb-soft: rgba(255, 255, 255, .14);
     --display: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
@@ -42,13 +43,13 @@
     :root:not([data-theme="light"]) {
       --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
       --line: #2F3656; --accent: #F08DB0; --brand: #F2A5BF; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
-      --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
+      --scrim: rgba(0, 0, 0, .6); --faded: .62; color-scheme: dark;
     }
   }
   :root[data-theme="dark"] {
     --bg: #12162A; --surface: #1B2038; --swatch: #222944; --ink: #EEF0F8; --muted: #A6ACC3;
     --line: #2F3656; --accent: #F08DB0; --brand: #F2A5BF; --accent-ink: #1A0B0F; --butter: #E9BE3A; --mint: #2C5A4C;
-    --scrim: rgba(0, 0, 0, .6); color-scheme: dark;
+    --scrim: rgba(0, 0, 0, .6); --faded: .62; color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
@@ -96,18 +97,18 @@
   @media (max-width: 720px) { .nav a { display: none; } }
 
   /* Hero */
-  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-block: 56px 40px; }
-  .hero h1 { font-size: clamp(2.5rem, 6.2vw, 4.4rem); font-weight: 700; letter-spacing: -.01em; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding-block: 28px 16px; }
+  .hero h1 { font-size: clamp(2.2rem, 5.2vw, 3.8rem); font-weight: 700; letter-spacing: -.01em; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero-copy { display: grid; gap: 22px; min-width: 0; }
-  .hero-logo { display: block; width: min(440px, 100%); aspect-ratio: 2060 / 842; background: var(--brand); margin-bottom: 4px;
+  .hero-logo { display: block; width: min(330px, 100%); aspect-ratio: 2060 / 842; background: var(--brand); margin-bottom: 4px;
     -webkit-mask: url("images/logo.png") left center / contain no-repeat; mask: url("images/logo.png") left center / contain no-repeat; }
   .hero-copy > p { font-size: 1.15rem; color: var(--muted); max-width: 34em; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
   .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .92rem; color: var(--muted); padding: 0; margin: 0; list-style: none; }
   .facts li { display: inline-flex; align-items: center; gap: 7px; }
   .facts .ico { color: var(--accent); width: 1.35em; height: 1.35em; }
-  .hero-art { position: relative; width: 100%; max-width: 440px; aspect-ratio: 1; justify-self: center; }
+  .hero-art { position: relative; width: 100%; max-width: 380px; aspect-ratio: 1; justify-self: center; }
   .hero-art .disc { position: absolute; inset: 6%; border-radius: 50%; background: var(--mint); }
   .hero-art > svg { position: absolute; filter: drop-shadow(0 10px 14px rgba(29, 35, 64, .18)); }
   .hero-art .a { width: 58%; left: 2%; top: 6%; animation: bob 6s ease-in-out infinite; }
@@ -116,11 +117,11 @@
   .hero-art .note { position: absolute; right: 2%; top: 2%; transform: rotate(8deg); }
   @keyframes bob { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(2deg); } }
   @media (prefers-reduced-motion: reduce) { .hero-art svg { animation: none; } }
-  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 24px 8px; gap: 20px; } .hero-art { max-width: 220px; } }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-block: 16px 4px; gap: 16px; } .hero-art { display: none; } .hero-logo { width: min(260px, 100%); } .hero-copy { gap: 16px; } .hero-copy > p { font-size: 1.05rem; } }
 
   /* Shop */
   section { scroll-margin-top: 80px; }
-  .shop .wrap { padding-block: 40px; display: grid; gap: 24px; }
+  .shop .wrap { padding-block: 32px 40px; display: grid; gap: 20px; }
   .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
   .section-head h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); }
   .section-head > div:not(.chips) { display: grid; gap: 6px; }
@@ -215,23 +216,24 @@
   .pr.size { padding: 4px 16px; }
   .pr svg { flex: none; }
   .pr[aria-pressed="true"] { border-color: var(--ink); box-shadow: none; font-weight: 700; }
-  .sw[data-state="missing"], .pr[data-state="missing"] { opacity: .4; border: 2px dashed var(--muted); box-shadow: none; }
+  .sw[data-state="missing"], .pr[data-state="missing"] { opacity: var(--faded); border: 2px dashed var(--muted); box-shadow: none; }
   .sw[data-state="missing"][aria-pressed="true"], .pr[data-state="missing"][aria-pressed="true"] { opacity: 1; }
   .sw[data-state="out"]::after, .cell.out::after, .lg.out::after { content: ""; position: absolute; left: 50%; top: 8%; bottom: 8%; width: 2.5px; margin-left: -1.25px; background: var(--accent); transform: rotate(45deg); border-radius: 2px; }
   .pr[data-state="out"] .lbl { text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
   .matrix-box { border-top: 1px solid var(--line); padding-top: 12px; min-width: 0; }
   .matrix-box summary { cursor: pointer; font-weight: 700; color: var(--accent); }
   .matrix-wrap { overflow-x: auto; margin-top: 10px; }
-  table.matrix { border-collapse: separate; border-spacing: 4px; font-size: .8rem; }
+  table.matrix { border-collapse: separate; border-spacing: 3px; font-size: .8rem; }
   .matrix caption { text-align: left; color: var(--muted); padding: 0 4px 6px; caption-side: top; font-size: .88rem; }
   .matrix th { font-weight: 600; color: var(--muted); padding: 2px 4px; white-space: nowrap; }
-  .matrix th[scope="row"] { text-align: left; padding-right: 8px; }
-  .matrix .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; box-shadow: 0 0 0 1px var(--line); }
-  .cell { position: relative; width: 48px; height: 48px; padding: 4px; border-radius: 12px; border: 2.5px solid transparent; background: var(--swatch); cursor: pointer; display: block; }
+  .matrix thead th { white-space: normal; width: 44px; font-size: .7rem; line-height: 1.15; vertical-align: bottom; text-align: center; hyphens: auto; }
+  .matrix th[scope="row"] { text-align: left; padding-right: 6px; white-space: normal; max-width: 96px; font-size: .74rem; line-height: 1.2; }
+  .matrix .dot { float: left; margin-top: 2px; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; box-shadow: 0 0 0 1px var(--line); }
+  .cell { position: relative; width: 44px; height: 44px; padding: 3px; border-radius: 12px; border: 2.5px solid transparent; background: var(--swatch); cursor: pointer; display: block; }
   .cell svg { width: 100%; height: 100%; display: block; }
   .cell[aria-pressed="true"] { border-color: var(--ink); background: var(--surface); }
   .cell.out svg { opacity: .5; }
-  .none { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; border: 1.5px dashed var(--line); color: var(--muted); }
+  .none { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; border: 1.5px dashed var(--line); color: var(--muted); }
   .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-size: .82rem; color: var(--muted); }
   .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -240,12 +242,29 @@
   .lg.none { background: none; box-shadow: none; border: 1.5px dashed var(--muted); }
   @media (max-width: 760px) {
     .picker { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-    .picker-media { position: static; }
     .picker-media .swatch { max-width: 320px; width: 100%; justify-self: center; }
     .picker-media .angles { justify-content: center; }
     .picker-info h4 { font-size: 1.35rem; }
     .picker-info .card-top { flex-direction: row; }
   }
+
+  .opt-row.swatches { display: grid; grid-template-columns: repeat(5, 50px); gap: 8px; }
+  .buy-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .buy-row .surprise { padding: .7em 1.1em; }
+  .buy-row .surprise .ico { color: var(--accent); }
+  .in-bag { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 500; color: var(--ink); background: var(--mint); padding: 8px 14px; border-radius: 12px; justify-self: start; }
+  .in-bag .ico { color: var(--accent); }
+  .linkish { border: 0; background: none; padding: 0; font-weight: 700; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+  .landed .swatch { animation: landed .45s ease; }
+  @keyframes landed { 0% { transform: scale(.94); } 60% { transform: scale(1.03); } 100% { transform: scale(1); } }
+  .bag-btn.bump { animation: bump .45s ease; }
+  @keyframes bump { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.14); } }
+  @media (prefers-reduced-motion: reduce) { .landed .swatch, .bag-btn.bump { animation: none; } }
+  @media (max-width: 760px) {
+    .picker-media { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 63px); z-index: 5; background: var(--bg); padding-block: 6px 10px; margin-inline: -4px; }
+    .picker-media .swatch { max-width: 210px; }
+  }
+  @media (max-width: 380px) { .opt-row.swatches { grid-template-columns: repeat(5, 46px); } .sw { width: 46px; height: 46px; } }
 
   /* Picture viewer */
   .lightbox { position: fixed; inset: 0; z-index: 70; background: var(--lb); color: var(--lb-ink); display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 12px;
@@ -292,7 +311,7 @@
   .steps h3 { font-size: 1.15rem; }
   .steps p { color: var(--muted); font-size: .95rem; }
   @media (max-width: 860px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .steps { gap: 20px 14px; } .steps h3 { font-size: 1rem; } .steps p { font-size: .88rem; } .step-ico { width: 46px; height: 46px; } }
 
   /* About */
   .about .wrap { padding-block: 8px 56px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: start; }
@@ -374,6 +393,7 @@
   <symbol id="i-button" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.8" stroke-dasharray="1.5 1.8"/><g fill="currentColor" stroke="none"><circle cx="10.4" cy="10.4" r="1.1"/><circle cx="13.6" cy="10.4" r="1.1"/><circle cx="10.4" cy="13.6" r="1.1"/><circle cx="13.6" cy="13.6" r="1.1"/></g></symbol>
   <symbol id="i-pincushion" viewBox="0 0 24 24"><path d="M3 16.2C3 12.6 7 10 12 10s9 2.6 9 6.2S17 21 12 21s-9-1.2-9-4.8z"/><path d="M8.6 10.6c-1 3.2-1 6.8 0 10M15.4 10.6c1 3.2 1 6.8 0 10"/><path d="M10 10 8.4 4.8M13 10l.6-6M16 10.6l2.6-4.4"/><g fill="currentColor" stroke="none"><circle cx="8" cy="3.8" r="1.5"/><circle cx="13.7" cy="3" r="1.5"/><circle cx="19.2" cy="5.3" r="1.5"/></g></symbol>
   <symbol id="i-safetypin" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.6"/><path d="M7.8 16.2 17.4 6.6"/><path d="M8.3 19.4 19 8.7"/><path d="M15.8 4.6 20 8.8l-1 1-4.2-4.2z"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5c.6 4.3 2.2 5.9 6.5 6.5-4.3.6-5.9 2.2-6.5 6.5-.6-4.3-2.2-5.9-6.5-6.5 4.3-.6 5.9-2.2 6.5-6.5z"/><path d="M18.5 15.5c.3 1.7.8 2.2 2.5 2.5-1.7.3-2.2.8-2.5 2.5-.3-1.7-.8-2.2-2.5-2.5 1.7-.3 2.2-.8 2.5-2.5z"/></symbol>
   <symbol id="i-tape" viewBox="0 0 24 24"><circle cx="10" cy="11" r="7.5"/><circle cx="10" cy="11" r="2.2"/><path d="M17.5 11v7.5H22"/><path d="M19 18.5v-2M20.5 18.5v-1.2"/></symbol>
 </svg>
 <header class="bar">
@@ -567,7 +587,7 @@ const WORDS = {
     "lang.label": "Language",
     "hero.eyebrow": "Hand-sewn in Amsterdam",
     "hero.title": "Scrunchies, <em>made one at a time.</em>",
-    "hero.text": "A young maker draws, cuts and sews every one at her kitchen table. They are soft on your hair, and no two are exactly the same. You can buy scrunchies now. Bows and sparkly claw clips are coming soon.",
+    "hero.text": "A young maker draws, cuts and sews every one at her kitchen table. Soft on your hair, and no two are exactly the same.",
     "hero.shop": "Shop scrunchies", "hero.coming": "See what's coming", "hero.note": "sewn by hand!",
     "fact.pickup": "Free pick-up in Amsterdam", "fact.post": "We post anywhere in the Netherlands", "fact.tikkie": "Pay by Tikkie",
     "shop.eyebrow": "Our shop", "shop.title": "What we make", "shop.tabs": "Choose what to look at",
@@ -581,7 +601,7 @@ const WORDS = {
     "how.4t": "Pick up or post", "how.4": "Pick it up for free in Amsterdam, or we post it to you in the Netherlands for {postage}.",
     "about.eyebrow": "About the maker", "about.title": "Hi, I make every single one myself.",
     "about.1": "I started sewing scrunchies for my friends and now I can't stop. I pick the fabrics, draw the designs and sew them on my sewing machine. Next I'm making bows. After that come sparkly claw clips with gems I stick on by hand.",
-    "about.2": "The money I earn goes into my savings and into more fabric, so every order helps me make the next design.",
+    "about.2": "That's why my shop is called Sewing & Growing: with every scrunchie I learn something new. The money I earn goes into my savings and into more fabric, so every order helps me make the next design.",
     "about.thanks": "Thank you for shopping small!",
     "promise.title": "Our promise", "promise.1": "Soft elastic, no metal parts that pull hair", "promise.2": "A grown-up looks after every order",
     "promise.3": "We only use your details for your order", "promise.4": "Not happy? Tell us and we will fix it",
@@ -596,6 +616,7 @@ const WORDS = {
     "pick.switched": "We don't make that one, so we picked {name}.",
     "pick.all": "See all colours and prints", "pick.matrixCaption": "Every colour and print. Tap one to pick it.",
     "pick.ready": "Ready", "pick.notMadeShort": "Not made", "pick.inStock": "Ready to order",
+    "pick.surprise": "Surprise me!", "pick.inBag": "{n} in your bag", "pick.viewBag": "View bag",
     "toast.added": "{name} is in your bag", "toast.max": "That's all the {name} we have right now",
     "toast.copiedOrder": "Order copied", "toast.copiedEmail": "Email address copied", "toast.selected": "Selected. Press Ctrl+C or Cmd+C to copy",
     "bag.button": "Bag", "bag.title": "Your bag", "bag.close": "Close bag",
@@ -619,7 +640,7 @@ const WORDS = {
     "lang.label": "Taal",
     "hero.eyebrow": "Met de hand genaaid in Amsterdam",
     "hero.title": "Scrunchies, <em>één voor één gemaakt.</em>",
-    "hero.text": "Een jonge maker tekent, knipt en naait ze allemaal zelf aan de keukentafel. Ze zijn zacht voor je haar en geen twee zijn precies hetzelfde. Scrunchies kun je nu kopen. Strikjes en glinsterende klauwclips komen snel.",
+    "hero.text": "Een jonge maker tekent, knipt en naait ze allemaal zelf aan de keukentafel. Zacht voor je haar, en geen twee zijn precies hetzelfde.",
     "hero.shop": "Bekijk de scrunchies", "hero.coming": "Kijk wat er komt", "hero.note": "met de hand genaaid!",
     "fact.pickup": "Gratis ophalen in Amsterdam", "fact.post": "We versturen door heel Nederland", "fact.tikkie": "Betalen met Tikkie",
     "shop.eyebrow": "Onze winkel", "shop.title": "Wat we maken", "shop.tabs": "Kies wat je wilt bekijken",
@@ -633,7 +654,7 @@ const WORDS = {
     "how.4t": "Ophalen of opsturen", "how.4": "Haal het gratis op in Amsterdam, of we sturen het op binnen Nederland voor {postage}.",
     "about.eyebrow": "Over de maker", "about.title": "Hoi, ik maak ze allemaal zelf!",
     "about.1": "Ik begon met scrunchies naaien voor mijn vriendinnen en nu kan ik niet meer stoppen. Ik kies de stoffen, teken de ontwerpen en naai ze op mijn naaimachine. Hierna maak ik strikjes. Daarna komen er glinsterende klauwclips, met steentjes die ik er met de hand op plak.",
-    "about.2": "Het geld dat ik verdien gaat naar mijn spaarpot en naar nieuwe stof, dus elke bestelling helpt me om het volgende ontwerp te maken.",
+    "about.2": "Daarom heet mijn winkel Sewing & Growing: met elke scrunchie leer ik iets nieuws. Het geld dat ik verdien gaat naar mijn spaarpot en naar nieuwe stof, dus elke bestelling helpt me om het volgende ontwerp te maken.",
     "about.thanks": "Dankjewel voor je steun!",
     "promise.title": "Onze belofte", "promise.1": "Zacht elastiek, geen metaal dat aan je haar trekt", "promise.2": "Een volwassene regelt elke bestelling",
     "promise.3": "We gebruiken je gegevens alleen voor je bestelling", "promise.4": "Niet blij? Laat het ons weten, dan lossen we het op",
@@ -648,6 +669,7 @@ const WORDS = {
     "pick.switched": "Die maken we niet, dus we kozen {name}.",
     "pick.all": "Bekijk alle kleuren en prints", "pick.matrixCaption": "Alle kleuren en prints. Tik er een aan om hem te kiezen.",
     "pick.ready": "Te koop", "pick.notMadeShort": "Maken we niet", "pick.inStock": "Nu te bestellen",
+    "pick.surprise": "Verras me!", "pick.inBag": "{n} in je tasje", "pick.viewBag": "Bekijk tasje",
     "toast.added": "{name} zit in je tasje", "toast.max": "Meer {name} hebben we nu niet",
     "toast.copiedOrder": "Bestelling gekopieerd", "toast.copiedEmail": "E-mailadres gekopieerd", "toast.selected": "Geselecteerd. Druk op Ctrl+C of Cmd+C om te kopiëren",
     "bag.button": "Tasje", "bag.title": "Je tasje", "bag.close": "Tasje sluiten",
@@ -1007,6 +1029,8 @@ function addToBag(entry) {
   if (found) found.qty += 1; else bag.push({ ...entry, sizeId: entry.sizeId || "", qty: 1, key });
   preparedOrder = null;
   save(); renderBag(); toast(t("toast.added", { name }));
+  const bagBtn = document.getElementById("open-bag");
+  bagBtn.classList.remove("bump"); void bagBtn.offsetWidth; bagBtn.classList.add("bump");
 }
 
 // ---- Collection: one tab per range ----
@@ -1146,6 +1170,7 @@ ranges.addEventListener("click", e => {
 });
 
 // ---- Scrunchie picker: choose a colour and see its prints, or a print and see its colours ----
+let pickedWithPointer = false; // a tap or click (not the keyboard) made the last choice
 const pick = { colour: "red", print: "checkered", size: "regular", angle: 0, gridOpen: false };
 const colourOf = id => SCRUNCHIES.colours.find(c => c.id === id);
 const printOf = id => SCRUNCHIES.prints.find(p => p.id === id);
@@ -1177,6 +1202,7 @@ function renderPicker(focusSel) {
   const host = document.getElementById("picker");
   if (!host) return;
   const key = combo(pick.colour, pick.print), ci = comboInfo(key), stock = stockOf(key), out = stock < 1;
+  const inBagCount = bag.filter(l => l.combo === key).reduce((n, l) => n + l.qty, 0);
   const ph = SCRUNCHIES.photos[key] || [];
   const colourName = tx(colourOf(pick.colour).name), printName = tx(printOf(pick.print).name);
   const size = SIZES.find(s => s.id === pick.size);
@@ -1207,7 +1233,7 @@ function renderPicker(focusSel) {
         const st = stateOf(c.id, p.id), k = combo(c.id, p.id);
         if (st === "missing") return `<td><span class="none" title="${esc(t("pick.notMadeShort"))}"><span class="vh">${esc(t("pick.notMadeShort"))}</span>–</span></td>`;
         const label = note(st, comboInfo(k).name);
-        return `<td><button type="button" class="cell${st === "out" ? " out" : ""}" data-cell="${k}" aria-pressed="${k === key}" aria-label="${esc(label)}" title="${esc(label)}">${svg("scrunchie", comboInfo(k).fabric)}</button></td>`;
+        return `<td><button type="button" class="cell${st === "out" ? " out" : ""}" data-cell="${k}" aria-pressed="${k === key}" aria-label="${esc(label)}" title="${esc(label)}">${sampleDot(comboInfo(k).fabric, 34)}</button></td>`;
       }).join("")}</tr>`).join("")}</tbody>
     </table>`;
 
@@ -1220,10 +1246,14 @@ function renderPicker(focusSel) {
       <div class="card-top"><h4>${esc(ci.name)}</h4><span class="tag">${money.format(ci.price + (out ? 0 : size.delta))}</span></div>
       <p class="desc">${esc(ci.desc)}</p>
       ${out ? `<span class="stock low">${t("card.soldOut")}</span>` : !isFinite(stock) ? `<span class="stock">${t("pick.inStock")}</span>` : `<span class="stock${stock <= 3 ? " low" : ""}">${t(stock <= 3 ? "card.onlyLeft" : "card.left", { n: stock })}</span>`}
-      <fieldset class="opt"><legend>${ico("spool")}${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row">${colourBtns}</div></fieldset>
+      <fieldset class="opt"><legend>${ico("spool")}${t("pick.colour")}: <strong>${colourName}</strong></legend><div class="opt-row swatches">${colourBtns}</div></fieldset>
       <fieldset class="opt"><legend>${ico("scissors")}${t("pick.print")}: <strong>${printName}</strong></legend><div class="opt-row">${printBtns}</div></fieldset>
       ${sizes}
-      ${out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>` : `<button class="btn btn-primary add" type="button" data-add-combo="${key}">${t("card.add")}</button>`}
+      <div class="buy-row">
+        ${out ? `<button class="btn btn-ghost add" type="button" disabled>${t("card.soldOut")}</button>` : `<button class="btn btn-primary add" type="button" data-add-combo="${key}">${t("card.add")}</button>`}
+        <button class="btn btn-ghost surprise" type="button" data-surprise>${ico("sparkle")}${t("pick.surprise")}</button>
+      </div>
+      ${inBagCount ? `<p class="in-bag">${ico("thimble")}<span>${t("pick.inBag", { n: inBagCount })}</span><button type="button" class="linkish" data-open-bag>${t("pick.viewBag")}</button></p>` : ""}
       <details class="matrix-box" ${pick.gridOpen ? "open" : ""}>
         <summary>${t("pick.all")}</summary>
         <div class="matrix-wrap">${grid}</div>
@@ -1231,12 +1261,15 @@ function renderPicker(focusSel) {
       </details>
     </div>
   </div>`;
-  if (focusSel) { const el = host.querySelector(focusSel); if (el) el.focus(); }
+  if (focusSel) { const el = host.querySelector(focusSel); if (el) el.focus({ focusVisible: !pickedWithPointer }); }
 }
 
 ranges.addEventListener("click", e => {
-  const el = e.target.closest("[data-colour],[data-print],[data-cell],[data-pick-size],[data-pick-angle],[data-add-combo],[data-zoom-combo]");
+  const el = e.target.closest("[data-colour],[data-print],[data-cell],[data-pick-size],[data-pick-angle],[data-add-combo],[data-zoom-combo],[data-surprise],[data-open-bag]");
   if (!el || !el.closest("#picker")) return;
+  pickedWithPointer = e.detail > 0;
+  if ("surprise" in el.dataset) return surprise();
+  if ("openBag" in el.dataset) return openBag();
   if (el.dataset.colour) choose("colour", el.dataset.colour);
   else if (el.dataset.print) choose("print", el.dataset.print);
   else if (el.dataset.cell) { [pick.colour, pick.print] = el.dataset.cell.split("-"); pick.angle = 0; renderPicker(`[data-cell="${el.dataset.cell}"]`); }
@@ -1248,6 +1281,17 @@ ranges.addEventListener("click", e => {
     openGallery({ name: ci.name, photos: SCRUNCHIES.photos[el.dataset.zoomCombo] || [], kind: "scrunchie", fabric: ci.fabric }, pick.angle);
   }
 });
+// "Surprise me!": shuffle through a few pairs she makes, then land on one.
+function surprise() {
+  const pool = Object.keys(SCRUNCHIES.stock).filter(k => stockOf(k) > 0 && k !== combo(pick.colour, pick.print));
+  if (!pool.length) return;
+  const land = () => { [pick.colour, pick.print] = pool[Math.floor(Math.random() * pool.length)].split("-"); pick.angle = 0; };
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { land(); renderPicker("[data-surprise]"); return; }
+  let spins = 7;
+  const tick = () => { land(); renderPicker("[data-surprise]"); if (--spins > 0) setTimeout(tick, 70 + (7 - spins) * 25); else document.querySelector("#picker .picker-media")?.classList.add("landed"); };
+  tick();
+}
+
 ranges.addEventListener("toggle", e => { if (e.target.matches(".matrix-box")) pick.gridOpen = e.target.open; }, true);
 
 // ---- Picture viewer: every photo of a piece, big ----
@@ -1374,6 +1418,7 @@ const shipping = () => (delivery === "post" && bag.length ? SHOP.postage : 0);
 
 function renderBag() {
   document.getElementById("bag-count").textContent = bag.reduce((s, l) => s + l.qty, 0);
+  renderPicker(); // keeps "2 in your bag" under the picker up to date
   if (!bag.length) {
     body.innerHTML = `<div class="empty"><span class="empty-ico">${ico("thimble")}</span><span class="hand">${t("bag.empty")}</span><p>${t("bag.emptyText")}</p><button class="btn btn-ghost" type="button" data-close>${t("bag.browse")}</button></div>`;
     return;
